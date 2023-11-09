@@ -6,11 +6,16 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:30:47 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/08 17:21:46 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:30:43 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* NOTE :
+* Si export avec un = alors afficher dans env sinon dans export
+* Quand print avec env mettre un = si set = 1
+*/
 
 void    pre_init(t_env *env)
 {
@@ -39,11 +44,15 @@ t_env    *ft_copy_env(char **envp)
     while (envp[i])
     {
         env[i].id = ft_get_id(envp[i]);
-        env[i].value = ft_get_value(envp[i]);
+        if (ft_strncmp("SHLVL=", envp[i], 6) == 0)
+            env[i].value = ft_itoa(ft_atoi(envp[i] + 6) + 1);
+        else
+            env[i].value = ft_get_value(envp[i]);
         i++;
     }
-	// Faire nouvelle boucle pour mettre set a 1
-	// Find SHLVL et faire itoa + atoi + 1 a value
+    i = 0;
+	while (env[i].id != NULL)
+        env[i++].set = 1;
     env[i].id = NULL;
     env[i].value = NULL;
     return (env);
@@ -96,4 +105,34 @@ char    *ft_get_value(char *str)
     }
     value[j] = '\0';
     return (value);
+}
+
+char   *ft_getenv(char *str, t_env *env)
+{
+    int     i;
+
+    i = 0;
+    while (env[i].id)
+    {
+        if (ft_strncmp(str, env[i].id, ft_strlen(str)) == 0)
+            return (env[i].value);
+        i++;
+    }
+    return (NULL);
+}
+void    ft_setenv(char *find, char *str, t_env *env)
+{
+    int     i;
+
+    i = 0;
+    while (env[i].id)
+    {
+        if (ft_strncmp(find, env[i].id, ft_strlen(find)) == 0)
+        {
+            free(env[i].value);
+            env[i].value = ft_strdup(str);
+            return ;
+        }
+        i++;
+    }
 }

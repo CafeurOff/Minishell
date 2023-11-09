@@ -4,11 +4,6 @@
 NAME	=	minishell
 FLAGS	=	-Wall -Wextra -Werror -g
 
-# Other sources projects
-
-LIBFT_PATH	=	inc/libft/
-LIBFT_LIB	=	$(LIBFT_PATH)libft.a
-
 #All sources files to compile
 SRC = src/
 
@@ -34,34 +29,27 @@ $(NAME):	$(OBJS)
 	@printf "| |  | | | | | | \__ \ | | |  __/ | |\n"
 	@printf "\_|  |_/_|_| |_|_|___/_| |_|\___|_|_|\n"
 	@printf "                                                  \n"
-	@echo "$(ORANGE) Compiling libft$(RED)...$(DEFAULT)"
-	@make -C $(LIBFT_PATH) --no-print-directory -s
 	@echo "$(ORANGE) Compiling minishell$(RED)...$(DEFAULT)"
-	@gcc $(FLAGS) $(OBJS) $(LIBFT_LIB) -o $(NAME) -lreadline
+	@gcc $(FLAGS) $(OBJS) -o $(NAME) -lreadline
 	@echo "$(GREEN) $(NAME) is ready$(DEFAULT)"
 
 all:	$(NAME)
 
 clean:
-	@echo "$(RED) Cleaning libft$(DEFAULT)"
-	@make clean -C $(LIBFT_PATH) --no-print-directory -s
 	@echo "$(RED) Cleaning..$(NAME)$(DEFAULT)"
 	@rm -rf $(OBJS)
 
 fclean:		clean
 	@rm -f $(NAME)
-	@make fclean -C $(LIBFT_PATH) --no-print-directory -s
 	@echo " $(RED)$(NAME) is cleaned$(DEFAULT)"
-	@echo "$(RED) libft is cleaned$(DEFAULT)"
 
 re:		fclean all
 		@echo "$(ORANGE) $(NAME) recompiled successfully$(DEFAULT)"
 
 norm:
 	@echo "$(GREEN)Checking norm$(DEFAULT)"
-	@norminette $(SRC_FOLDER) $(LIBFT_PATH) | grep -B 1 "Error" || echo "$(GREEN)Norme OK$(DEFAULT)"
+	@norminette $(SRC_FOLDER) | grep -B 1 "Error" || echo "$(GREEN)Norme OK$(DEFAULT)"
 
-.PHONY: all clean fclean re norm	@echo "$(RED)Cleaning libft$(DEFAULT)"
-	@make fclean -C $(LIBFT_PATH) --no-print-directory -s
+.PHONY: all clean fclean re norm
 	@echo "$(RED)Cleaning $(NAME)$(DEFAULT)"
 	@rm -rf $(NAME)
