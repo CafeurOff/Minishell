@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:49:30 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/09 17:30:23 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/10 15:19:14 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,25 +98,4 @@ int		ft_strlen(char *str)
 	while (str[i])
 		i++;
 	return (i);
-}
-
-char	*ft_strdup(char *str)
-{
-	int		i;
-	char	*new;
-
-	i = 0;
-	while (str[i])
-		i++;
-	new = malloc(sizeof(char) * i + 1);
-	if (!new)
-		return (NULL);
-	i = 0;
-	while (str[i])
-	{
-		new[i] = str[i];
-		i++;
-	}
-	new[i] = '\0';
-	return (new);
 }

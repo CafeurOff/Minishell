@@ -6,31 +6,16 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:30:47 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/09 17:30:43 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/10 15:29:38 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* NOTE :
-* Si export avec un = alors afficher dans env sinon dans export
-* Quand print avec env mettre un = si set = 1
+/*  ft_copy_env()
+*   Function for copy the envp in a structure
+*   Set SHLVL to 1
 */
-
-void    pre_init(t_env *env)
-{
-    int	i;
-
-	i = 0;
-	while (i < 4096)
-	{
-    	env[i].set = 0;
-		env[i].id = NULL;
-    	env[i].value = NULL;
-		i++;
-	}
-}
-
 
 t_env    *ft_copy_env(char **envp)
 {
@@ -58,6 +43,12 @@ t_env    *ft_copy_env(char **envp)
     return (env);
 }
 
+/*  ft_get_id()
+*   Function for get the id of the env variable
+*   Exemple : PATH=/bin/ls
+*   Return : PATH
+*/
+
 char    *ft_get_id(char *str)
 {
     int     i;
@@ -78,6 +69,12 @@ char    *ft_get_id(char *str)
     name[i] = '\0';
     return (name);
 }
+
+/* ft_get_value()
+*  Function for get the value of the env variable
+*  Exemple : PATH=/bin/ls
+*  Return : /bin/ls
+*/
 
 char    *ft_get_value(char *str)
 {
@@ -107,6 +104,13 @@ char    *ft_get_value(char *str)
     return (value);
 }
 
+
+/*  ft_getenv()
+*   Function for get the value of the env variable
+*   Exemple : ft_getenv("PATH", env)
+*   Return : /bin/ls
+*/
+
 char   *ft_getenv(char *str, t_env *env)
 {
     int     i;
@@ -120,19 +124,21 @@ char   *ft_getenv(char *str, t_env *env)
     }
     return (NULL);
 }
-void    ft_setenv(char *find, char *str, t_env *env)
+
+/*  ft_print_env()
+*   Function for print the env variable
+*   If set == 1 then print with a '='
+*/
+
+void    ft_print_env(t_env *env)
 {
     int     i;
 
     i = 0;
     while (env[i].id)
     {
-        if (ft_strncmp(find, env[i].id, ft_strlen(find)) == 0)
-        {
-            free(env[i].value);
-            env[i].value = ft_strdup(str);
-            return ;
-        }
+        if (env[i].set == 1)
+            printf("%s=%s\n", env[i].id, env[i].value);
         i++;
     }
 }
