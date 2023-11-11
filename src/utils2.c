@@ -45,9 +45,9 @@ void    pre_init(t_env *env)
 	i = 0;
 	while (i < 4096)
 	{
-    	env[i].set = 0;
-	env[i].id = NULL;
-    	env[i].value = NULL;
+    		env[i].set = 0;
+		env[i].id = NULL;
+    		env[i].value = NULL;
 		i++;
 	}
 }
