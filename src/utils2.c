@@ -32,6 +32,7 @@ char	*ft_strdup(char *str)
 	new[i] = '\0';
 	return (new);
 }
+
 /* pre_init()
 *   Function for pre-initialize the env structure with max size
 *   and set all values to 0
@@ -45,7 +46,7 @@ void    pre_init(t_env *env)
 	while (i < 4096)
 	{
     	env[i].set = 0;
-		env[i].id = NULL;
+	env[i].id = NULL;
     	env[i].value = NULL;
 		i++;
 	}
