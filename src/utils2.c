@@ -40,7 +40,7 @@ char	*ft_strdup(char *str)
 
 void    pre_init(t_env *env)
 {
-    int	i;
+	int	i;
 
 	i = 0;
 	while (i < 4096)
