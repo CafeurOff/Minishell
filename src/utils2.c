@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:18:39 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/10 15:20:09 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/13 13:40:53 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,23 @@ char	*ft_strdup(char *str)
 	return (new);
 }
 
+char	*ft_strchr(const char *s, int c)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char)c)
+		{
+			return ((char *)s + i);
+		}
+		i++;
+	}
+	if (s[i] == (char)c)
+		return ((char *)s + i);
+	return (NULL);
+}
 /* pre_init()
 *   Function for pre-initialize the env structure with max size
 *   and set all values to 0
@@ -40,14 +57,28 @@ char	*ft_strdup(char *str)
 
 void    pre_init(t_env *env)
 {
-	int	i;
+    int	i;
 
 	i = 0;
 	while (i < 4096)
 	{
-    		env[i].set = 0;
+    	env[i].set = 0;
 		env[i].id = NULL;
-    		env[i].value = NULL;
+    	env[i].value = NULL;
 		i++;
 	}
+}
+
+void	ft_free(t_env *env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i].id != NULL)
+	{
+		free(env[i].id);
+		free(env[i].value);
+		i++;
+	}
+	free(env);
 }

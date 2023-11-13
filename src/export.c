@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/10 16:00:40 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/13 13:39:14 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,21 @@ void    ft_setenv(char *find, char *str, t_env *env)
             env[i].value = ft_strdup(str);
             return ;
         }
+        i++;
+    }
+}
+
+void    ft_print_export(t_env *env)
+{
+    int     i;
+
+    i = 0;
+    while (env[i].id)
+    {
+        if (env[i].set == 1)
+            printf("declare -x %s\n", env[i].id);
+        else
+            printf("declare -x %s=\"%s\"\n", env[i].id, env[i].value);
         i++;
     }
 }

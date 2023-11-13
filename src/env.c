@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:30:47 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/10 15:29:38 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/13 13:43:49 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_env    *ft_copy_env(char **envp)
     }
     i = 0;
 	while (env[i].id != NULL)
-        env[i++].set = 1;
+        env[i++].set = 0;
     env[i].id = NULL;
     env[i].value = NULL;
     return (env);
@@ -137,7 +137,7 @@ void    ft_print_env(t_env *env)
     i = 0;
     while (env[i].id)
     {
-        if (env[i].set == 1)
+        if (env[i].set == 0)
             printf("%s=%s\n", env[i].id, env[i].value);
         i++;
     }
