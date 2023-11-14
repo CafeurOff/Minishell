@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   var_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:10:45 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/14 12:40:53 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:57:07 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*	ft_env_val()
-	Is a function for check args,
-	to find/transform environement variable,
-	in the correct value
+*	Is a function for check args,
+*	to find/transform environement variable,
+*	in the correct value
 */
 
 //	NEED TO BE REVIEW FOR ENV VAR WHO ARE NOT FIND/DOESN'T EXIST
@@ -37,8 +37,8 @@ char	*ft_env_val(char *pars, t_env *env)
 }
 
 /*	ft_env_in_string()
-	Is a specific function to find and transform string in ""
-	who contains env var (ex: $USER)
+*	Is a specific function to find and transform string in ""
+*	who contains env var (ex: $USER)
 */
 
 //	NEED TO BE REVIEW FOR SEPARATOR BETWEEN EACH ARG, SHOULD BE THE SAME
@@ -68,13 +68,11 @@ char	*ft_env_in_string(char *s, t_env *env)
 			res[k++] = ' ';
 	}
 	res[k] = '\0';
-	free(s);
-	ft_free_tab(var);
-	return (res);
+	return (ft_free_tab(var), free(s), res);
 }
 
 /*	ft_strenv_len()
-	It's an ft_strlen modify for count the length of a **char
+*	It's an ft_strlen modify for count the length of a **char
 */
 
 int	ft_strenv_len(char **var)
@@ -100,8 +98,8 @@ int	ft_strenv_len(char **var)
 }
 
 /*	ft_env_var()
-	transform every line with an env var
-	in the apropriate value
+*	transform every line with an env var
+*	in the apropriate value
 */
 
 char	**ft_env_var(char **var, t_env *env)

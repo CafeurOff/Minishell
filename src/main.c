@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/14 12:32:23 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:53:20 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ int	main(int ac, char **av, char **envp)
 	line = NULL;
 	data = malloc(sizeof(t_data));
 	data->env = ft_copy_env(envp);
-//	signal
-//	signal
+	signal(SIGINT, ft_sigint);
+	signal(SIGQUIT, ft_sigquit);
 	while (1)
 	{
 		line = readline("minishit>");
+		if (!line)
+			return (ft_free(data->env), free(data), 0);
 		if (line[0] != '\0')
 		{
 			add_history(line);

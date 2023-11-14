@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/14 13:17:21 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:48:45 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ char	*ft_get_value(char *str);
 char	*ft_getenv(char *str, t_env *env);
 void	ft_print_env(t_env *env);
 /* export.c */
+void	ft_export(char	**args, t_env *env);
 void	ft_setenv(char *find, char *str, t_env *env);
 void	ft_print_export(t_env *data);
 /* utils.c */
@@ -84,4 +85,8 @@ char	**ft_env_var(char **var, t_env *env);
 void	ft_free_tab(char **s);
 /*main.c*/
 void	ft_exec_cmd(char *line, t_data *data);
+/* signa.c */
+void   ft_sigint(int sig);
+void   ft_sigquit(int sig);
+
 #endif

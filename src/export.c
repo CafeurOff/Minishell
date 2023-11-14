@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/14 12:25:57 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/14 17:48:01 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 /* NOTE :
 * Si export avec un = alors afficher dans env sinon dans export
 */
+
+
 
 /*  ft_setenv()
 *   Function for set a new value to an env variable
@@ -38,6 +40,10 @@ void	ft_setenv(char *find, char *str, t_env *env)
 		i++;
 	}
 }
+
+/*	ft_print_export()
+*	Function for print all env variable
+*/
 
 void	ft_print_export(t_env *env)
 {

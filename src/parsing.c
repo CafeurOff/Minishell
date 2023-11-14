@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:19:36 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/14 12:37:19 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/14 18:00:23 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*	ft_parsing()
-	Mother function to pars the args of a line
+*	Mother function to pars the args of a line
 */
 
 char	**ft_parsing(char *line, t_env *env)
@@ -42,9 +42,9 @@ char	**ft_parsing(char *line, t_env *env)
 	return (pars);
 }
 /*	ft_count_args()
-	Function to count how many args got the line,
-	each args is separated by a whitespace, but "" or ''
-	count only for one arg, even if it's compose with whitespace
+*	Function to count how many args got the line,
+*	each args is separated by a whitespace, but "" or ''
+*	count only for one arg, even if it's compose with whitespace
 */
 
 int	ft_count_args(char *line)
@@ -63,13 +63,14 @@ int	ft_count_args(char *line)
 			i = ft_skip_arg(line, i);
 			args++;
 		}
-		i++;
+		if (line[i])
+			i++;
 	}
 	return (args);
 }
 /*	ft_substr_arg()
-	Function that work with ft_subarg(),
-	save the first arg of the line
+*	Function that work with ft_subarg(),
+*	save the first arg of the line
 */
 
 char	*ft_substr_arg(char *line)
@@ -97,8 +98,8 @@ char	*ft_substr_arg(char *line)
 	return (s);
 }
 /*	ft_subarg()
-	Funtion that take a number in parameter,
-	parameter that define wich argument is saved;
+*	Funtion that take a number in parameter,
+*	parameter that define wich argument is saved;
 */
 
 char	*ft_subarg(char *line, int arg)
