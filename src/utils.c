@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:49:30 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/10 15:19:14 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:28:58 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 		return (0);
 	while (s1[i] == s2[i] && s1[i] != '\0' && i < n - 1)
 		i++;
-    return (s1[i] - s2[i]);
+	return (s1[i] - s2[i]);
 }
 
 int	ft_atoi(const char *str)
@@ -90,7 +90,7 @@ char	*ft_itoa(int n)
 	return (str);
 }
 
-int		ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
 	int		i;
 

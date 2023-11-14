@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:18:39 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/13 13:40:53 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/14 12:35:59 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,16 @@ char	*ft_strchr(const char *s, int c)
 *   and set all values to 0
 */
 
-void    pre_init(t_env *env)
+void	pre_init(t_env *env)
 {
-    int	i;
+	int	i;
 
 	i = 0;
 	while (i < 4096)
 	{
-    	env[i].set = 0;
+		env[i].set = 0;
 		env[i].id = NULL;
-    	env[i].value = NULL;
+		env[i].value = NULL;
 		i++;
 	}
 }
@@ -81,4 +81,17 @@ void	ft_free(t_env *env)
 		i++;
 	}
 	free(env);
+}
+
+void	ft_free_tab(char **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		free(s[i]);
+		i++;
+	}
+	free(s);
 }
