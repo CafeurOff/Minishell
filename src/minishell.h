@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/14 17:48:45 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/14 19:05:07 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,19 @@ typedef struct s_data
 	struct s_env	*env;
 }	t_data;
 
+/*	struct env
+*	set		=>	1 = set	//	0 = unset
+*	id		=>	name of environement variable
+*	value	=>	value of environement variable
+*/
+
 typedef struct s_env
 {
 	int				set;
 	char			*id;
 	char			*value;
 }	t_env;
-/*	struct env
-	set		=>	1 = set	//	0 = unset
-	id		=>	name of environement variable
-	value	=>	value of environement variable
-*/
+
 typedef struct s_pars
 {
 	char			*cmd;
@@ -52,9 +54,10 @@ char	*ft_get_value(char *str);
 char	*ft_getenv(char *str, t_env *env);
 void	ft_print_env(t_env *env);
 /* export.c */
-void	ft_export(char	**args, t_env *env);
+void	ft_export(t_pars *pars, t_data *data, int i);
 void	ft_setenv(char *find, char *str, t_env *env);
 void	ft_print_export(t_env *data);
+void	ft_setid(t_data *data, char *str);
 /* utils.c */
 int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_atoi(const char *str);
@@ -64,7 +67,7 @@ int		ft_strlen(char *str);
 /* utils2.c */
 void	pre_init(t_env *env);
 char	*ft_strdup(char *str);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strchr(char *s, int c);
 void	ft_free(t_env *env);
 /* utils3.c */
 int		count(char *s);
