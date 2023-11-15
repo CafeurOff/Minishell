@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/14 17:53:20 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/15 10:00:42 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		free(line);
 	}
-//	ft_print_env(data->env);
-//	ft_print_export(data->env);
-//	ft_free(data->env);
+	return (0);
 }
 
 void	ft_exec_cmd(char *line, t_data *data)

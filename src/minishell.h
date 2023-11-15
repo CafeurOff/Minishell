@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/14 19:05:07 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/15 09:55:33 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,9 @@ void	ft_export(t_pars *pars, t_data *data, int i);
 void	ft_setenv(char *find, char *str, t_env *env);
 void	ft_print_export(t_env *data);
 void	ft_setid(t_data *data, char *str);
+/* unset.c */
+int		ft_unset(t_pars *pars, t_data *data, int i);
+void	ft_unsetenv(t_pars *pars, t_data *data);
 /* utils.c */
 int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_atoi(const char *str);
@@ -88,8 +91,7 @@ char	**ft_env_var(char **var, t_env *env);
 void	ft_free_tab(char **s);
 /*main.c*/
 void	ft_exec_cmd(char *line, t_data *data);
-/* signa.c */
-void   ft_sigint(int sig);
-void   ft_sigquit(int sig);
-
+/* signal.c */
+void	ft_sigint(int sig);
+void	ft_sigquit(int sig);
 #endif
