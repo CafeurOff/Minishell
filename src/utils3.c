@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:33:32 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/13 16:48:53 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/16 18:47:59 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,45 @@ char	*ft_substr(char *s, int start, int len)
 	if (j == len)
 		str[j] = '\0';
 	return (str);
+}
+int	ft_specchar(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if ((str[i][0] >= 32 && str[i][0] <= 47) ||
+				(str[i][0] >= 58 && str[i][0] <= 64)
+			|| (str[i][0] >= 91 && str[i][0] <= 96) ||
+					(str[i][0] >= 123 && str[i][0] <= 126))
+		{
+			printf("minishell: export: `%s': not a valid identifier\n", str[i]);
+			return (1);
+		}
+	}
+	return (0);
+}
+
+void	ft_error_free(t_pars *pars, t_data *data)
+{
+	int		i;
+
+	i = 0;
+	while (pars[i].args)
+	{
+		free(pars[i].args);
+		i++;
+	}
+	free(pars);
+	i = 0;
+	while (data->env[i].id)
+	{
+		free(data->env[i].id);
+		free(data->env[i].value);
+		i++;
+	}
+	free(data->env);
+	free(data);
+	exit(1);
 }

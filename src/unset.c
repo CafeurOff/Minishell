@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:35:44 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/15 10:00:20 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:29:53 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ int	ft_unset(t_pars *pars, t_data *data, int i)
 
 	j = 0;
 	if (!pars->args)
-		return (110);
+		return (110); // Make error functions for free and display error message.
+	if (ft_specchar(pars[i].args) == 1)
+		return (110); // Error message and free
 	while (pars[i].args[j])
-		ft_unsetenv(pars[i].args[j++], data);
+		ft_unsetenv(pars[i++].args, data);
 	return (0);
 }
 
@@ -35,22 +37,20 @@ int	ft_unset(t_pars *pars, t_data *data, int i)
 * Set all the values to NULL and set to 0 the set value
 */
 
-void	ft_unsetenv(t_pars *pars, t_data *data)
+void	ft_unsetenv(char **str, t_data *data)
 {
 	int	i;
 	int	j;
 
 	i = 0;
 	j = 0;
-	while (pars[i].args[i])
+	while (str[i])
 	{
-		while (data->env[j])
+		while (data->env[j].id) // .id ?
 		{
-			if (ft_strncmp(pars->args[i], data->env[j].id,
-					ft_strlen(pars->args[i])) == 0)
+			if (ft_strncmp(str[i], data->env[j].id,
+					ft_strlen(str[i])) == 0)
 			{
-				free(data->env[j].id);
-				free(data->env[j].value);
 				data->env[j].set = 0;
 				break ;
 			}

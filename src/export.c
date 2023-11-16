@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/14 19:10:30 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:30:30 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_setid(t_data *data, char *str)
 	data->env[i].id = malloc(sizeof(char) * (j + 1));
 	if (!data->env[i].id)
 		return ;
-	while (data->env[i])
+	while (data->env[i].id) // .id ?
 		i++;
 	j = 0;
 	while (str[j] != 61)
@@ -82,6 +82,8 @@ void	ft_setenv(char *find, char *str, t_env *env)
 			env[i].value = ft_strdup(str);
 			return ;
 		}
+		else
+			return ; // Error message with free
 		i++;
 	}
 }

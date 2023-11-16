@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/15 09:55:33 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/16 15:36:08 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,12 @@ void	ft_print_export(t_env *data);
 void	ft_setid(t_data *data, char *str);
 /* unset.c */
 int		ft_unset(t_pars *pars, t_data *data, int i);
-void	ft_unsetenv(t_pars *pars, t_data *data);
+void	ft_unsetenv(char **str, t_data *data);
+/* cd.c */
+void	ft_cd(t_data *data, t_pars *pars);
+void	ft_cd_home(t_data *data);
+void	ft_cd_env(t_data *data, t_pars *pars);
+void	ft_cd_path(t_data *data, t_pars *pars);
 /* utils.c */
 int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_atoi(const char *str);
@@ -76,6 +81,8 @@ void	ft_free(t_env *env);
 int		count(char *s);
 char	**ft_split(char *s);
 char	*ft_substr(char *s, int start, int len);
+int		ft_specchar(char **str);
+void	ft_error_free(t_pars *pars, t_data *data);
 /*parse.c*/
 char	*ft_substr_arg(char *line);
 char	*ft_subarg(char *line, int arg);
