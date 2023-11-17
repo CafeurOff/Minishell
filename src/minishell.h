@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/16 15:36:08 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/17 18:04:26 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ typedef struct s_data
 }	t_data;
 
 /*	struct env
-*	set		=>	1 = set	//	0 = unset
-*	id		=>	name of environement variable
-*	value	=>	value of environement variable
+	set		=>	1 = set	//	0 = unset
+	id		=>	name of environement variable
+	value	=>	value of environement variable
 */
 
 typedef struct s_env
@@ -75,30 +75,41 @@ int		ft_strlen(char *str);
 /* utils2.c */
 void	pre_init(t_env *env);
 char	*ft_strdup(char *str);
-char	*ft_strchr(char *s, int c);
+char	*ft_strchr(const char *s, int c);
 void	ft_free(t_env *env);
+void	ft_free_tab(char **s);
 /* utils3.c */
 int		count(char *s);
 char	**ft_split(char *s);
 char	*ft_substr(char *s, int start, int len);
-int		ft_specchar(char **str);
+void	ft_free_t_pars(t_pars *cmd);
 void	ft_error_free(t_pars *pars, t_data *data);
+int		ft_specchar(char **str);
 /*parse.c*/
-char	*ft_substr_arg(char *line);
-char	*ft_subarg(char *line, int arg);
 int		ft_white_line(char *line);
 int		ft_skip_arg(char *line, int i);
+int		ft_skip_arg_quotes(char *line, int i);
+char	*ft_parse_quotes(char *line);
+char	*ft_parse_pipe(char *line);
 /*parsing.c*/
+char	*ft_substr_arg(char *line);
+char	*ft_subarg(char *line, int arg);
 char	**ft_parsing(char *line, t_env *env);
 int		ft_count_args(char *line);
+/*var_env.c.c*/
 char	*ft_env_val(char *pars, t_env *env);
 char	*ft_env_in_string(char *s, t_env *env);
 int		ft_strenv_len(char **var);
 char	**ft_env_var(char **var, t_env *env);
-void	ft_free_tab(char **s);
 /*main.c*/
 void	ft_exec_cmd(char *line, t_data *data);
 /* signal.c */
-void	ft_sigint(int sig);
-void	ft_sigquit(int sig);
+void   ft_sigint(int sig);
+void   ft_sigquit(int sig);
+/* pars_tab.c */
+t_pars	*ft_init_cmd_line(char **pars);
+int	ft_count_args_line(char **pars, int flag);
+t_pars	*ft_command_line(char **pars, t_pars *cmd);
+int	ft_count_lines(char **pars);
+
 #endif

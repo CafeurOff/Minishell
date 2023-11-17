@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/16 18:45:04 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:10:21 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,11 @@ int	main(int ac, char **av, char **envp)
 			return (ft_free(data->env), free(data), 0);
 		if (line[0] != '\0')
 		{
-			add_history(line);
-			ft_exec_cmd(line, data);
+			if (ft_white_line(line) != 1)
+			{
+				add_history(line);
+				ft_exec_cmd(line, data);
+			}
 		}
 		free(line);
 	}
@@ -41,18 +44,41 @@ int	main(int ac, char **av, char **envp)
 
 void	ft_exec_cmd(char *line, t_data *data)
 {
-	int		i;
+	//int		i;
+	//int		j;
 	char	**pars;
+	t_pars	*cmd;
 
-	i = 0;
+	//i = 0;
+	//j = 0;
 	pars = ft_parsing(line, data->env);
-	while (pars[i])
+	/*while (pars[i])
 	{
 		printf("Parsing line [%d] : %s\n", i, pars[i]);
 		i++;
-	}
-	free(line);
+	}*/
+	//printf("\n\n\n");
+	cmd = ft_init_cmd_line(pars);
+	/*while (i < 5)
+	{
+		printf("CMD Line [%d] :\n	cmd :%s\n", i, cmd[i].cmd);
+		while (cmd[i].args[j])
+		{
+			printf("	args[%d] :%s\n", j, cmd[i].args[j]);
+			j++;
+		}
+		printf("	in :%s\n", cmd[i].in);
+		printf("	out :%s\n", cmd[i].out);
+		i++;
+		j = 0;
+	}*/
+	/*printf("cmd de merde : %s\n", cmd[1].cmd);
+	printf("args de merde : %s\n", cmd[1].args[1]);
+	printf("in de merde : %s\n", cmd[1].in);
+	printf("out de merde : %s\n", cmd[1].out);*/
+	(void)cmd;
 	ft_free_tab(pars);
+	ft_free_t_pars(cmd);
 	rl_clear_history();
 	ft_free(data->env);
 	free(data);

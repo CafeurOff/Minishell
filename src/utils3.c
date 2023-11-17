@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:33:32 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/16 18:47:59 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/17 16:07:58 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,27 @@ char	*ft_substr(char *s, int start, int len)
 		str[j] = '\0';
 	return (str);
 }
+void	ft_free_t_pars(t_pars *cmd)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (cmd[i].cmd)
+	{
+		free(cmd[i].cmd);
+		while (cmd[i].args[j])
+			free(cmd[i].args[j++]);
+		free(cmd[i].args);
+		free(cmd[i].in);
+		free(cmd[i].out);
+		j = 0;
+		i++;
+	}
+	free (cmd);
+}
+
 int	ft_specchar(char **str)
 {
 	int	i;

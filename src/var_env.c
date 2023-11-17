@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:10:45 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/14 17:57:07 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:05:36 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,21 @@
 *	in the correct value
 */
 
-//	NEED TO BE REVIEW FOR ENV VAR WHO ARE NOT FIND/DOESN'T EXIST
-
 char	*ft_env_val(char *pars, t_env *env)
 {
 	char	*tmp;
+    char	*tmp2;
 
 	if (pars[0] == 36) //36 == $
 	{
 		tmp = ft_strdup(pars + 1);
-		free(pars);
-		pars = ft_strdup(ft_getenv(tmp, env));
+		tmp2 = ft_strdup(ft_getenv(tmp, env));
+		if (tmp2)
+		{
+			free(pars);
+			free(tmp);
+			return (tmp2);
+		}
 		free(tmp);
 	}
 	else if (pars[0] == 34) //34 == "
@@ -112,10 +116,13 @@ char	**ft_env_var(char **var, t_env *env)
 	{
 		if (var[i][0] == 36)
 		{
-			tmp = ft_strdup(var[i]);
-			free(var[i]);
-			var[i] = ft_strdup(ft_getenv(tmp + 1, env));
-			free(tmp);
+			tmp = ft_strdup(ft_getenv(var[i] + 1, env));
+            if (tmp)
+            {
+			    free(var[i]);
+			    var[i] = tmp;
+			    free(tmp);
+            }
 		}
 		i++;
 	}

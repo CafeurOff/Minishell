@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:19:36 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/14 18:00:23 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:59:05 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 /*	ft_parsing()
 *	Mother function to pars the args of a line
+*/
+
+/*	A GERER !!!!!
+*	les acollades ouvrantes/fermantes ex: '''"''hello"' => '"hello"'
+*	Insererez tous les elements du parsing dans le tableau t_pars
 */
 
 char	**ft_parsing(char *line, t_env *env)
@@ -24,8 +29,8 @@ char	**ft_parsing(char *line, t_env *env)
 
 	args = 0;
 	i = 0;
-	if (!line)
-		return (NULL);
+	line = ft_parse_pipe(line);
+	printf("line:%s\n", line);
 	if (ft_white_line(line))
 		return (NULL);
 	args = ft_count_args(line);
@@ -39,6 +44,7 @@ char	**ft_parsing(char *line, t_env *env)
 		i++;
 	}
 	pars[i] = '\0';
+	free(line);
 	return (pars);
 }
 /*	ft_count_args()
@@ -54,17 +60,15 @@ int	ft_count_args(char *line)
 
 	i = 0;
 	args = 0;
-	while (line[i] == 32 || (line[i] >= 9 && line[i] <= 13))
-		i++;
 	while (line[i])
 	{
+		while (line[i] == 32 || (line[i] >= 9 && line[i] <= 13))
+			i++;
 		if (line[i] != 32 && (line[i] <= 9 || line[i] >= 13))
 		{
 			i = ft_skip_arg(line, i);
 			args++;
 		}
-		if (line[i])
-			i++;
 	}
 	return (args);
 }
@@ -82,7 +86,7 @@ char	*ft_substr_arg(char *line)
 
 	i = ft_skip_arg(line, 0);
 	j = 0;
-	if (line[0] == 39)
+	if (line[0] == 39 || line[i] == 34)
 		flag = 1;
 	else
 		flag = 0;

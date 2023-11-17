@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/16 15:30:30 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/15 08:24:36 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /* NOTE :
-* Si export avec un = alors afficher dans env sinon dans export
+*	Si export avec un = alors afficher dans env sinon dans export
 */
 
 void	ft_export(t_pars *pars, t_data *data, int i)

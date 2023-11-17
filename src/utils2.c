@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:18:39 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/14 18:43:21 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/16 18:10:28 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	*ft_strdup(char *str)
 	char	*new;
 
 	i = 0;
+	if (!str)
+		return (NULL);
 	while (str[i])
 		i++;
-	new = malloc(sizeof(char) * i + 1);
+	new = malloc(sizeof(char) * (i + 1));
 	if (!new)
 		return (NULL);
 	i = 0;
@@ -33,7 +35,7 @@ char	*ft_strdup(char *str)
 	return (new);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	size_t	i;
 
