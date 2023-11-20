@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:33:32 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/17 16:07:58 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/20 15:20:47 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,34 +91,18 @@ void	ft_free_t_pars(t_pars *cmd)
 	while (cmd[i].cmd)
 	{
 		free(cmd[i].cmd);
-		while (cmd[i].args[j])
-			free(cmd[i].args[j++]);
-		free(cmd[i].args);
+        if (cmd[i].args)
+		{
+            while (cmd[i].args[j])
+			    free(cmd[i].args[j++]);
+		    free(cmd[i].args);
+        }
 		free(cmd[i].in);
 		free(cmd[i].out);
 		j = 0;
 		i++;
 	}
 	free (cmd);
-}
-
-int	ft_specchar(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if ((str[i][0] >= 32 && str[i][0] <= 47) ||
-				(str[i][0] >= 58 && str[i][0] <= 64)
-			|| (str[i][0] >= 91 && str[i][0] <= 96) ||
-					(str[i][0] >= 123 && str[i][0] <= 126))
-		{
-			printf("minishell: export: `%s': not a valid identifier\n", str[i]);
-			return (1);
-		}
-	}
-	return (0);
 }
 
 void	ft_error_free(t_pars *pars, t_data *data)

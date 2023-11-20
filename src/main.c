@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/17 16:10:21 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/18 16:41:37 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ int	main(int ac, char **av, char **envp)
 
 void	ft_exec_cmd(char *line, t_data *data)
 {
-	//int		i;
+	int		i;
 	//int		j;
 	char	**pars;
 	t_pars	*cmd;
 
-	//i = 0;
+	i = 0;
 	//j = 0;
 	pars = ft_parsing(line, data->env);
-	/*while (pars[i])
+	while (pars[i])
 	{
 		printf("Parsing line [%d] : %s\n", i, pars[i]);
 		i++;
-	}*/
+	}
 	//printf("\n\n\n");
 	cmd = ft_init_cmd_line(pars);
 	/*while (i < 5)

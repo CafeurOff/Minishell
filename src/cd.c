@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:55 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/16 18:41:36 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/18 16:41:38 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 *	@data : struct with all the data
 *	@pars : struct with all the parsed data
 */
-
+/*
 void	ft_cd(t_data *data, t_pars *pars)
 {
 	int	i;
@@ -39,12 +39,12 @@ void	ft_cd(t_data *data, t_pars *pars)
 			ft_cd_path(data, pars[i].args[i]);
 		i++;
 	}
-}
+}*/
 /* ft_cd_home()
 *  Function for change directory to $HOME
 *  @data : struct with all the data
 */
-
+/*
 void	ft_cd_home(t_data *data)
 {
 	int	i;
@@ -59,13 +59,13 @@ void	ft_cd_home(t_data *data)
 		}
 		i++;
 	}
-}
+}*/
 /*	ft_cd_env()
 *	Function for change directory to a path in an env variable
 *	@data : struct with all the data
 *	@pars : struct with all the parsed data
 */
-
+/*
 void	ft_cd_env(t_data *data, t_pars *pars)
 {
 	int	i;
@@ -85,13 +85,13 @@ void	ft_cd_env(t_data *data, t_pars *pars)
 		}
 		i++;
 	}
-}
+}*/
 
 /* ft_cd_path()
 *  Function for change directory to a path
 *  @data : struct with all the data
 *  @pars : struct with all the parsed data
-*/
+*//*
 void	ft_cd_path(t_data *data, t_pars *pars)
 {
 	int	i;
@@ -107,4 +107,4 @@ void	ft_cd_path(t_data *data, t_pars *pars)
 		}
 		i++;
 	}
-}
+}*/

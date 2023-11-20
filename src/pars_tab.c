@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:58:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/17 15:58:47 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/20 15:20:52 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,14 @@ t_pars	*ft_init_cmd_line(char **pars)
 		j = 0;
 		cmd[i].cmd = NULL;
 		arg = ft_count_args_line(pars, i);
-		cmd[i].args =malloc(sizeof(char *) * (arg + 1));
-		while (j <= arg)
-			cmd[i].args[j++] = NULL;
+        if (arg != 0)
+        {
+		    cmd[i].args = malloc(sizeof(char *) * (arg + 1));
+		    while (j <= arg)
+			    cmd[i].args[j++] = NULL;
+        }
+        else
+            cmd[i].args = NULL;
 		cmd[i].in = NULL;
 		cmd[i].out = NULL;
 		i++;

@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/17 18:04:26 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/20 15:12:48 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ char	**ft_split(char *s);
 char	*ft_substr(char *s, int start, int len);
 void	ft_free_t_pars(t_pars *cmd);
 void	ft_error_free(t_pars *pars, t_data *data);
-int		ft_specchar(char **str);
 /*parse.c*/
 int		ft_white_line(char *line);
 int		ft_skip_arg(char *line, int i);
@@ -92,15 +91,20 @@ int		ft_skip_arg_quotes(char *line, int i);
 char	*ft_parse_quotes(char *line);
 char	*ft_parse_pipe(char *line);
 /*parsing.c*/
-char	*ft_substr_arg(char *line);
-char	*ft_subarg(char *line, int arg);
+char	*ft_substr_arg(char *line, t_env *env);
+char	*ft_subarg(char *line, int arg, t_env *env);
 char	**ft_parsing(char *line, t_env *env);
 int		ft_count_args(char *line);
+char	*ft_subarg_quotes(char *line, t_env *env);
 /*var_env.c.c*/
 char	*ft_env_val(char *pars, t_env *env);
 char	*ft_env_in_string(char *s, t_env *env);
 int		ft_strenv_len(char **var);
 char	**ft_env_var(char **var, t_env *env);
+char	**ft_split_string(char *s);
+int	ft_len_arg(char	*s, int i);
+char	*ft_substr_quotes(char	*s);
+int	ft_count_split(char *s);
 /*main.c*/
 void	ft_exec_cmd(char *line, t_data *data);
 /* signal.c */

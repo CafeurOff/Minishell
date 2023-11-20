@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:30:47 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/14 12:32:13 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/20 16:28:59 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,8 @@ char	*ft_getenv(char *str, t_env *env)
 	int	i;
 
 	i = 0;
+	if (str[0] == 0)
+		return (NULL);
 	while (env[i].id)
 	{
 		if (ft_strncmp(str, env[i].id, ft_strlen(str)) == 0)
