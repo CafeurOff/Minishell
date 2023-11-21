@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:19:36 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/20 15:29:00 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/21 15:17:03 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,14 @@ char	**ft_parsing(char *line, t_env *env)
 	args = 0;
 	i = 0;
 	args = ft_count_args(line);
-	printf("Args :%d\n", args);
+	//printf("Args :%d\n", args);
 	pars = malloc(sizeof(char *) * (args + 1));
 	if (!pars)
 		return (NULL);
 	while (i < args)
 	{
 		pars[i] = ft_subarg(line, i, env);
-		printf("pars[%d] = %s\n", i, pars[i]);
+//		printf("pars[%d] = %s\n", i, pars[i]);
 		i++;
 	}
 	pars[i] = '\0';

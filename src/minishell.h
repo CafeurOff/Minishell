@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/20 15:12:48 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/21 15:23:50 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct s_data
 {
 	char			*bin_env;
+	char			*error;
 	struct s_env	*env;
 }	t_data;
 
@@ -39,12 +40,23 @@ typedef struct s_env
 	char			*value;
 }	t_env;
 
+/*	struct pars
+	cmd			=>	cmd of the line
+	args		=>	arguments of the cmd / option, NULL if there is none
+	in			=>	redirection in, NULL if there is none
+	out			=>	redirection out, NULL if there is none
+	flag		=>	0 = none redirection / 1 = simple redirection / 2 = double redirection
+	del			=>	delimiter of the function, NULL if there is none
+*/
+
 typedef struct s_pars
 {
 	char			*cmd;
 	char			**args;
 	char			*in;
 	char			*out;
+	int				flag;
+	char			*del;
 }	t_pars;
 
 /* env.c */
@@ -107,6 +119,7 @@ char	*ft_substr_quotes(char	*s);
 int	ft_count_split(char *s);
 /*main.c*/
 void	ft_exec_cmd(char *line, t_data *data);
+void	ft_free_all(t_data *data, char **args, t_pars *pars);
 /* signal.c */
 void   ft_sigint(int sig);
 void   ft_sigquit(int sig);
