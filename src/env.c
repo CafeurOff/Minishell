@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:30:47 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/21 15:47:11 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/21 13:27:51 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_env	*ft_copy_env(char **envp)
 	}
 	i = 0;
 	while (env[i].id != NULL)
-		env[i++].set = 0;
+		env[i++].set = 1;
 	env[i].id = NULL;
 	env[i].value = NULL;
 	return (env);
@@ -141,7 +141,7 @@ void	ft_print_env(t_env *env)
 	i = 0;
 	while (env[i].id)
 	{
-		if (env[i].set == 0)
+		if (env[i].set == 1)
 			printf("%s=%s\n", env[i].id, env[i].value);
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:55 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/21 15:48:18 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/21 13:50:07 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	ft_cd_home(t_data *data)
 *  @data : struct with all the data
 *  @pars : struct with all the parsed data
 */
+  char cwd[256];
+
 void	ft_cd_path(t_pars *pars)
 {
 	int	i;
@@ -77,6 +79,9 @@ void	ft_cd_path(t_pars *pars)
 				pars->args[i]);
 			return ;
 		}
+		else
+			getcwd(cwd, sizeof(cwd));
+    		printf("Current working dir: %s\n", cwd);
 		i++;
 	}
 }

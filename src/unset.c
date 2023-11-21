@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:35:44 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/20 14:40:46 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/21 13:40:55 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,9 @@
 
 int	ft_unset(t_pars *pars, t_data *data, int i)
 {
-	int	j;
-
-	j = 0;
 	if (!pars->args)
 		return (110); // Make error functions for free and display error message.
-	//if (ft_specchar(pars[i].args) == 1)
-	//	return (110); // Error message and free
-	while (pars[i].args[j])
-		ft_unsetenv(pars[i++].args, data);
+	ft_unsetenv(pars[i].args, data);
 	return (0);
 }
 
@@ -43,9 +37,9 @@ void	ft_unsetenv(char **str, t_data *data)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (str[i])
 	{
+		j = 0;
 		while (data->env[j].id) // .id ?
 		{
 			if (ft_strncmp(str[i], data->env[j].id,

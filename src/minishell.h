@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/21 15:48:56 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/21 16:50:49 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	ft_export(t_pars *pars, t_data *data, int i);
 void	ft_setenv(char *find, char *str, t_env *env);
 void	ft_print_export(t_env *data);
 void	ft_setid(t_data *data, char *str);
+int		ft_id_exist(t_data *data, char *str);
+int		ft_id_index(t_data *data, char *str);
 /* unset.c */
 int		ft_unset(t_pars *pars, t_data *data, int i);
 void	ft_unsetenv(char **str, t_data *data);
