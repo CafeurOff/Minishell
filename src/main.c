@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/21 15:25:43 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/21 15:51:35 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,18 @@ void	ft_exec_cmd(char *line, t_data *data)
 		i++;
 		j = 0;
 	}*/
+	if (ft_strncmp(cmd[0].cmd, "cd", 3) == 0)
+		ft_cd(data, cmd);
+	if (ft_strncmp(cmd[0].cmd, "export", 7) == 0)
+		ft_export(cmd, data, 0);
+	if (ft_strncmp(cmd[0].cmd, "unset", 6) == 0)
+		ft_unset(cmd, data, 0);
+	if (ft_strncmp(cmd[0].cmd, "pwd", 4) == 0)
+		printf("%s\n", ft_getenv("PWD", data->env));
+	if (ft_strncmp(cmd[0].cmd, "env", 4) == 0)
+		ft_print_env(data->env);
+//	if (ft_strncmp(cmd[0].cmd, "echo", 5) == 0)
+//		;
 	if (ft_strncmp(cmd[0].cmd, "exit", 5) == 0)
 		ft_free_all(data, pars, cmd);
 	/*printf("cmd de merde : %s\n", cmd[1].cmd);

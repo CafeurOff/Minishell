@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/21 15:23:50 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/21 15:48:56 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <unistd.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <sys/types.h>
@@ -76,8 +77,7 @@ void	ft_unsetenv(char **str, t_data *data);
 /* cd.c */
 void	ft_cd(t_data *data, t_pars *pars);
 void	ft_cd_home(t_data *data);
-void	ft_cd_env(t_data *data, t_pars *pars);
-void	ft_cd_path(t_data *data, t_pars *pars);
+void	ft_cd_path(t_pars *pars);
 /* utils.c */
 int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_atoi(const char *str);
