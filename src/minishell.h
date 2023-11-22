@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 18:52:15 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:25:55 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+/* struct data
+*	bin_env	=>	PATH f the shell
+*	error	=>	error message
+*	env		=>	list of environement variables
+*/
+
 typedef struct s_data
 {
 	char			**bin_env;
@@ -29,9 +35,9 @@ typedef struct s_data
 }	t_data;
 
 /*	struct env
-	set		=>	1 = set	//	0 = unset
-	id		=>	name of environement variable
-	value	=>	value of environement variable
+*	set		=>	1 = set	//	0 = unset
+*	id		=>	name of environement variable
+*	value	=>	value of environement variable
 */
 
 typedef struct s_env
@@ -42,12 +48,12 @@ typedef struct s_env
 }	t_env;
 
 /*	struct pars
-	cmd			=>	cmd of the line
-	args		=>	arguments of the cmd / option, NULL if there is none
-	in			=>	redirection in, NULL if there is none
-	out			=>	redirection out, NULL if there is none
-	flag		=>	0 = none redirection / 1 = simple redirection / 2 = double redirection
-	del			=>	delimiter of the function, NULL if there is none
+*	cmd			=>	cmd of the line
+*	args		=>	arguments of the cmd / option, NULL if there is none
+*	in			=>	redirection in, NULL if there is none
+*	out			=>	redirection out, NULL if there is none
+*	flag		=>	0 = none redirection / 1 = simple redirection / 2 = double redirection
+*	del			=>	delimiter of the function, NULL if there is none
 */
 
 typedef struct s_pars
@@ -72,7 +78,6 @@ void	ft_setenv(char *find, char *str, t_data *data);
 void	ft_print_export(t_env *data);
 void	ft_setid(t_data *data, char *str);
 int		ft_id_exist(t_data *data, char *str);
-int		ft_id_index(t_data *data, char *str);
 /* unset.c */
 int		ft_unset(t_pars *pars, t_data *data, int i);
 void	ft_unsetenv(char **str, t_data *data);
@@ -83,6 +88,7 @@ void	ft_cd_path(t_pars *pars, t_data *data);
 /* echo.c */
 void    ft_echo(t_pars *pars, int i);
 int		ft_print_echo(char *str);
+int		ft_id_index(t_data *data, char *str);
 /* utils.c */
 int		ft_strncmp(char *s1, char *s2, size_t n);
 int		ft_atoi(const char *str);

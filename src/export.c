@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 19:05:34 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:22:13 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* NOTE :
-*	Si export avec un = alors afficher dans env sinon dans export
+/*  ft_export()
+*   Function for set a new env variable
+*   @pars : struct with all the parsed data
+*   @data : struct with all the data
+*   @i : index of the first arg
 */
 
 void	ft_export(t_pars *pars, t_data *data, int i)
@@ -42,6 +45,12 @@ void	ft_export(t_pars *pars, t_data *data, int i)
 		j++;
 	}
 }
+
+/*  ft_setid()
+*   Function for set a new id to an env variable
+*   @data : struct with all the data
+*   @str : arg of export
+*/
 
 void	ft_setid(t_data *data, char *str)
 {
@@ -115,6 +124,13 @@ void	ft_print_export(t_env *env)
 		i++;
 	}
 }
+
+/*  ft_id_exist()
+*   Function for check if the id exist
+*   @data : struct with all the data
+*   @str : arg of export
+*/
+
 int		ft_id_exist(t_data *data, char *str)
 {
 	int		i;
@@ -131,22 +147,4 @@ int		ft_id_exist(t_data *data, char *str)
 		j++;
 	}
 	return (0);
-}
-
-int		ft_id_index(t_data *data, char *str)
-{
-	int		i;
-	int		j;
-
-	j = 0;
-	i = 0;
-	while (str[i] != 61 && str[i])
-		i++;
-	while (data->env[j].id)
-	{
-		if (ft_strncmp(data->env[j].id, str, i) == 0)
-			return (j);
-		j++;
-	}
-	return (j);
 }

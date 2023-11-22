@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 19:07:48 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:23:11 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* main()
+*  Main function of the minishell
+*  @ac : number of args
+*  @av : args
+*  @envp : environnement
+*/
 
 int	main(int ac, char **av, char **envp)
 {
@@ -40,6 +47,13 @@ int	main(int ac, char **av, char **envp)
 	return (0);
 }
 
+/* ft_exec_cmd()
+*  Function for execute a command
+*  @line : line of the command
+*  @data : struct with all the data
+*  @envp : environnement
+*/
+
 void	ft_exec_cmd(char *line, t_data *data, char **envp)
 {
 	char	**pars;
@@ -52,6 +66,13 @@ void	ft_exec_cmd(char *line, t_data *data, char **envp)
 	ft_free_t_pars(cmd);
 }
 
+/* ft_free_all()
+*  Function for free all the malloc
+*  @data : struct with all the data
+*  @args : args of the command
+*  @pars : struct with all the parsed data
+*/
+
 void	ft_free_all(t_data *data, char **args, t_pars *pars)
 {
 	rl_clear_history();
@@ -63,6 +84,14 @@ void	ft_free_all(t_data *data, char **args, t_pars *pars)
 	free(data);
 	exit(0);
 }
+
+/* ft_is_builtin()
+*  Function for execute a builtin command
+*  @cmd : struct with all the parsed data
+*  @data : struct with all the data
+*  @pars : struct with all the parsed data
+*  @envp : environnement
+*/
 
 void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, char **envp)
 {

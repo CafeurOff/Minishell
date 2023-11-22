@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 18:42:10 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:19:49 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* ft_exec()
+* Function for execute a command if not a builtin
+* @pars : struct with all the parsed data
+* @cmd : command to execute
+* @envp : environnement
+*/
 
 void	ft_exec(t_pars *pars, char *cmd, char **envp)
 {
@@ -27,6 +34,14 @@ void	ft_exec(t_pars *pars, char *cmd, char **envp)
 	waitpid(pid, &status, 0);
 	ft_free_tab(args);
 }
+
+/* ft_execve()
+* Function for execute a command if not a builtin
+* Parse the PATH for find the command in bin
+* @pars : struct with all the parsed data
+* @data : struct with all the data
+* @envp : environnement
+*/
 
 void	ft_execve(t_pars *pars, t_data *data, char **envp)
 {
@@ -59,6 +74,13 @@ void	ft_execve(t_pars *pars, t_data *data, char **envp)
 	ft_free_tab(data->bin_env);
 	data->bin_env = NULL;
 }
+
+/* ft_joincmd()
+* Function for join cmd and args in one tab
+* @cmd : command
+* @args : args of the command
+*/
+
 char	**ft_joincmd(char *cmd, char **args)
 {
 	int		i;
