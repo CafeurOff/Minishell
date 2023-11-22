@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:33:32 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/22 14:51:46 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:47:20 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char	*ft_substr(char *s, int start, int len)
 		str[j] = '\0';
 	return (str);
 }
+
 void	ft_free_t_pars(t_pars *cmd)
 {
 	int	i;
@@ -91,12 +92,12 @@ void	ft_free_t_pars(t_pars *cmd)
 	while (cmd[i].cmd)
 	{
 		free(cmd[i].cmd);
-        if (cmd[i].args)
+		if (cmd[i].args)
 		{
-            while (cmd[i].args[j])
-			    free(cmd[i].args[j++]);
-		    free(cmd[i].args);
-        }
+			while (cmd[i].args[j])
+				free(cmd[i].args[j++]);
+			free(cmd[i].args);
+		}
 		free(cmd[i].in);
 		free(cmd[i].out);
 		j = 0;

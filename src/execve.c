@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:19:49 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:36:47 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@
 void	ft_exec(t_pars *pars, char *cmd, char **envp)
 {
 	pid_t	pid;
-	int	status;
+	int		status;
 	char	**args;
 
 	args = ft_joincmd(cmd, pars->args);
-    pid = fork();
-    if (pid == 0)
-        execve(cmd , args, envp);
+	pid = fork();
+	if (pid == 0)
+		execve(cmd, args, envp);
 	else if (pid < 0)
 		printf("error pid");
 	waitpid(pid, &status, 0);

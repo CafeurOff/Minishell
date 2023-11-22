@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:51:21 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 18:39:39 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:47:37 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	**free_word(char **s)
 	free(s);
 	return (NULL);
 }
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;

@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:25:55 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:38:42 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	ft_cd(t_data *data, t_pars *pars);
 void	ft_cd_home(t_data *data);
 void	ft_cd_path(t_pars *pars, t_data *data);
 /* echo.c */
-void    ft_echo(t_pars *pars, int i);
+void	ft_echo(t_pars *pars, int i);
 int		ft_print_echo(char *str);
 int		ft_id_index(t_data *data, char *str);
 /* utils.c */
@@ -131,24 +131,24 @@ char	*ft_env_in_string(char *s, t_env *env);
 int		ft_strenv_len(char **var);
 char	**ft_env_var(char **var, t_env *env);
 char	**ft_split_string(char *s);
-int	ft_len_arg(char	*s, int i);
+int		ft_len_arg(char	*s, int i);
 char	*ft_substr_quotes(char	*s);
-int	ft_count_split(char *s);
+int		ft_count_split(char *s);
 /*main.c*/
 void	ft_exec_cmd(char *line, t_data *data, char **envp);
 void	ft_free_all(t_data *data, char **args, t_pars *pars);
 void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, char **envp);
 /* signal.c */
-void   ft_sigint(int sig);
-void   ft_sigquit(int sig);
+void	ft_sigint(int sig);
+void	ft_sigquit(int sig);
 /* execve.c */
 void	ft_exec(t_pars *pars, char *cmd, char **envp);
 void	ft_execve(t_pars *pars, t_data *data, char **envp);
 char	**ft_joincmd(char *cmd, char **args);
 /* pars_tab.c */
 t_pars	*ft_init_cmd_line(char **pars);
-int	ft_count_args_line(char **pars, int flag);
+int		ft_count_args_line(char **pars, int flag);
 t_pars	*ft_command_line(char **pars, t_pars *cmd);
-int	ft_count_lines(char **pars);
+int		ft_count_lines(char **pars);
 
 #endif

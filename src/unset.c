@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:35:44 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/21 13:40:55 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:46:10 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_unsetenv(char **str, t_data *data)
 	while (str[i])
 	{
 		j = 0;
-		while (data->env[j].id) // .id ?
+		while (data->env[j].id)
 		{
 			if (ft_strncmp(str[i], data->env[j].id,
 					ft_strlen(str[i])) == 0)

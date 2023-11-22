@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:19:36 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/21 15:17:03 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/22 23:43:16 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,12 @@ char	**ft_parsing(char *line, t_env *env)
 	args = 0;
 	i = 0;
 	args = ft_count_args(line);
-	//printf("Args :%d\n", args);
 	pars = malloc(sizeof(char *) * (args + 1));
 	if (!pars)
 		return (NULL);
 	while (i < args)
 	{
 		pars[i] = ft_subarg(line, i, env);
-//		printf("pars[%d] = %s\n", i, pars[i]);
 		i++;
 	}
 	pars[i] = '\0';
@@ -45,6 +43,7 @@ char	**ft_parsing(char *line, t_env *env)
 	free(line);
 	return (pars);
 }
+
 /*	ft_count_args()
 *	Function to count how many args got the line,
 *	each args is separated by a whitespace, but "" or ''
@@ -62,7 +61,8 @@ int	ft_count_args(char *line)
 	{
 		while (line[i] == 32 || (line[i] >= 9 && line[i] <= 13))
 			i++;
-		while ((line[i] == 34 && line[i + 1] == 34) || (line[i] == 39 && line[i + 1] == 39))
+		while ((line[i] == 34 && line[i + 1] == 34)
+			|| (line[i] == 39 && line[i + 1] == 39))
 			i += 2;
 		if (line[i] && line[i] != 32 && (line[i] <= 9 || line[i] >= 13))
 		{
@@ -93,7 +93,7 @@ char	*ft_substr_arg(char *line, t_env *env)
 	while (j < i)
 		s[k++] = line[j++];
 	s[k] = '\0';
-	s = ft_env_val(s, env);     
+	s = ft_env_val(s, env);
 	return (s);
 }
 /*	ft_subarg()
@@ -112,12 +112,13 @@ char	*ft_subarg(char *line, int arg, t_env *env)
 	{
 		while ((line[i] == 32 || (line[i] >= 9 && line[i] <= 13)))
 			i++;
-		while ((line[i] == 34 && line[i + 1] == 34) || (line[i] == 39 && line[i + 1] == 39))
+		while ((line[i] == 34 && line[i + 1] == 34)
+			|| (line[i] == 39 && line[i + 1] == 39))
 			i += 2;
 		if (flag == arg && line[i] != 34 && line[i] != 39)
 			return (ft_substr_arg(line + i, env));
 		else if (flag == arg)
-			return(ft_subarg_quotes(line + i, env));
+			return (ft_subarg_quotes(line + i, env));
 		else
 		{
 			i = ft_skip_arg(line, i);
@@ -129,11 +130,11 @@ char	*ft_subarg(char *line, int arg, t_env *env)
 
 char	*ft_subarg_quotes(char *line, t_env *env)
 {
-	int i;
-	int j;
-	int len;
-	int flag;
-	char    *s;
+	int		i;
+	int		j;
+	int		len;
+	int		flag;
+	char	*s;
 
 	len = ft_skip_arg_quotes(line, 0);
 	i = 1;

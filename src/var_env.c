@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   var_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 12:10:45 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/20 16:29:00 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/22 23:49:08 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*ft_env_val(char *pars, t_env *env)
 	char	*tmp;
 	char	*tmp2;
 
-	if (pars[0] == 36 && pars[1] ) //36 == $
+	if (pars[0] == 36 && pars[1])
 	{
 		tmp = ft_strdup(pars + 1);
 		tmp2 = ft_strdup(ft_getenv(tmp, env));
@@ -35,7 +35,7 @@ char	*ft_env_val(char *pars, t_env *env)
 		}
 		free(tmp);
 	}
-	else if (pars[0] == 34) //34 == "
+	else if (pars[0] == 34)
 		pars = ft_env_in_string(pars, env);
 	return (pars);
 }
@@ -127,11 +127,10 @@ char	**ft_env_var(char **var, t_env *env)
 	return (var);
 }
 
-
 char	**ft_split_string(char *s)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
 	char	**res;
 
 	res = malloc(sizeof(char *) * (ft_count_split(s) + 1));
@@ -191,6 +190,7 @@ char	*ft_substr_quotes(char	*s)
 	res[i] = 0;
 	return (res);
 }
+
 int	ft_count_split(char *s)
 {
 	int	i;

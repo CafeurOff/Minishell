@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:58:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/20 15:20:52 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/22 23:45:16 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 t_pars	*ft_init_cmd_line(char **pars)
 {
 	t_pars	*cmd;
-	int	line;
-	int	i;
-	int	j;
-	int	arg;
+	int		line;
+	int		i;
+	int		j;
+	int		arg;
 
 	i = 0;
 	line = ft_count_lines(pars);
@@ -32,14 +32,14 @@ t_pars	*ft_init_cmd_line(char **pars)
 		j = 0;
 		cmd[i].cmd = NULL;
 		arg = ft_count_args_line(pars, i);
-        if (arg != 0)
-        {
-		    cmd[i].args = malloc(sizeof(char *) * (arg + 1));
-		    while (j <= arg)
-			    cmd[i].args[j++] = NULL;
-        }
-        else
-            cmd[i].args = NULL;
+		if (arg != 0)
+		{
+			cmd[i].args = malloc(sizeof(char *) * (arg + 1));
+			while (j <= arg)
+				cmd[i].args[j++] = NULL;
+		}
+		else
+			cmd[i].args = NULL;
 		cmd[i].in = NULL;
 		cmd[i].out = NULL;
 		i++;
@@ -57,7 +57,7 @@ int	ft_count_args_line(char **pars, int flag)
 	i = 1;
 	len = 0;
 	line = 0;
-	while(pars[i] && line != flag)
+	while (pars[i] && line != flag)
 	{
 		if (ft_strncmp(pars[i], "|", 2) == 0)
 		{
@@ -121,7 +121,7 @@ int	ft_count_lines(char **pars)
 	{
 		if (ft_strncmp(pars[i], "|", 2) == 0)
 			len++;
-		i++;			
+		i++;
 	}
 	return (len + 1);
 }

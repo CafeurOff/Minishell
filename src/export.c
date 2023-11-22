@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:22:13 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:37:38 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void	ft_print_export(t_env *env)
 *   @str : arg of export
 */
 
-int		ft_id_exist(t_data *data, char *str)
+int	ft_id_exist(t_data *data, char *str)
 {
 	int		i;
 	int		j;

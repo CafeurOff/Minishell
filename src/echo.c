@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:10:49 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:22:02 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 23:35:50 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 * @i : index of the first arg
 */
 
-void    ft_echo(t_pars *pars, int i)
+void	ft_echo(t_pars *pars, int i)
 {
 	int		flag;
 
@@ -34,11 +34,11 @@ void    ft_echo(t_pars *pars, int i)
 			i++;
 		}
 		while (pars->args[i])
-    	{
+		{
 			printf("%s", pars->args[i]);
 			if (pars->args[++i])
 				printf(" ");
-    	}
+		}
 	}
 	if (flag == 1)
 		printf("\n");
@@ -49,7 +49,7 @@ void    ft_echo(t_pars *pars, int i)
 *	@str : arg of echo
 */
 
-int		ft_print_echo(char *str)
+int	ft_print_echo(char *str)
 {
 	int		i;
 
@@ -71,7 +71,7 @@ int		ft_print_echo(char *str)
 *	@str : arg of export
 */
 
-int		ft_id_index(t_data *data, char *str)
+int	ft_id_index(t_data *data, char *str)
 {
 	int		i;
 	int		j;
