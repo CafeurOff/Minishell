@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:55 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/21 13:50:07 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:17:36 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,11 @@
 
 void	ft_cd(t_data *data, t_pars *pars)
 {
-	int	i;
-
-	i = 0;
-	while (pars->args[i])
-	{
-		if (pars->args[i][0] == '~')
-			ft_cd_home(data);
-		else
-			ft_cd_path(pars);
-		i++;
-	}
+	printf("%s\n", pars->args[0]);
+	if (pars->args[0][0] == '~')
+		ft_cd_home(data);
+	else
+		ft_cd_path(pars, data);
 }
 /* ft_cd_home()
 *  Function for change directory to $HOME
@@ -45,18 +39,9 @@ void	ft_cd(t_data *data, t_pars *pars)
 
 void	ft_cd_home(t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (data->env[i].id)
-	{
-		if (ft_strncmp(data->env[i].id, "HOME", ft_strlen(data->env[i].id)) == 0)
-		{
-			chdir(data->env[i].value);
-			return ;
-		}
-		i++;
-	}
+	chdir(ft_getenv("HOME", data->env));
+	ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);
+	ft_setenv("PWD", getcwd(NULL, 0), data);
 }
 
 /* ft_cd_path()
@@ -64,24 +49,15 @@ void	ft_cd_home(t_data *data)
 *  @data : struct with all the data
 *  @pars : struct with all the parsed data
 */
-  char cwd[256];
 
-void	ft_cd_path(t_pars *pars)
+void	ft_cd_path(t_pars *pars, t_data *data)
 {
-	int	i;
-
-	i = 0;
-	while (pars->args[i])
+	if (chdir(pars->args[0]) == -1)
 	{
-		if (chdir(pars->args[i]) == -1)
-		{
-			printf("minishell: cd: %s: No such file or directory\n",
-				pars->args[i]);
-			return ;
-		}
-		else
-			getcwd(cwd, sizeof(cwd));
-    		printf("Current working dir: %s\n", cwd);
-		i++;
+		printf("minishell: cd: %s: No such file or directory\n",
+			pars->args[0]);
+		return ;
 	}
+	ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);
+	ft_setenv("PWD", getcwd(NULL, 0), data);
 }

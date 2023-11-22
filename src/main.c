@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/21 15:51:35 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/22 19:07:48 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,62 +33,21 @@ int	main(int ac, char **av, char **envp)
 			return (ft_free(data->env), free(data), 0);
 		add_history(line);
 		if (ft_white_line(line) != 1)
-			ft_exec_cmd(line, data);
+			ft_exec_cmd(line, data, envp);
 		else
 			free(line);
 	}
 	return (0);
 }
 
-void	ft_exec_cmd(char *line, t_data *data)
+void	ft_exec_cmd(char *line, t_data *data, char **envp)
 {
-//	int		i;
-	//int		j;
 	char	**pars;
 	t_pars	*cmd;
 
-//	i = 0;
-	//j = 0;
 	pars = ft_parsing(line, data->env);
-/*	while (pars[i])
-	{
-		printf("Parsing line [%d] : %s\n", i, pars[i]);
-		i++;
-	}
-	printf("\n\n\n");*/
 	cmd = ft_init_cmd_line(pars);
-	/*while (i < 5)
-	{
-		printf("CMD Line [%d] :\n	cmd :%s\n", i, cmd[i].cmd);
-		while (cmd[i].args[j])
-		{
-			printf("	args[%d] :%s\n", j, cmd[i].args[j]);
-			j++;
-		}
-		printf("	in :%s\n", cmd[i].in);
-		printf("	out :%s\n", cmd[i].out);
-		i++;
-		j = 0;
-	}*/
-	if (ft_strncmp(cmd[0].cmd, "cd", 3) == 0)
-		ft_cd(data, cmd);
-	if (ft_strncmp(cmd[0].cmd, "export", 7) == 0)
-		ft_export(cmd, data, 0);
-	if (ft_strncmp(cmd[0].cmd, "unset", 6) == 0)
-		ft_unset(cmd, data, 0);
-	if (ft_strncmp(cmd[0].cmd, "pwd", 4) == 0)
-		printf("%s\n", ft_getenv("PWD", data->env));
-	if (ft_strncmp(cmd[0].cmd, "env", 4) == 0)
-		ft_print_env(data->env);
-//	if (ft_strncmp(cmd[0].cmd, "echo", 5) == 0)
-//		;
-	if (ft_strncmp(cmd[0].cmd, "exit", 5) == 0)
-		ft_free_all(data, pars, cmd);
-	/*printf("cmd de merde : %s\n", cmd[1].cmd);
-	printf("args de merde : %s\n", cmd[1].args[1]);
-	printf("in de merde : %s\n", cmd[1].in);
-	printf("out de merde : %s\n", cmd[1].out);*/
-	(void)cmd;
+	ft_is_builtin(cmd, data, pars, envp);
 	ft_free_tab(pars);
 	ft_free_t_pars(cmd);
 }
@@ -101,8 +60,26 @@ void	ft_free_all(t_data *data, char **args, t_pars *pars)
 	ft_free(data->env);
 	if (data->error)
 		free(data->error);
-	if (data->bin_env)
-		free(data->bin_env);
-	free(data);	
-	exit(0);	
+	free(data);
+	exit(0);
+}
+
+void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, char **envp)
+{
+	if (ft_strncmp(cmd[0].cmd, "cd", 3) == 0)
+		ft_cd(data, cmd);
+	else if (ft_strncmp(cmd[0].cmd, "export", 7) == 0)
+		ft_export(cmd, data, 0);
+	else if (ft_strncmp(cmd[0].cmd, "unset", 6) == 0)
+		ft_unset(cmd, data, 0);
+	else if (ft_strncmp(cmd[0].cmd, "pwd", 4) == 0)
+		printf("%s\n", ft_getenv("PWD", data->env));
+	else if (ft_strncmp(cmd[0].cmd, "env", 4) == 0)
+		ft_print_env(data->env);
+	else if (ft_strncmp(cmd[0].cmd, "echo", 5) == 0)
+		ft_echo(cmd, 0);
+	else if (ft_strncmp(cmd[0].cmd, "exit", 5) == 0)
+		ft_free_all(data, pars, cmd);
+	else
+		ft_execve(cmd, data, envp);
 }

@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/21 13:42:25 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/22 19:05:34 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	ft_export(t_pars *pars, t_data *data, int i)
 			data->env[k].value = ft_strdup(ft_strchr(pars[i].args[j], 61) + 1);
 		}
 		data->env[k].set = 1;
-		printf("args %s\n", pars[i].args[j]);
 		j++;
 	}
 }
@@ -73,26 +72,24 @@ void	ft_setid(t_data *data, char *str)
 *   Return : ft_getenv("PATH", env) == "/bin/ls"
 */
 
-void	ft_setenv(char *find, char *str, t_env *env)
+void	ft_setenv(char *find, char *str, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (env[i].id)
+	while (data->env[i].id)
 	{
-		if (ft_strncmp(find, env[i].id, ft_strlen(find)) == 0)
+		if (ft_strncmp(find, data->env[i].id, ft_strlen(find)) == 0)
 		{
 			if (str[0] == '\0')
 			{
-				env[i].value = NULL;
+				data->env[i].value = NULL;
 				return ;
 			}
-			free(env[i].value);
-			env[i].value = ft_strdup(str);
+			free(data->env[i].value);
+			data->env[i].value = ft_strdup(str);
 			return ;
 		}
-		else
-			return ; // Error message with free
 		i++;
 	}
 }
