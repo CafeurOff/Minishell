@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:23:11 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:34:39 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ int	main(int ac, char **av, char **envp)
 	{
 		line = readline("minishit>");
 		if (!line)
-			return (ft_free(data->env), free(data), 0);
+			return (ft_free(data->env), free(data), rl_clear_history(), 0);
 		add_history(line);
 		if (ft_white_line(line) != 1)
-			ft_exec_cmd(line, data, envp);
+			ft_exec_cmd(line, data);
 		else
 			free(line);
 	}
@@ -54,14 +54,14 @@ int	main(int ac, char **av, char **envp)
 *  @envp : environnement
 */
 
-void	ft_exec_cmd(char *line, t_data *data, char **envp)
+void	ft_exec_cmd(char *line, t_data *data)
 {
 	char	**pars;
 	t_pars	*cmd;
 
 	pars = ft_parsing(line, data->env);
 	cmd = ft_init_cmd_line(pars);
-	ft_is_builtin(cmd, data, pars, envp);
+	ft_is_builtin(cmd, data, pars);
 	ft_free_tab(pars);
 	ft_free_t_pars(cmd);
 }
@@ -77,6 +77,7 @@ void	ft_free_all(t_data *data, char **args, t_pars *pars)
 {
 	rl_clear_history();
 	ft_free_tab(args);
+	ft_free_tab(data->join_env);
 	ft_free_t_pars(pars);
 	ft_free(data->env);
 	if (data->error)
@@ -93,7 +94,7 @@ void	ft_free_all(t_data *data, char **args, t_pars *pars)
 *  @envp : environnement
 */
 
-void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, char **envp)
+void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars)
 {
 	if (ft_strncmp(cmd[0].cmd, "cd", 3) == 0)
 		ft_cd(data, cmd);
@@ -110,5 +111,5 @@ void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, char **envp)
 	else if (ft_strncmp(cmd[0].cmd, "exit", 5) == 0)
 		ft_free_all(data, pars, cmd);
 	else
-		ft_execve(cmd, data, envp);
+		ft_execve(cmd, data);
 }

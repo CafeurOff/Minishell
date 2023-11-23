@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:36:47 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:48:34 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,21 @@
 * @envp : environnement
 */
 
-void	ft_exec(t_pars *pars, char *cmd, char **envp)
+void	ft_exec(t_pars *pars, char *cmd, t_data *data)
 {
 	pid_t	pid;
 	int		status;
 	char	**args;
 
+	data->join_env = ft_join_env(data);
 	args = ft_joincmd(cmd, pars->args);
 	pid = fork();
 	if (pid == 0)
-		execve(cmd, args, envp);
+		execve(cmd, args, data->join_env);
 	else if (pid < 0)
 		printf("error pid");
 	waitpid(pid, &status, 0);
+	ft_free_tab(data->join_env);
 	ft_free_tab(args);
 }
 
@@ -43,7 +45,7 @@ void	ft_exec(t_pars *pars, char *cmd, char **envp)
 * @envp : environnement
 */
 
-void	ft_execve(t_pars *pars, t_data *data, char **envp)
+void	ft_execve(t_pars *pars, t_data *data)
 {
 	char	*res;
 	char	*path;
@@ -62,7 +64,7 @@ void	ft_execve(t_pars *pars, t_data *data, char **envp)
 		res = ft_strjoin(path, pars->cmd);
 		if (access(res, F_OK) == 0)
 		{
-			ft_exec(pars, res, envp);
+			ft_exec(pars, res, data);
 			free(res);
 			ft_free_tab(data->bin_env);
 			return ;
@@ -70,7 +72,8 @@ void	ft_execve(t_pars *pars, t_data *data, char **envp)
 		free(res);
 		i++;
 	}
-	printf("%s: connard not found\n", pars->cmd);
+	printf("Error : [%d]\n",errno);
+	perror("command not found");
 	ft_free_tab(data->bin_env);
 	data->bin_env = NULL;
 }
@@ -107,5 +110,38 @@ char	**ft_joincmd(char *cmd, char **args)
 		i++;
 	}
 	res[i + 1] = '\0';
+	return (res);
+}
+
+char	**ft_join_env(t_data *data)
+{
+	int		i;
+	char	**res;
+	int		set;
+
+	set = 0;
+	i = 0;
+	while (data->env[i].id)
+	{
+		if (data->env[i].set == 1)
+			set++;
+		i++;
+	}
+	res = malloc(sizeof(char *) * (set + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	set = 0;
+	while (data->env[i].id)
+	{
+		if (data->env[i].set == 1)
+		{
+			res[set] = ft_strjoin_keep(data->env[i].id, "=");
+			res[set] = ft_strjoin(res[set], data->env[i].value);
+			set++;
+		}
+		i++;
+	}
+	res[set] = NULL;
 	return (res);
 }

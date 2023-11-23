@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:38:42 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:29:47 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <readline/history.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-
+# include <errno.h>
 /* struct data
 *	bin_env	=>	PATH f the shell
 *	error	=>	error message
@@ -30,6 +30,7 @@
 typedef struct s_data
 {
 	char			**bin_env;
+	char			**join_env;
 	char			*error;
 	struct s_env	*env;
 }	t_data;
@@ -135,16 +136,17 @@ int		ft_len_arg(char	*s, int i);
 char	*ft_substr_quotes(char	*s);
 int		ft_count_split(char *s);
 /*main.c*/
-void	ft_exec_cmd(char *line, t_data *data, char **envp);
+void	ft_exec_cmd(char *line, t_data *data);
 void	ft_free_all(t_data *data, char **args, t_pars *pars);
-void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, char **envp);
+void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars);
 /* signal.c */
 void	ft_sigint(int sig);
 void	ft_sigquit(int sig);
 /* execve.c */
-void	ft_exec(t_pars *pars, char *cmd, char **envp);
-void	ft_execve(t_pars *pars, t_data *data, char **envp);
+void	ft_exec(t_pars *pars, char *cmd, t_data *data);
+void	ft_execve(t_pars *pars, t_data *data);
 char	**ft_joincmd(char *cmd, char **args);
+char	**ft_join_env(t_data *data);
 /* pars_tab.c */
 t_pars	*ft_init_cmd_line(char **pars);
 int		ft_count_args_line(char **pars, int flag);

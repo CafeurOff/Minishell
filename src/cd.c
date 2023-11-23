@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:55 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:34:40 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:30:26 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 
 void	ft_cd(t_data *data, t_pars *pars)
 {
-	printf("%s\n", pars->args[0]);
 	if (pars->args[0][0] == '~')
 		ft_cd_home(data);
 	else
@@ -48,8 +47,7 @@ void	ft_cd_path(t_pars *pars, t_data *data)
 {
 	if (chdir(pars->args[0]) == -1)
 	{
-		printf("minishell: cd: %s: No such file or directory\n",
-			pars->args[0]);
+		perror(pars->args[0]);
 		return ;
 	}
 	ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);
