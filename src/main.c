@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/28 17:38:59 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/28 18:48:22 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	main(int ac, char **av, char **envp)
 	data = malloc(sizeof(t_data));
 	data->env = ft_copy_env(envp);
 	data->bin_env = NULL;
+	data->join_env = NULL;
 	data->error = NULL;
 	signal(SIGINT, ft_sigint);
 	signal(SIGQUIT, ft_sigquit);
@@ -60,13 +61,15 @@ void	ft_exec_cmd(char *line, t_data *data)
 	t_pars	*cmd;
 
 	pars = ft_parsing(line, data);
+	free(line);
 	if (ft_syntax_error(pars, data))
 	{
-		free(line);
 		ft_free_tab(pars);
 		return ;
 	}
 	cmd = ft_init_cmd_line(pars);
+	if (cmd[0].del != NULL)
+		ft_delimiter(cmd);
 	ft_is_builtin(cmd, data, pars);
 	ft_free_tab(pars);
 	ft_free_t_pars(cmd);
@@ -83,7 +86,6 @@ void	ft_free_all(t_data *data, char **args, t_pars *pars)
 {
 	rl_clear_history();
 	ft_free_tab(args);
-	ft_free_tab(data->join_env);
 	ft_free_t_pars(pars);
 	ft_free(data->env);
 	if (data->error)

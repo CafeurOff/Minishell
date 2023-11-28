@@ -6,12 +6,12 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:02:09 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/28 17:57:08 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/28 18:31:31 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 void	ft_delimiter(t_pars *pars)
 {
 	int	fd;
@@ -40,7 +40,7 @@ void	ft_delimiter(t_pars *pars)
 		free(line);
 	}
 }
-*/
+
 //open
 //close
 //unlink apres le changement de ligne de commande

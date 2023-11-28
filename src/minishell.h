@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/28 18:04:22 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/28 18:33:48 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <fcntl.h>
+
 /* struct data
 *	bin_env	=>	PATH f the shell
 *	error	=>	error message
@@ -132,7 +134,7 @@ int		ft_count_args_line(char **pars, int flag);
 t_pars	*ft_command_line(char **pars, t_pars *cmd);
 int		ft_count_lines(char **pars);
 /* redirection.c */
-//void	ft_delimiter(t_pars *pars);
+void	ft_delimiter(t_pars *pars);
 /* parsing.c */
 char	**ft_parsing(char *line, t_data *data);
 int	    ft_count_args(char *line);
