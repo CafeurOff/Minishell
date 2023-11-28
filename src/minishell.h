@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/23 16:29:47 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:26:56 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,27 +114,6 @@ int		count_word(char *s, char c);
 char	**ft_split_env(char *s, char c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strjoin_keep(char *s1, char *s2);
-/*parse.c*/
-int		ft_white_line(char *line);
-int		ft_skip_arg(char *line, int i);
-int		ft_skip_arg_quotes(char *line, int i);
-char	*ft_parse_quotes(char *line);
-char	*ft_parse_pipe(char *line);
-/*parsing.c*/
-char	*ft_substr_arg(char *line, t_env *env);
-char	*ft_subarg(char *line, int arg, t_env *env);
-char	**ft_parsing(char *line, t_env *env);
-int		ft_count_args(char *line);
-char	*ft_subarg_quotes(char *line, t_env *env);
-/*var_env.c.c*/
-char	*ft_env_val(char *pars, t_env *env);
-char	*ft_env_in_string(char *s, t_env *env);
-int		ft_strenv_len(char **var);
-char	**ft_env_var(char **var, t_env *env);
-char	**ft_split_string(char *s);
-int		ft_len_arg(char	*s, int i);
-char	*ft_substr_quotes(char	*s);
-int		ft_count_split(char *s);
 /*main.c*/
 void	ft_exec_cmd(char *line, t_data *data);
 void	ft_free_all(t_data *data, char **args, t_pars *pars);
@@ -152,5 +131,25 @@ t_pars	*ft_init_cmd_line(char **pars);
 int		ft_count_args_line(char **pars, int flag);
 t_pars	*ft_command_line(char **pars, t_pars *cmd);
 int		ft_count_lines(char **pars);
+
+
+
+/* reparse.c */
+char	**ft_parsing(char *line, t_data *data);
+int	ft_count_args(char *line);
+int	ft_skip_arg(char *line, int i);
+char	*ft_subarg(char *line, t_data *data);
+char	*ft_var(char *l, t_data *data);
+int		ft_skip_env_val(char *l, int i);
+char	*ft_replace_line(char *l, char **var);
+int	ft_replacelen(char *l, char **var);
+int		ft_count_env_val(char *line);
+int	ft_skip_arg_quotes(char *line, int i);
+int	ft_white_line(char *s);
+char	*ft_without_quotes(char *s);
+
+/* error.c */
+int		ft_syntax_error(char **pars, t_data *data);
+int		ft_operator(char *s);
 
 #endif

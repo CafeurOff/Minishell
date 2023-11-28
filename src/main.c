@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/23 16:34:39 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/11/28 17:27:00 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,13 @@ void	ft_exec_cmd(char *line, t_data *data)
 	char	**pars;
 	t_pars	*cmd;
 
-	pars = ft_parsing(line, data->env);
+	pars = ft_parsing(line, data);
+	if (ft_syntax_error(pars, data))
+	{
+		free(line);
+		ft_free_tab(pars);
+		return ;
+	}
 	cmd = ft_init_cmd_line(pars);
 	ft_is_builtin(cmd, data, pars);
 	ft_free_tab(pars);
