@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/28 17:26:56 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/28 18:04:22 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,25 +131,25 @@ t_pars	*ft_init_cmd_line(char **pars);
 int		ft_count_args_line(char **pars, int flag);
 t_pars	*ft_command_line(char **pars, t_pars *cmd);
 int		ft_count_lines(char **pars);
-
-
-
-/* reparse.c */
+/* redirection.c */
+//void	ft_delimiter(t_pars *pars);
+/* parsing.c */
 char	**ft_parsing(char *line, t_data *data);
-int	ft_count_args(char *line);
-int	ft_skip_arg(char *line, int i);
+int	    ft_count_args(char *line);
 char	*ft_subarg(char *line, t_data *data);
+/* sub_parsing.c */
 char	*ft_var(char *l, t_data *data);
-int		ft_skip_env_val(char *l, int i);
 char	*ft_replace_line(char *l, char **var);
-int	ft_replacelen(char *l, char **var);
+int	    ft_replacelen(char *l, char **var);
 int		ft_count_env_val(char *line);
-int	ft_skip_arg_quotes(char *line, int i);
-int	ft_white_line(char *s);
+/* parse.c */
+int		ft_skip_env_val(char *l, int i);
+int	    ft_skip_arg(char *line, int i);
+int	    ft_skip_arg_quotes(char *line, int i);
 char	*ft_without_quotes(char *s);
-
 /* error.c */
 int		ft_syntax_error(char **pars, t_data *data);
 int		ft_operator(char *s);
+int	    ft_white_line(char *s);
 
 #endif

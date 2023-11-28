@@ -3,58 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 11:27:30 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/22 23:41:42 by lduthill         ###   ########.fr       */
+/*   Created: 2023/11/28 17:56:56 by roroca            #+#    #+#             */
+/*   Updated: 2023/11/28 18:04:21 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*	ft_white_line()
-	Function to verif if the line is not compose from only whitespace
-*/
-
-int	ft_white_line(char *line)
+int		ft_skip_env_val(char *l, int i)
 {
-	int	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (line[i] != 32 && (line[i] >= 9 || line[i] <= 13))
-			return (0);
+	i++;
+	if (l[1] >= 48 && l[1]<= 57)
+		return (i + 1);
+	while ((l[i] >= 48 && l[i]<= 57) || (l[i] >= 65 && l[i] <= 90) || (l[i] >= 97 && l[i] <= 122) || l[i] == 95)
 		i++;
-	}
-	return (1);
+	return (i);
 }
-/*	ft_skip_arg()
-	Initially a function to skip charachters of a same arg
-	But can also be used to count the lenght of an arg
-*/
 
 int	ft_skip_arg(char *line, int i)
 {
-	if ((line[i] == 60 && line[i + 1] == 60) || (line[i] == 62
-			&& line[i + 1] == 62))
-		return (i + 2);
-	if (line[i] == 124 || line[i] == 60 || line[i] == 62)
+	if ((line[i] == 60 && line[i + 1] == 60) || (line[i] == 62 && line[i + 1] == 62))
+		return(i + 2);
+	else if (line[i] == 60 || line[i] == 62 || line[i] == 124)
 		return (i + 1);
-	if (line[i] == 39 || line[i] == 34)
-		i = ft_skip_arg_quotes(line, i);
-	else
-	{
-		while (line[i])
-		{
-			if (line[i] == 124 || line[i] == 32 || line[i] == 34
-				|| line[i] == 39 || line[i] == 36
-				|| (line[i] >= 9 && line[i] <= 13) || line[i] == 60
-				|| line[i] == 62)
-				return (i);
-			i++;
-		}
-	}
+	while (line[i] && line[i] != 32 && line[i] != 60 && line[i] != 62 && (line[i] <= 9 || line[i] >= 13) && line[i] != 124)
+		i++;
 	return (i);
 }
 
@@ -62,19 +37,37 @@ int	ft_skip_arg_quotes(char *line, int i)
 {
 	int	flag;
 
-	flag = line[i];
-	i++;
+	flag = line[i++];
 	while (line[i + 1] && line[i] != flag)
 		i++;
 	return (i + 1);
 }
 
-int	ft_skip_env_val(char *line, int i)
+char	*ft_without_quotes(char *s)
 {
-	while (line[i] && line[i] != 36 && line[i] != 32
-		&& (line[i] < 9 || line[i] > 13))
+	int	i;
+	int	len;
+	char	*res;
+
+	i =-1;
+	len = 0;
+	while (s[++i])
 	{
-		i++;
+		if (s[i] != 39 && s[i] != 34)
+			len++;
 	}
-	return (i);
+	res = malloc(sizeof(char)  * (len + 1));
+	if (!res)
+		return (NULL);
+	i = 0;
+	len = 0;
+	while (s[i])
+	{
+		while (s[i] == 39 || s[i] == 34)
+			i++;
+		if (s[i])
+			res[len++] = s[i++];
+	}
+	res[len] = 0;
+	return (free(s), res);
 }

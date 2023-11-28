@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:02:09 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/28 12:22:05 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/28 17:57:08 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_delimiter(t_pars *pars)
 	int	fd;
 	char	*line;
 
-	fd = open(".tmp", O_RDWR | O_CREAT, 777);
+	fd = open(".tmp", O_RDWR | O_CREAT, 0644);
 	printf("%d", fd);
 	while (1)
 	{
@@ -25,6 +25,8 @@ void	ft_delimiter(t_pars *pars)
 		if (!line)
 		{
 			printf("bash: warning:here-document at line 1 delimited by end-of-file (wanted `%s')\n", pars[0].del);
+            close (fd);
+            free(line);
 			return ;
 		}
 		if (ft_strncmp(line, pars[0].del, ft_strlen(pars[0].del)) == 0)

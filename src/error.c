@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:05 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/28 17:26:53 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/28 17:57:10 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,19 @@ int		ft_operator(char *s)
 		return (1);
 	else
 		return (0);
+}
+
+int	ft_white_line(char *s)
+{
+	int	i;
+
+	i = 0;
+	if ((s[0] == 33 || s[0] == 58) && s[1] == 0)
+	while (s[i])
+	{
+		if ((s[i] < 9 || s[i] > 13) && s[i] != 32)
+			return (0);
+		i++;
+	}
+	return (1);
 }
