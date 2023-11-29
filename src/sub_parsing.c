@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:00:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/28 18:01:02 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:38:46 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ char	*ft_var(char *l, t_data *data)
 	len = ft_skip_env_val(l, 0);
 	if (len == 1 || (l[1] >= 48 && l[1] <= 57))
 	{
-		tmp = malloc(sizeof(char) * 1);
-		tmp[0] = 0;
+		tmp = malloc(sizeof(char) * 2);
+		tmp[0] = 36;
+		tmp[1] = 0;
 		return (tmp);
 	}
 	tmp = ft_strdup(l + 1);
