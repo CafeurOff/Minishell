@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/28 18:33:48 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/29 11:55:01 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,5 +153,6 @@ char	*ft_without_quotes(char *s);
 int		ft_syntax_error(char **pars, t_data *data);
 int		ft_operator(char *s);
 int	    ft_white_line(char *s);
+int	ft_unlosed_quotes(char	*s);
 
 #endif

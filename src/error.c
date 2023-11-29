@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:05 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/28 18:41:55 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/29 11:55:00 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,26 @@ int	ft_white_line(char *s)
 		i++;
 	}
 	return (1);
+}
+
+int	ft_unlosed_quotes(char	*s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == 34 || s[i] == 39)
+		{
+			i = ft_skip_arg_quotes(s, i);
+			if (s[i] == 0 && s[i - 1] != 34 && s[i - 1] != 39)
+			{
+				printf("Error not handled : quotes unclosed\n");
+				return (1);
+			}
+		}
+		else
+			i++;
+	}
+	return (0);
 }

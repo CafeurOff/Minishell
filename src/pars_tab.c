@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:58:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/28 17:04:33 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/29 11:34:17 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_pars	*ft_init_cmd_line(char **pars)
 			cmd[i].args = NULL;
 		cmd[i].in = NULL;
 		cmd[i].out = NULL;
+		cmd[i].del = NULL;
 		i++;
 	}
 	cmd[i].cmd = NULL;

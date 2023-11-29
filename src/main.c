@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/28 18:48:22 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/29 11:55:01 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main(int ac, char **av, char **envp)
 	data->env = ft_copy_env(envp);
 	data->bin_env = NULL;
 	data->join_env = NULL;
-	data->error = NULL;
+	data->error = "0";
 	signal(SIGINT, ft_sigint);
 	signal(SIGQUIT, ft_sigquit);
 	while (1)
@@ -40,7 +40,7 @@ int	main(int ac, char **av, char **envp)
 		if (!line)
 			return (ft_free(data->env), free(data), rl_clear_history(), 0);
 		add_history(line);
-		if (ft_white_line(line) != 1)
+		if (ft_white_line(line) != 1 && ft_unlosed_quotes(line) != 1)
 			ft_exec_cmd(line, data);
 		else
 			free(line);
@@ -88,8 +88,6 @@ void	ft_free_all(t_data *data, char **args, t_pars *pars)
 	ft_free_tab(args);
 	ft_free_t_pars(pars);
 	ft_free(data->env);
-	if (data->error)
-		free(data->error);
 	free(data);
 	exit(0);
 }
