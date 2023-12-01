@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/29 11:55:01 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/01 15:25:37 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,7 @@ void	ft_exec_cmd(char *line, t_data *data)
 		return ;
 	}
 	cmd = ft_init_cmd_line(pars);
-	if (cmd[0].del != NULL)
-		ft_delimiter(cmd);
-	ft_is_builtin(cmd, data, pars);
+	ft_is_builtin(cmd, data, pars, 0);
 	ft_free_tab(pars);
 	ft_free_t_pars(cmd);
 }
@@ -100,21 +98,23 @@ void	ft_free_all(t_data *data, char **args, t_pars *pars)
 *  @envp : environnement
 */
 
-void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars)
+void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i)
 {
-	if (ft_strncmp(cmd[0].cmd, "cd", 3) == 0)
-		ft_cd(data, cmd);
-	else if (ft_strncmp(cmd[0].cmd, "export", 7) == 0)
-		ft_export(cmd, data, 0);
-	else if (ft_strncmp(cmd[0].cmd, "unset", 6) == 0)
-		ft_unset(cmd, data, 0);
-	else if (ft_strncmp(cmd[0].cmd, "pwd", 4) == 0)
+	if (cmd[i].del != NULL)
+		ft_delimiter(cmd);
+	if (ft_strncmp(cmd[i].cmd, "cd", 3) == 0)
+		ft_cd(data, cmd, i);
+	else if (ft_strncmp(cmd[i].cmd, "export", 7) == 0)
+		ft_export(cmd, data, i);
+	else if (ft_strncmp(cmd[i].cmd, "unset", 6) == 0)
+		ft_unset(cmd, data, i);
+	else if (ft_strncmp(cmd[i].cmd, "pwd", 4) == 0)
 		printf("%s\n", ft_getenv("PWD", data->env));
-	else if (ft_strncmp(cmd[0].cmd, "env", 4) == 0)
+	else if (ft_strncmp(cmd[i].cmd, "env", 4) == 0)
 		ft_print_env(data->env);
-	else if (ft_strncmp(cmd[0].cmd, "echo", 5) == 0)
-		ft_echo(cmd, 0);
-	else if (ft_strncmp(cmd[0].cmd, "exit", 5) == 0)
+	else if (ft_strncmp(cmd[i].cmd, "echo", 5) == 0)
+		ft_echo(cmd, i);
+	else if (ft_strncmp(cmd[i].cmd, "exit", 5) == 0)
 		ft_free_all(data, pars, cmd);
 	else
 		ft_execve(cmd, data);

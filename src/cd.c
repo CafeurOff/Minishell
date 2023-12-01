@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:55 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/23 16:30:26 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:27:01 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 *	@pars : struct with all the parsed data
 */
 
-void	ft_cd(t_data *data, t_pars *pars)
+void	ft_cd(t_data *data, t_pars *pars, int i)
 {
-	if (pars->args[0][0] == '~')
+	if (pars[i].args[0][0] == '~')
 		ft_cd_home(data);
 	else
-		ft_cd_path(pars, data);
+		ft_cd_path(pars, data, i);
 }
 /* ft_cd_home()
 *  Function for change directory to $HOME
@@ -43,11 +43,11 @@ void	ft_cd_home(t_data *data)
 *  @pars : struct with all the parsed data
 */
 
-void	ft_cd_path(t_pars *pars, t_data *data)
+void	ft_cd_path(t_pars *pars, t_data *data, int i)
 {
-	if (chdir(pars->args[0]) == -1)
+	if (chdir(pars[i].args[0]) == -1)
 	{
-		perror(pars->args[0]);
+		perror(pars[i].args[0]);
 		return ;
 	}
 	ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);

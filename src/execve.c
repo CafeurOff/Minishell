@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/23 16:48:34 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:22:26 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,8 @@ void	ft_execve(t_pars *pars, t_data *data)
 		free(res);
 		i++;
 	}
-	printf("Error : [%d]\n",errno);
 	perror("command not found");
+	data->error = ft_itoa(errno);
 	ft_free_tab(data->bin_env);
 	data->bin_env = NULL;
 }
@@ -134,7 +134,7 @@ char	**ft_join_env(t_data *data)
 	set = 0;
 	while (data->env[i].id)
 	{
-		if (data->env[i].set == 1)
+		if (data->env[i].set == 1 && data->env[i].value != NULL)
 		{
 			res[set] = ft_strjoin_keep(data->env[i].id, "=");
 			res[set] = ft_strjoin(res[set], data->env[i].value);

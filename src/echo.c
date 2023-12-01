@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:10:49 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:35:50 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:29:20 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,29 @@
 void	ft_echo(t_pars *pars, int i)
 {
 	int		flag;
+	int		j;
 
+	j = 0;
 	flag = 1;
-	if (pars->args[i])
+	if (pars[i].args == NULL)
 	{
-		while (pars->args[i])
+		printf("\n");
+		return ;
+	}
+	if (pars[i].args[i])
+	{
+		while (pars[i].args[j])
 		{
-			if (ft_print_echo(pars->args[i]) == 0)
+			if (ft_print_echo(pars[i].args[j]) == 0)
 				flag = 0;
 			else
 				break ;
-			i++;
+			j++;
 		}
-		while (pars->args[i])
+		while (pars[i].args[j])
 		{
-			printf("%s", pars->args[i]);
-			if (pars->args[++i])
+			printf("%s", pars[j].args[j]);
+			if (pars[i].args[++j])
 				printf(" ");
 		}
 	}

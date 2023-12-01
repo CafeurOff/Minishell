@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:35:44 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:46:10 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:28:29 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int	ft_unset(t_pars *pars, t_data *data, int i)
 {
-	if (!pars->args)
+	if (!pars[i].args)
 		return (110); // Make error functions for free and display error message.
 	ft_unsetenv(pars[i].args, data);
 	return (0);

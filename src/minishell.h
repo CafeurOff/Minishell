@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/29 11:55:01 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/01 15:26:47 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ int		ft_id_exist(t_data *data, char *str);
 int		ft_unset(t_pars *pars, t_data *data, int i);
 void	ft_unsetenv(char **str, t_data *data);
 /* cd.c */
-void	ft_cd(t_data *data, t_pars *pars);
+void	ft_cd(t_data *data, t_pars *pars, int i);
 void	ft_cd_home(t_data *data);
-void	ft_cd_path(t_pars *pars, t_data *data);
+void	ft_cd_path(t_pars *pars, t_data *data, int i);
 /* echo.c */
 void	ft_echo(t_pars *pars, int i);
 int		ft_print_echo(char *str);
@@ -119,7 +119,7 @@ char	*ft_strjoin_keep(char *s1, char *s2);
 /*main.c*/
 void	ft_exec_cmd(char *line, t_data *data);
 void	ft_free_all(t_data *data, char **args, t_pars *pars);
-void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars);
+void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i);
 /* signal.c */
 void	ft_sigint(int sig);
 void	ft_sigquit(int sig);

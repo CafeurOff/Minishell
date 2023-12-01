@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:37:38 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:28:20 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_export(t_pars *pars, t_data *data, int i)
 	int	k;
 
 	j = 0;
-	if (!pars->args)
+	if (!pars[i].args)
 	{
 		ft_print_export(data->env);
 		return ;
