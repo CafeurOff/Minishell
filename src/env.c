@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:30:47 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/23 16:05:05 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 15:31:45 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void	ft_print_env(t_env *env)
 	i = 0;
 	while (env[i].id)
 	{
-		if (env[i].set == 1)
+		if (env[i].set == 1 && env[i].value != NULL)
 			printf("%s=%s\n", env[i].id, env[i].value);
 		i++;
 	}

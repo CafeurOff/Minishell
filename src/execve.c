@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/01 15:22:26 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:13:27 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_execve(t_pars *pars, t_data *data)
 		free(res);
 		i++;
 	}
-	perror("command not found");
+	printf("%s: connard not found\n", pars->cmd);
 	data->error = ft_itoa(errno);
 	ft_free_tab(data->bin_env);
 	data->bin_env = NULL;

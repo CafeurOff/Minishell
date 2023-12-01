@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/01 15:26:47 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:35:52 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ void	ft_unsetenv(char **str, t_data *data);
 void	ft_cd(t_data *data, t_pars *pars, int i);
 void	ft_cd_home(t_data *data);
 void	ft_cd_path(t_pars *pars, t_data *data, int i);
+int		cd_error_management(t_data *data, t_pars *pars, int i);
 /* echo.c */
 void	ft_echo(t_pars *pars, int i);
 int		ft_print_echo(char *str);
@@ -116,10 +117,13 @@ int		count_word(char *s, char c);
 char	**ft_split_env(char *s, char c);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_strjoin_keep(char *s1, char *s2);
+/* utils5.c */
+int		ft_isalnum(int i);
 /*main.c*/
 void	ft_exec_cmd(char *line, t_data *data);
 void	ft_free_all(t_data *data, char **args, t_pars *pars);
 void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i);
+void	ft_pwd(t_data *data);
 /* signal.c */
 void	ft_sigint(int sig);
 void	ft_sigquit(int sig);
@@ -154,5 +158,6 @@ int		ft_syntax_error(char **pars, t_data *data);
 int		ft_operator(char *s);
 int	    ft_white_line(char *s);
 int	ft_unlosed_quotes(char	*s);
+int	ft_export_error(char **str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/01 15:28:20 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:36:42 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	ft_export(t_pars *pars, t_data *data, int i)
 		ft_print_export(data->env);
 		return ;
 	}
+	if (ft_export_error(pars[i].args) == 1)
+		return ;
 	while (pars[i].args[j])
 	{
 		k = ft_id_index(data, pars[i].args[j]);

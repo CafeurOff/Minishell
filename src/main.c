@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/01 15:25:37 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/01 16:30:52 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i)
 	else if (ft_strncmp(cmd[i].cmd, "unset", 6) == 0)
 		ft_unset(cmd, data, i);
 	else if (ft_strncmp(cmd[i].cmd, "pwd", 4) == 0)
-		printf("%s\n", ft_getenv("PWD", data->env));
+		ft_pwd(data);
 	else if (ft_strncmp(cmd[i].cmd, "env", 4) == 0)
 		ft_print_env(data->env);
 	else if (ft_strncmp(cmd[i].cmd, "echo", 5) == 0)
@@ -118,4 +118,14 @@ void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i)
 		ft_free_all(data, pars, cmd);
 	else
 		ft_execve(cmd, data);
+}
+
+void	ft_pwd(t_data *data)
+{
+	if (getcwd(NULL, 0) == NULL)
+	{
+		printf("pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
+		return ;
+	}
+	printf("%s\n", ft_getenv("PWD", data->env));
 }
