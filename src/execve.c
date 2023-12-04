@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/01 16:13:27 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:27:46 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_execve(t_pars *pars, t_data *data)
 	if (!data->bin_env)
 	{
 		printf("%s: connard not found\n", pars->cmd);
+		data->error = "127";
 		return ;
 	}
 	while (data->bin_env[i])
@@ -73,7 +74,7 @@ void	ft_execve(t_pars *pars, t_data *data)
 		i++;
 	}
 	printf("%s: connard not found\n", pars->cmd);
-	data->error = ft_itoa(errno);
+	data->error = "127";
 	ft_free_tab(data->bin_env);
 	data->bin_env = NULL;
 }
@@ -145,3 +146,6 @@ char	**ft_join_env(t_data *data)
 	res[set] = NULL;
 	return (res);
 }
+
+
+//

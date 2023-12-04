@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:05 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/01 16:41:20 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:52:50 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,10 @@ int		ft_syntax_error(char **pars, t_data *data)
 {
 	int	i;
 
-	i = 1;
-	if (ft_operator(pars[0]))
-		return (1);
+	i = 0;
 	while (pars[i])
 	{
-		if ((ft_operator(pars[i]) && ft_operator(pars[i + 1])) || (ft_operator(pars[i]) && pars[i + 1] == NULL))
+		if ((ft_operator(pars[i]) && ft_operator(pars[i + 1])) || (ft_operator(pars[i]) && pars[i + 1] == NULL) || (ft_operator(pars[0]) == 1))
 		{
 			data->error = "2";
 			printf("bash: syntax error near unexpected token `%s'\n", pars[i]);
@@ -34,6 +32,8 @@ int		ft_syntax_error(char **pars, t_data *data)
 
 int		ft_operator(char *s)
 {
+	if (s == NULL)
+		return (1);
 	if (ft_strncmp(s, ">>", 3) == 0)
 		return (1);
 	else if (ft_strncmp(s, "<<", 3) == 0)
@@ -86,7 +86,7 @@ int	ft_unlosed_quotes(char	*s)
 	return (0);
 }
 
-int	ft_export_error(char **str)
+int	ft_export_error(char **str, t_data *data)
 {
 	int	i;
 	int	j;
@@ -95,29 +95,47 @@ int	ft_export_error(char **str)
 	j = 0;
 	while (str[i])
 	{
-		if (str[i][0] == 61)
-		{
-			printf("bash: export: `%s': not a valid identifier\n", str[i]);
-			return (1);
-		}
-		if (str[i][0] == 22)
-		{
-			printf("bash: export: `%s': not a valid identifier\n", str[i]);
-			return (1);
-		}
+		ft_identifier_error(str, data);
 		while (str[i][j])
 		{
 			if (str[i][j] == 61)
 				break ;
-			if (ft_isalnum(str[i][j]) == 0)
+			if (ft_isalnum(str[i][j]) == 0 && str[i][j] != 95)
 			{
 				printf("bash: export: `%s': not a valid identifier\n", str[i]);
+				data->error = "1";
 				return (1);
 			}
 			j++;
 		}
 		j = 0;
 		i++;
+	}
+	return (0);
+}
+
+int		ft_identifier_error(char **str, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	if (str[i][0] >= '0' && str[i][0] <= '9')
+	{
+		printf("bash: export: `%s': not a valid identifier\n", str[i]);
+		data->error = "1";
+		return (1);
+	}
+	if (str[i][0] == 61)
+	{
+		printf("bash: export: `%s': not a valid identifier\n", str[i]);
+		data->error = "1";
+		return (1);
+	}
+	if (str[i][0] == 32)
+	{
+		printf("bash: export: `%s': not a valid identifier\n", str[i]);
+		data->error = "1";
+		return (1);
 	}
 	return (0);
 }

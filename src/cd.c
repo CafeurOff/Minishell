@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:55 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/01 16:01:40 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/04 14:43:01 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,19 @@ void	ft_cd_path(t_pars *pars, t_data *data, int i)
 	{
 		printf("minishell: cd: error retrieving current directory: getcwd: "
 			"cannot access parent directories: No such file or directory\n");
+		data->error = "1";
 		return ;
 	}
 	if (chdir(pars[i].args[0]) == -1)
 	{
+		if (errno == ENOTDIR)
+		{
+			perror(pars[i].args[0]);
+			data->error = "1";
+			return ;
+		}
 		perror(pars[i].args[0]);
+		data->error = "127";
 		return ;
 	}
 	ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);
@@ -72,11 +80,13 @@ int	cd_error_management(t_data *data, t_pars *pars, int i)
 	if (pars[i].args[0][0] == '-')
 	{
 		printf("minishell: cd: %s: invalid option\n", pars[i].args[0]);
+		data->error = "2";
 		return (1);
 	}
 	if (pars[i].args[1] != NULL)
 	{
 		printf("minishell: cd: too many arguments\n");
+		data->error = "1";
 		return (1);
 	}
 	return (0);

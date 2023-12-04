@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/01 16:35:52 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/04 15:52:20 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_data
 	char			**bin_env;
 	char			**join_env;
 	char			*error;
+	int				*fd;
+	int				*fd2;
 	struct s_env	*env;
 }	t_data;
 
@@ -84,6 +86,9 @@ int		ft_id_exist(t_data *data, char *str);
 /* unset.c */
 int		ft_unset(t_pars *pars, t_data *data, int i);
 void	ft_unsetenv(char **str, t_data *data);
+int		ft_unset_error(char **str, t_data *data);
+int		ft_unset_identifier_error(char **str, t_data *data);
+
 /* cd.c */
 void	ft_cd(t_data *data, t_pars *pars, int i);
 void	ft_cd_home(t_data *data);
@@ -157,7 +162,7 @@ char	*ft_without_quotes(char *s);
 int		ft_syntax_error(char **pars, t_data *data);
 int		ft_operator(char *s);
 int	    ft_white_line(char *s);
-int	ft_unlosed_quotes(char	*s);
-int	ft_export_error(char **str);
-
+int		ft_unlosed_quotes(char	*s);
+int		ft_export_error(char **str, t_data *data);
+int		ft_identifier_error(char **str, t_data *data);
 #endif
