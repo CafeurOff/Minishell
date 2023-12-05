@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/04 19:09:42 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/05 16:33:04 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int	main(int ac, char **av, char **envp)
 	data->bin_env = NULL;
 	data->join_env = NULL;
 	data->error = "0";
-//	pipe(data->fd);
-//	pipe(data->fd2);
 	signal(SIGINT, ft_sigint);
 	signal(SIGQUIT, ft_sigquit);
 	while (1)
@@ -70,10 +68,10 @@ void	ft_exec_cmd(char *line, t_data *data)
 		return ;
 	}
 	cmd = ft_init_cmd_line(pars);
-	//if (cmd[1] != NULL)
-	//	printf("PIPE\n");
-//	else
-	ft_is_builtin(cmd, data, pars, 0);
+	if (cmd[1].cmd != NULL)
+		ft_exec_pipe(data, pars, cmd, 0);
+	else
+		ft_is_builtin(cmd, data, pars, 0);
 	ft_free_tab(pars);
 	ft_free_t_pars(cmd);
 }

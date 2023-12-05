@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/04 15:52:20 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/05 17:48:20 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,4 +165,8 @@ int	    ft_white_line(char *s);
 int		ft_unlosed_quotes(char	*s);
 int		ft_export_error(char **str, t_data *data);
 int		ft_identifier_error(char **str, t_data *data);
+/* pipe.c */
+void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd,  int i);
+void	ft_handle_pipe(int *fd);
+
 #endif
