@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/04 15:27:46 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:11:01 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	ft_exec(t_pars *pars, char *cmd, t_data *data)
 * @envp : environnement
 */
 
-void	ft_execve(t_pars *pars, t_data *data)
+void	ft_execve(t_pars *pars, t_data *data, int j)
 {
 	char	*res;
 	char	*path;
@@ -55,17 +55,16 @@ void	ft_execve(t_pars *pars, t_data *data)
 	data->bin_env = ft_split_env(ft_getenv("PATH", data->env), ':');
 	if (!data->bin_env)
 	{
-		printf("%s: connard not found\n", pars->cmd);
-		data->error = "127";
+		printf("%s: connard not found\n", pars[j].cmd);
 		return ;
 	}
 	while (data->bin_env[i])
 	{
 		path = ft_strjoin_keep(data->bin_env[i], "/");
-		res = ft_strjoin(path, pars->cmd);
+		res = ft_strjoin(path, pars[j].cmd);
 		if (access(res, F_OK) == 0)
 		{
-			ft_exec(pars, res, data);
+			ft_exec(pars + j, res, data);
 			free(res);
 			ft_free_tab(data->bin_env);
 			return ;
@@ -73,8 +72,8 @@ void	ft_execve(t_pars *pars, t_data *data)
 		free(res);
 		i++;
 	}
-	printf("%s: connard not found\n", pars->cmd);
-	data->error = "127";
+	printf("%s: connard not found\n", pars[j].cmd);
+	data->error = ft_itoa(errno);
 	ft_free_tab(data->bin_env);
 	data->bin_env = NULL;
 }
@@ -146,6 +145,3 @@ char	**ft_join_env(t_data *data)
 	res[set] = NULL;
 	return (res);
 }
-
-
-//

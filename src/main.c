@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/05 16:33:04 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:10:06 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int	main(int ac, char **av, char **envp)
 	data->bin_env = NULL;
 	data->join_env = NULL;
 	data->error = "0";
+	data->fd = malloc(sizeof(int) * 2);
+	data->fd[0] = dup(STDIN_FILENO);
+	data->fd[1] = dup(STDOUT_FILENO);
 	signal(SIGINT, ft_sigint);
 	signal(SIGQUIT, ft_sigquit);
 	while (1)
@@ -120,7 +123,7 @@ void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i)
 	else if (ft_strncmp(cmd[i].cmd, "exit", 5) == 0)
 		ft_free_all(data, pars, cmd);
 	else
-		ft_execve(cmd, data);
+		ft_execve(cmd, data, i);
 }
 
 void	ft_pwd(t_data *data)
@@ -128,8 +131,7 @@ void	ft_pwd(t_data *data)
 	if (getcwd(NULL, 0) == NULL)
 	{
 		printf("pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
-		data->error = "1";
 		return ;
 	}
-	printf("%s\n", ft_getenv("PWD", data->env));
+	printf("%s\n", ft_getenv("PWD", data->env));	
 }

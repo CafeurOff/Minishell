@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/05 17:48:20 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/07 12:09:10 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ typedef struct s_data
 	char			**join_env;
 	char			*error;
 	int				*fd;
-	int				*fd2;
 	struct s_env	*env;
 }	t_data;
 
@@ -75,7 +74,9 @@ typedef struct s_pars
 t_env	*ft_copy_env(char **envp);
 char	*ft_get_id(char *str);
 char	*ft_get_value(char *str);
-char	*ft_getenv(char *str, t_env *env);
+char	*ft_getenv(char *str, t_env 
+
+*env);
 void	ft_print_env(t_env *env);
 /* export.c */
 void	ft_export(t_pars *pars, t_data *data, int i);
@@ -86,9 +87,6 @@ int		ft_id_exist(t_data *data, char *str);
 /* unset.c */
 int		ft_unset(t_pars *pars, t_data *data, int i);
 void	ft_unsetenv(char **str, t_data *data);
-int		ft_unset_error(char **str, t_data *data);
-int		ft_unset_identifier_error(char **str, t_data *data);
-
 /* cd.c */
 void	ft_cd(t_data *data, t_pars *pars, int i);
 void	ft_cd_home(t_data *data);
@@ -134,7 +132,7 @@ void	ft_sigint(int sig);
 void	ft_sigquit(int sig);
 /* execve.c */
 void	ft_exec(t_pars *pars, char *cmd, t_data *data);
-void	ft_execve(t_pars *pars, t_data *data);
+void	ft_execve(t_pars *pars, t_data *data, int j);
 char	**ft_joincmd(char *cmd, char **args);
 char	**ft_join_env(t_data *data);
 /* pars_tab.c */
@@ -162,11 +160,10 @@ char	*ft_without_quotes(char *s);
 int		ft_syntax_error(char **pars, t_data *data);
 int		ft_operator(char *s);
 int	    ft_white_line(char *s);
-int		ft_unlosed_quotes(char	*s);
-int		ft_export_error(char **str, t_data *data);
-int		ft_identifier_error(char **str, t_data *data);
+int	ft_unlosed_quotes(char	*s);
+int	ft_export_error(char **str);
 /* pipe.c */
 void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd,  int i);
-void	ft_handle_pipe(int *fd);
+void	ft_handle_pipe(t_data *data, t_pars *cmd, int i, int *fd);
 
 #endif
