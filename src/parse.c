@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:56:56 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/04 15:44:27 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/29 11:54:59 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,7 @@ int	ft_skip_arg(char *line, int i)
 	else if (line[i] == 60 || line[i] == 62 || line[i] == 124)
 		return (i + 1);
 	while (line[i] && line[i] != 32 && line[i] != 60 && line[i] != 62 && (line[i] <= 9 || line[i] >= 13) && line[i] != 124)
-	{
-		if (line[i] == 34 || line[i] == 39)
-			i = ft_skip_arg_quotes(line, i) - 1;
-		if (line[i])
-			i++;
-	}
+		i++;
 	return (i);
 }
 

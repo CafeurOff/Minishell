@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:35:44 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/04 15:11:26 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:58:48 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ void	ft_unsetenv(char **str, t_data *data)
 		i++;
 	}
 }
+/* ft_unset_error()
+* Check if there is an error in the command
+* @str : string to check
+* @data : struct with all the data
+* return : 1 if error, 0 if not
+*/
 
 int	ft_unset_error(char **str, t_data *data)
 {
@@ -60,14 +66,16 @@ int	ft_unset_error(char **str, t_data *data)
 	int	j;
 
 	i = 0;
-	j = 0;
 	while (str[i])
 	{
+		j = 0;
 		ft_unset_identifier_error(str, data);
 		while (str[i][j])
 		{
 			if (str[i][j] == 61)
 				break ;
+			if (ft_is_special(i, j, str, data) == 0)
+				return (1);
 			if (ft_isalnum(str[i][j]) == 0 && str[i][j] != 95)
 			{
 				printf("bash: unset: `%s': not a valid identifier\n", str[i]);
@@ -76,11 +84,17 @@ int	ft_unset_error(char **str, t_data *data)
 			}
 			j++;
 		}
-		j = 0;
 		i++;
 	}
 	return (0);
 }
+
+/* ft_unset_identifier_error()
+* Check if the identifier is valid
+* @str : string to check
+* @data : struct with all the data
+* return : 1 if error, 0 if not
+*/
 
 int		ft_unset_identifier_error(char **str, t_data *data)
 {
@@ -106,6 +120,26 @@ int		ft_unset_identifier_error(char **str, t_data *data)
 		return (1);
 	}
 	return (0);
+}
+
+/* ft_is_special()
+* Check if the char is special
+* @i : index of the string
+* @j : index of the char
+* @str : string to check
+* @data : struct with all the data
+* return : 1 if special, 0 if not
+*/
+
+int	ft_is_special(int i, int j, char **str, t_data *data)
+{
+	if (str[i][j] == '=' && str[i][j + 1] == 61)
+	{
+		printf("bash: unset: `%s': not a valid identifier\n", str[i]);
+		data->error = "1";
+		return (0);
+	}
+	return (1);
 }
 
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:57:13 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/07 12:09:08 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/07 15:00:14 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,17 @@ void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd,  int i)
 	}
 	else
 	{
-		dup2(0, data->fd[0]);
+		if (cmd[i + 1].cmd == NULL)
+			dup2(data->fd[0], 0);
+		else if (i != 0)
+		{
+			close(fd[1]);
+			dup2(fd[0], 0);
+			close(fd[0]);
+		}
 		waitpid(pid, &status, 0);
 		data->error = ft_itoa((status >> 8));
 	}
-	close(fd[0]);
 }
 
 void	ft_handle_pipe(t_data *data, t_pars *cmd, int i, int *fd)

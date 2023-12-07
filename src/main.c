@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/07 12:10:06 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/07 15:59:08 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,11 @@ void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i)
 		ft_execve(cmd, data, i);
 }
 
+/* ft_pwd()
+*  Function for print the current directory
+*  @data : struct with all the data
+*/
+
 void	ft_pwd(t_data *data)
 {
 	if (getcwd(NULL, 0) == NULL)
@@ -133,5 +138,5 @@ void	ft_pwd(t_data *data)
 		printf("pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
 		return ;
 	}
-	printf("%s\n", ft_getenv("PWD", data->env));	
+	printf("%s\n", ft_getenv("PWD", data->env));
 }

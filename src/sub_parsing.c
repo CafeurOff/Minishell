@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:00:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/06 14:10:05 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/29 12:38:46 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,7 @@ char	*ft_var(char *l, t_data *data)
 	}
 	tmp = ft_strdup(l + 1);
 	tmp[len - 1] = 0;
-	var = ft_strdup(ft_getenv(tmp, data->env));//verif cas d'erreur
-	if (var == NULL)
-	{
-		var = malloc(sizeof(char));
-		var[0] = 0;
-	}
+	var = ft_strdup(ft_getenv(tmp, data->env));
 	free(tmp);
 	return (var);
 }
@@ -59,15 +54,13 @@ char	*ft_replace_line(char *l, char **var)
 	len = 0;
 	while (l[i])
 	{
-		if (l[i] == 36 && l[i + 1] == 34)
-			i++;
-		else if (l[i] == 36 && l[i + 1])
+		if (l[i] == 36 && l[i + 1] != 34)
 		{
 			k = 0;
 			while (var[j][k])
 				res[len++] = var[j][k++];
 			j++;
-			i = ft_skip_env_val(l, i);
+			i += ft_skip_env_val(l, i);
 		}
 		else
 			res[len++] = l[i++];
@@ -110,7 +103,7 @@ int		ft_count_env_val(char *line)
 	{
 		if (line[i] == 39)
 			i = ft_skip_arg_quotes(line, i);
-		while (line[i] == 36 && line[i + 1] != 34 && line[i + 1])
+		while (line[i] == 36 && line[i + 1] != 34)
 		{
 			args++;
 			i = ft_skip_env_val(line, i);

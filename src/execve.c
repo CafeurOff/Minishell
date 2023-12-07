@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/07 12:11:01 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/07 18:31:43 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,15 @@ void	ft_execve(t_pars *pars, t_data *data, int j)
 	int		i;
 
 	i = 0;
+	if (pars[j].cmd[0] == '.' || pars[j].cmd[0] == '/')
+	{
+		ft_exec_path(pars, data, j);
+		return ;
+	}
 	data->bin_env = ft_split_env(ft_getenv("PATH", data->env), ':');
 	if (!data->bin_env)
 	{
-		printf("%s: connard not found\n", pars[j].cmd);
+		printf("%s: command not found\n", pars[j].cmd);
 		return ;
 	}
 	while (data->bin_env[i])
@@ -72,10 +77,54 @@ void	ft_execve(t_pars *pars, t_data *data, int j)
 		free(res);
 		i++;
 	}
-	printf("%s: connard not found\n", pars[j].cmd);
+	printf("%s: command not found\n", pars[j].cmd);
 	data->error = ft_itoa(errno);
 	ft_free_tab(data->bin_env);
 	data->bin_env = NULL;
+}
+
+/* ft_exec_path()
+* Function for execute a command with a path
+* Parse the PATH for find the command in bin
+* @pars : struct with all the parsed data
+* @data : struct with all the data
+* @j : index of the command
+*/
+
+void	ft_exec_path(t_pars *pars, t_data *data, int j)
+{
+	if (ft_is_cmd(pars, data, j) == 1)
+		return ;
+	if (access(pars[j].cmd, X_OK) == 0)
+	{
+		ft_exec(pars + j, pars[j].cmd, data);
+		return ;
+	}
+	printf("%s: command not found\n", pars[j].cmd);
+	data->error = ft_itoa(errno);
+	return ;
+}
+
+/* ft_is_cmd()
+* Function for check if the command is a valid command
+* @pars : struct with all the parsed data
+* @data : struct with all the data
+*/
+
+int		ft_is_cmd(t_pars *pars, t_data *data, int j)
+{
+	int		i;
+
+
+	i = 0;
+	while (pars[j].cmd[i])
+	{
+		if (pars[j].cmd[i] == '.' || pars[j].cmd[i] == '/')
+		{
+			// Faire la verif
+		}
+	}
+	return (0);
 }
 
 /* ft_joincmd()
@@ -113,35 +162,3 @@ char	**ft_joincmd(char *cmd, char **args)
 	return (res);
 }
 
-char	**ft_join_env(t_data *data)
-{
-	int		i;
-	char	**res;
-	int		set;
-
-	set = 0;
-	i = 0;
-	while (data->env[i].id)
-	{
-		if (data->env[i].set == 1)
-			set++;
-		i++;
-	}
-	res = malloc(sizeof(char *) * (set + 1));
-	if (!res)
-		return (NULL);
-	i = 0;
-	set = 0;
-	while (data->env[i].id)
-	{
-		if (data->env[i].set == 1 && data->env[i].value != NULL)
-		{
-			res[set] = ft_strjoin_keep(data->env[i].id, "=");
-			res[set] = ft_strjoin(res[set], data->env[i].value);
-			set++;
-		}
-		i++;
-	}
-	res[set] = NULL;
-	return (res);
-}

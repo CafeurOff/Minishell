@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:13:06 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/04 15:44:25 by roroca           ###   ########.fr       */
+/*   Updated: 2023/11/28 18:03:22 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	ft_count_args(char *line)
 			i++;
 		while ((line[i] == 34 && line[i + 1] == 34) || (line[i] == 39 && line[i + 1] == 39))
 			i += 2;
-		if (line[i] && line[i] != 32 && (line[i] < 9 || line[i] > 13))
+		if (line[i] && line[i] != 32 && (line[i] <= 9 || line[i] >= 13))
 		{
 			i = ft_skip_arg(line, i);
 			args++;
@@ -81,12 +81,12 @@ char	*ft_subarg(char *line, t_data *data)
 	{
 		if (line[i] == 39)
 			i = ft_skip_arg_quotes(line, i);
-		if (line[i] == 36 && line[i + 1] != 34 && line[i + 1])
+		if (line[i] == 36 && line[i + 1] != 34)
 		{
 			var[j++] = ft_var(line + i, data);
 			i = ft_skip_env_val(line, i);
 		}
-		if (line[i])	
+		if (line[i] && !(line[i] == 36 && line[i + 1] != 34) && line[i] != 39)	
 			i++;
 	}
 	var[j] = 0;

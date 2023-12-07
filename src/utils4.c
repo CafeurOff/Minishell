@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:51:21 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/22 23:47:37 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/07 15:57:20 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/* ft_split_env()
+ * Function for split the env
+ * @s : string to split
+ * @c : char for split
+ * return : string splited
+ */
 
 char	**ft_split_env(char *s, char c)
 {
@@ -63,6 +70,13 @@ char	**free_word(char **s)
 	return (NULL);
 }
 
+/* ft_strjoin()
+ * Function for join two string
+ * @s1 : first string
+ * @s2 : second string
+ * return : string joined
+ */
+
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str;
@@ -90,6 +104,13 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[i + a] = '\0';
 	return (str);
 }
+
+/* ft_strjoin_keep()
+ * Function for join two string and keep the first
+ * @s1 : first string
+ * @s2 : second string
+ * return : string joined
+ */
 
 char	*ft_strjoin_keep(char *s1, char *s2)
 {
