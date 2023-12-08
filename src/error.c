@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:05 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/04 14:52:50 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:19:25 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,16 @@ int	ft_white_line(char *s)
 int	ft_unlosed_quotes(char	*s)
 {
 	int	i;
+	int flag;
 
 	i = 0;
 	while (s[i])
 	{
 		if (s[i] == 34 || s[i] == 39)
 		{
+			flag = s[i];
 			i = ft_skip_arg_quotes(s, i);
-			if (s[i] == 0 && s[i - 1] != 34 && s[i - 1] != 39)
+			if (s[i] == 0 && s[i - 1] != flag)
 			{
 				printf("Error not handled : quotes unclosed\n");
 				return (1);
@@ -95,7 +97,8 @@ int	ft_export_error(char **str, t_data *data)
 	j = 0;
 	while (str[i])
 	{
-		ft_identifier_error(str, data);
+		if (ft_identifier_error(str, data))
+			return (1);
 		while (str[i][j])
 		{
 			if (str[i][j] == 61)

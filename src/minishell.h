@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/07 15:48:24 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:26:46 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int		ft_id_exist(t_data *data, char *str);
 /* unset.c */
 int	ft_unset(t_pars *pars, t_data *data, int i);
 void	ft_unsetenv(char **str, t_data *data);
-int	ft_is_special(int i, int j, char **str, t_data *data);
 int	ft_unset_error(char **str, t_data *data);
 int	ft_unset_identifier_error(char **str, t_data *data);
 /* cd.c */

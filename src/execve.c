@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/07 18:31:43 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:40:27 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int		ft_is_cmd(t_pars *pars, t_data *data, int j)
 	int		i;
 
 
+	(void)data;
 	i = 0;
 	while (pars[j].cmd[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:35:44 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/07 15:58:48 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/08 16:28:53 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,10 @@ int	ft_unset_error(char **str, t_data *data)
 	while (str[i])
 	{
 		j = 0;
-		ft_unset_identifier_error(str, data);
+		if (ft_unset_identifier_error(str, data))
+			return (1);
 		while (str[i][j])
 		{
-			if (str[i][j] == 61)
-				break ;
-			if (ft_is_special(i, j, str, data) == 0)
-				return (1);
 			if (ft_isalnum(str[i][j]) == 0 && str[i][j] != 95)
 			{
 				printf("bash: unset: `%s': not a valid identifier\n", str[i]);
@@ -107,39 +104,13 @@ int		ft_unset_identifier_error(char **str, t_data *data)
 		data->error = "1";
 		return (1);
 	}
-	if (str[i][0] == 61)
-	{
-		printf("bash: unset: `%s': not a valid identifier\n", str[i]);
-		data->error = "1";
-		return (1);
-	}
-	if (str[i][0] == 32)
+	if (str[i][0] == 32 || (ft_strchr(str[i], '=')))
 	{
 		printf("bash: unset: `%s': not a valid identifier\n", str[i]);
 		data->error = "1";
 		return (1);
 	}
 	return (0);
-}
-
-/* ft_is_special()
-* Check if the char is special
-* @i : index of the string
-* @j : index of the char
-* @str : string to check
-* @data : struct with all the data
-* return : 1 if special, 0 if not
-*/
-
-int	ft_is_special(int i, int j, char **str, t_data *data)
-{
-	if (str[i][j] == '=' && str[i][j + 1] == 61)
-	{
-		printf("bash: unset: `%s': not a valid identifier\n", str[i]);
-		data->error = "1";
-		return (0);
-	}
-	return (1);
 }
 
 
