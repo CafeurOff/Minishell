@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:35:44 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 02:15:43 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 03:26:41 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@
 
 int	ft_unset(t_pars *pars, t_data *data, int i)
 {
+	if (pars[i].args == NULL)
+	{
+		printf("bash: unset: `': not a valid identifier\n");
+		data->error = 1;
+		return (0);
+	}
 	if (ft_unset_error(pars[i].args, data) == 1)
 		return (0);
 	ft_unsetenv(pars[i].args, data);

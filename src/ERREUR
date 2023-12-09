@@ -11,7 +11,7 @@ CMD | LIGNE DU GDOC
 - echo "'$HO''ME'" | 160
 - $?$? | 202
 - export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 | 330
-- unset "" | 335
+- unset "" | 335 (REGLER)
 
 ERREUR DE PARSING :
 CMD | LIGNE DU GDOC
