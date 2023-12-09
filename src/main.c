@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/07 15:59:08 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 02:01:41 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 *  @envp : environnement
 */
 
+int	g_var;
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
@@ -29,14 +31,9 @@ int	main(int ac, char **av, char **envp)
 	line = NULL;
 	data = malloc(sizeof(t_data));
 	data->env = ft_copy_env(envp);
-	data->bin_env = NULL;
-	data->join_env = NULL;
-	data->error = "0";
-	data->fd = malloc(sizeof(int) * 2);
-	data->fd[0] = dup(STDIN_FILENO);
-	data->fd[1] = dup(STDOUT_FILENO);
-	signal(SIGINT, ft_sigint);
-	signal(SIGQUIT, ft_sigquit);
+	ft_init_data(data);
+	signal(SIGINT, ft_sig_handler);
+	signal(SIGQUIT, ft_sig_handler);
 	while (1)
 	{
 		line = readline("minishit>");
@@ -63,6 +60,7 @@ void	ft_exec_cmd(char *line, t_data *data)
 	char	**pars;
 	t_pars	*cmd;
 
+	ft_check_signal(data);
 	pars = ft_parsing(line, data);
 	free(line);
 	if (ft_syntax_error(pars, data))
@@ -126,17 +124,12 @@ void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i)
 		ft_execve(cmd, data, i);
 }
 
-/* ft_pwd()
-*  Function for print the current directory
-*  @data : struct with all the data
-*/
-
-void	ft_pwd(t_data *data)
+void	ft_init_data(t_data *data)
 {
-	if (getcwd(NULL, 0) == NULL)
-	{
-		printf("pwd: error retrieving current directory: getcwd: cannot access parent directories: No such file or directory\n");
-		return ;
-	}
-	printf("%s\n", ft_getenv("PWD", data->env));
+	data->bin_env = NULL;
+	data->join_env = NULL;
+	data->error = 0;
+	data->fd = malloc(sizeof(int) * 2);
+	data->fd[0] = dup(STDIN_FILENO);
+	data->fd[1] = dup(STDOUT_FILENO);
 }

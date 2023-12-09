@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execve.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/08 16:40:27 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 02:21:39 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,14 @@ void	ft_exec(t_pars *pars, char *cmd, t_data *data)
 	args = ft_joincmd(cmd, pars->args);
 	pid = fork();
 	if (pid == 0)
+	{
+		ft_setup_signal();
 		execve(cmd, args, data->join_env);
+	}
 	else if (pid < 0)
 		printf("error pid");
-	waitpid(pid, &status, 0);
+	else
+		waitpid(pid, &status, 0);
 	ft_free_tab(data->join_env);
 	ft_free_tab(args);
 }
@@ -78,7 +82,7 @@ void	ft_execve(t_pars *pars, t_data *data, int j)
 		i++;
 	}
 	printf("%s: command not found\n", pars[j].cmd);
-	data->error = ft_itoa(errno);
+	data->error = errno;
 	ft_free_tab(data->bin_env);
 	data->bin_env = NULL;
 }
@@ -101,7 +105,7 @@ void	ft_exec_path(t_pars *pars, t_data *data, int j)
 		return ;
 	}
 	printf("%s: command not found\n", pars[j].cmd);
-	data->error = ft_itoa(errno);
+	data->error = 127;
 	return ;
 }
 
@@ -111,19 +115,24 @@ void	ft_exec_path(t_pars *pars, t_data *data, int j)
 * @data : struct with all the data
 */
 
-int		ft_is_cmd(t_pars *pars, t_data *data, int j)
+int	ft_is_cmd(t_pars *pars, t_data *data, int j)
 {
-	int		i;
+	int	i;
 
-
-	(void)data;
 	i = 0;
 	while (pars[j].cmd[i])
 	{
 		if (pars[j].cmd[i] == '.' || pars[j].cmd[i] == '/')
 		{
-			// Faire la verif
+			if (strncmp(pars[j].cmd + i, "../", 3) == 0
+				|| strcmp(pars[j].cmd + i, "./") == 0)
+			{
+				printf("%s: Is a directory\n", pars[j].cmd);
+				data->error = errno;
+				return (1);
+			}
 		}
+		i++;
 	}
 	return (0);
 }
@@ -162,4 +171,3 @@ char	**ft_joincmd(char *cmd, char **args)
 	res[i + 1] = '\0';
 	return (res);
 }
-

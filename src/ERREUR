@@ -1,0 +1,36 @@
+Bonsoir, je suis entrain de faire du saut de mouton mais voici les erreurs que j'ai pu rencontrer après 500 lignes de TEST :
+
+
+SEGFAULT (IMPORTANT) :
+CMD | LIGNE DU GDOC
+
+- echo $UID$HOME | 126
+- echo $USER$var\$USER$USER\$USERtest$USER | 128
+- echo '$''' | 152
+- echo '$HO''ME' | 159
+- echo "'$HO''ME'" | 160
+- $?$? | 202
+- export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 | 330
+- unset "" | 335
+
+ERREUR DE PARSING :
+CMD | LIGNE DU GDOC
+
+- echo $? | echo $? | echo $? | 113
+- echo ' $ ' | cat -e | 116
+- echo \$HOME | 118
+- echo $9HOME | 124
+- echo "''h'o'la''" | 177 & 178
+
+ERREUR PIPE : (Il faut encore faire des test)
+CMD | LIGNE DU GDOC
+- sleep 3 | sleep 3 | sleep 3 (faire Ctlr-C une seconde apres) | 221
+
+ERREUR EXPORT :
+CMD | LIGNE DU GDOC
+
+- export HOLA=bon!jour | 285
+
+Changement à faire :
+- export test=blabla après echo $test = blabla mais si unset test et echo $test = blabla (pas censé l'afficher)
+- Tout les echo avec des simple et double quotes ne marche pas trop dans les cas ou echo doit afficher les quotes et ont les affiche jamais

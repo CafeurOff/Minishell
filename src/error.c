@@ -3,25 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:05 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/08 16:19:25 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 01:50:27 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		ft_syntax_error(char **pars, t_data *data)
+int	ft_syntax_error(char **pars, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (pars[i])
 	{
-		if ((ft_operator(pars[i]) && ft_operator(pars[i + 1])) || (ft_operator(pars[i]) && pars[i + 1] == NULL) || (ft_operator(pars[0]) == 1))
+		if ((ft_operator(pars[i]) && ft_operator(pars[i + 1]))
+			|| (ft_operator(pars[i]) && pars[i + 1] == NULL)
+			|| (ft_operator(pars[0]) == 1))
 		{
-			data->error = "2";
+			data->error = 2;
 			printf("bash: syntax error near unexpected token `%s'\n", pars[i]);
 			return (1);
 		}
@@ -30,7 +32,7 @@ int		ft_syntax_error(char **pars, t_data *data)
 	return (0);
 }
 
-int		ft_operator(char *s)
+int	ft_operator(char *s)
 {
 	if (s == NULL)
 		return (1);
@@ -54,7 +56,7 @@ int	ft_white_line(char *s)
 
 	i = 0;
 	if ((s[0] == 33 || s[0] == 58) && s[1] == 0)
-        return (1);
+		return (1);
 	while (s[i])
 	{
 		if ((s[i] < 9 || s[i] > 13) && s[i] != 32)
@@ -67,7 +69,7 @@ int	ft_white_line(char *s)
 int	ft_unlosed_quotes(char	*s)
 {
 	int	i;
-	int flag;
+	int	flag;
 
 	i = 0;
 	while (s[i])
@@ -106,39 +108,13 @@ int	ft_export_error(char **str, t_data *data)
 			if (ft_isalnum(str[i][j]) == 0 && str[i][j] != 95)
 			{
 				printf("bash: export: `%s': not a valid identifier\n", str[i]);
-				data->error = "1";
+				data->error = 1;
 				return (1);
 			}
 			j++;
 		}
 		j = 0;
 		i++;
-	}
-	return (0);
-}
-
-int		ft_identifier_error(char **str, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	if (str[i][0] >= '0' && str[i][0] <= '9')
-	{
-		printf("bash: export: `%s': not a valid identifier\n", str[i]);
-		data->error = "1";
-		return (1);
-	}
-	if (str[i][0] == 61)
-	{
-		printf("bash: export: `%s': not a valid identifier\n", str[i]);
-		data->error = "1";
-		return (1);
-	}
-	if (str[i][0] == 32)
-	{
-		printf("bash: export: `%s': not a valid identifier\n", str[i]);
-		data->error = "1";
-		return (1);
 	}
 	return (0);
 }

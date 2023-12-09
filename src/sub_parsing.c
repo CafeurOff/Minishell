@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:00:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/06 14:10:05 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/09 02:15:20 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 char	*ft_var(char *l, t_data *data)
 {
-	int	len;
+	int		len;
 	char	*tmp;
 	char	*var;
 
 	len = 0;
 	if (l[1] == 63)
-		return(ft_strdup(data->error));
+		return (ft_itoa(data->error));
 	len = ft_skip_env_val(l, 0);
 	if (len == 1 || (l[1] >= 48 && l[1] <= 57))
 	{
@@ -31,7 +31,7 @@ char	*ft_var(char *l, t_data *data)
 	}
 	tmp = ft_strdup(l + 1);
 	tmp[len - 1] = 0;
-	var = ft_strdup(ft_getenv(tmp, data->env));//verif cas d'erreur
+	var = ft_strdup(ft_getenv(tmp, data->env));
 	if (var == NULL)
 	{
 		var = malloc(sizeof(char));
@@ -41,15 +41,14 @@ char	*ft_var(char *l, t_data *data)
 	return (var);
 }
 
-
 char	*ft_replace_line(char *l, char **var)
 {
-	int	len;
-	int	i;
-	int	j;
-	int	k;
+	int		len;
+	int		i;
+	int		j;
+	int		k;
 	char	*res;
-	
+
 	len = ft_replacelen(l, var);
 	res = malloc(sizeof(char) * (len + 1));
 	if (!res)
@@ -99,7 +98,7 @@ int	ft_replacelen(char *l, char **var)
 	return (len);
 }
 
-int		ft_count_env_val(char *line)
+int	ft_count_env_val(char *line)
 {
 	int	args;
 	int	i;

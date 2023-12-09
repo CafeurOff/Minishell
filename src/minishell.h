@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/08 16:26:46 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 02:08:27 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <errno.h>
 # include <fcntl.h>
 
+extern int		g_var;
+
 /* struct data
 *	bin_env	=>	PATH f the shell
 *	error	=>	error message
@@ -33,7 +35,7 @@ typedef struct s_data
 {
 	char			**bin_env;
 	char			**join_env;
-	char			*error;
+	int				error;
 	int				*fd;
 	struct s_env	*env;
 }	t_data;
@@ -74,9 +76,7 @@ typedef struct s_pars
 t_env	*ft_copy_env(char **envp);
 char	*ft_get_id(char *str);
 char	*ft_get_value(char *str);
-char	*ft_getenv(char *str, t_env
-
-*env);
+char	*ft_getenv(char *str, t_env *env);
 void	ft_print_env(t_env *env);
 /* export.c */
 void	ft_export(t_pars *pars, t_data *data, int i);
@@ -85,15 +85,16 @@ void	ft_print_export(t_env *data);
 void	ft_setid(t_data *data, char *str);
 int		ft_id_exist(t_data *data, char *str);
 /* unset.c */
-int	ft_unset(t_pars *pars, t_data *data, int i);
+int		ft_unset(t_pars *pars, t_data *data, int i);
 void	ft_unsetenv(char **str, t_data *data);
-int	ft_unset_error(char **str, t_data *data);
-int	ft_unset_identifier_error(char **str, t_data *data);
+int		ft_unset_error(char **str, t_data *data);
+int		ft_unset_identifier_error(char **str, t_data *data);
 /* cd.c */
 void	ft_cd(t_data *data, t_pars *pars, int i);
 void	ft_cd_home(t_data *data);
 void	ft_cd_path(t_pars *pars, t_data *data, int i);
 int		cd_error_management(t_data *data, t_pars *pars, int i);
+void	ft_pwd(t_data *data);
 /* echo.c */
 void	ft_echo(t_pars *pars, int i);
 int		ft_print_echo(char *str);
@@ -128,17 +129,18 @@ int		ft_isalnum(int i);
 void	ft_exec_cmd(char *line, t_data *data);
 void	ft_free_all(t_data *data, char **args, t_pars *pars);
 void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i);
-void	ft_pwd(t_data *data);
+void	ft_init_data(t_data *data);
 /* signal.c */
-void	ft_sigint(int sig);
-void	ft_sigquit(int sig);
+void	ft_sig_handler(int sig);
+void	ft_check_signal(t_data *data);
+void	ft_setup_signal(void);
 /* execve.c */
 void	ft_exec(t_pars *pars, char *cmd, t_data *data);
 void	ft_execve(t_pars *pars, t_data *data, int j);
 char	**ft_joincmd(char *cmd, char **args);
 char	**ft_join_env(t_data *data);
 void	ft_exec_path(t_pars *pars, t_data *data, int j);
-int	ft_is_cmd(t_pars *pars, t_data *data, int j);
+int		ft_is_cmd(t_pars *pars, t_data *data, int j);
 /* pars_tab.c */
 t_pars	*ft_init_cmd_line(char **pars);
 int		ft_count_args_line(char **pars, int flag);
@@ -148,27 +150,28 @@ int		ft_count_lines(char **pars);
 void	ft_delimiter(t_pars *pars);
 /* parsing.c */
 char	**ft_parsing(char *line, t_data *data);
-int	    ft_count_args(char *line);
+int		ft_count_args(char *line);
 char	*ft_subarg(char *line, t_data *data);
 /* sub_parsing.c */
 char	*ft_var(char *l, t_data *data);
 char	*ft_replace_line(char *l, char **var);
-int	    ft_replacelen(char *l, char **var);
+int		ft_replacelen(char *l, char **var);
 int		ft_count_env_val(char *line);
 /* parse.c */
 int		ft_skip_env_val(char *l, int i);
-int	    ft_skip_arg(char *line, int i);
-int	    ft_skip_arg_quotes(char *line, int i);
+int		ft_skip_arg(char *line, int i);
+int		ft_skip_arg_quotes(char *line, int i);
 char	*ft_without_quotes(char *s);
 /* error.c */
 int		ft_syntax_error(char **pars, t_data *data);
 int		ft_operator(char *s);
-int	    ft_white_line(char *s);
-int	ft_unlosed_quotes(char	*s);
-int	ft_export_error(char **str, t_data *data);
+int		ft_white_line(char *s);
+int		ft_unlosed_quotes(char	*s);
+int		ft_export_error(char **str, t_data *data);
+/* error2.c */
 int		ft_identifier_error(char **str, t_data *data);
 /* pipe.c */
-void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd,  int i);
+void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd, int i);
 void	ft_handle_pipe(t_data *data, t_pars *cmd, int i, int *fd);
 
 #endif

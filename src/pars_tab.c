@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pars_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:58:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/29 11:34:17 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/09 02:12:31 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//REFAIRE CETTE MERDE 2 FONCTIONS 1 pour allouer + donner valeurs des args autre pour avec un flag donnez les autre val
 
 t_pars	*ft_init_cmd_line(char **pars)
 {

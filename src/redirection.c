@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:02:09 by roroca            #+#    #+#             */
-/*   Updated: 2023/11/28 18:31:31 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/09 02:16:41 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_delimiter(t_pars *pars)
 {
-	int	fd;
+	int		fd;
 	char	*line;
 
 	fd = open(".tmp", O_RDWR | O_CREAT, 0644);
@@ -24,9 +24,10 @@ void	ft_delimiter(t_pars *pars)
 		line = readline(">");
 		if (!line)
 		{
-			printf("bash: warning:here-document at line 1 delimited by end-of-file (wanted `%s')\n", pars[0].del);
-            close (fd);
-            free(line);
+			printf("bash: warning:here-document at line 1 delimited"
+				"by end-of-file (wanted `%s')\n", pars[0].del);
+			close(fd);
+			free(line);
 			return ;
 		}
 		if (ft_strncmp(line, pars[0].del, ft_strlen(pars[0].del)) == 0)

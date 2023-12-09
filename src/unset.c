@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/15 09:35:44 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/08 16:28:53 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 02:15:43 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	ft_unset_error(char **str, t_data *data)
 			if (ft_isalnum(str[i][j]) == 0 && str[i][j] != 95)
 			{
 				printf("bash: unset: `%s': not a valid identifier\n", str[i]);
-				data->error = "1";
+				data->error = 1;
 				return (1);
 			}
 			j++;
@@ -93,7 +93,7 @@ int	ft_unset_error(char **str, t_data *data)
 * return : 1 if error, 0 if not
 */
 
-int		ft_unset_identifier_error(char **str, t_data *data)
+int	ft_unset_identifier_error(char **str, t_data *data)
 {
 	int	i;
 
@@ -101,16 +101,14 @@ int		ft_unset_identifier_error(char **str, t_data *data)
 	if (str[i][0] >= '0' && str[i][0] <= '9')
 	{
 		printf("bash: unset: `%s': not a valid identifier\n", str[i]);
-		data->error = "1";
+		data->error = 1;
 		return (1);
 	}
 	if (str[i][0] == 32 || (ft_strchr(str[i], '=')))
 	{
 		printf("bash: unset: `%s': not a valid identifier\n", str[i]);
-		data->error = "1";
+		data->error = 1;
 		return (1);
 	}
 	return (0);
 }
-
-
