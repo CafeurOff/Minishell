@@ -32,5 +32,5 @@ CMD | LIGNE DU GDOC
 - export HOLA=bon!jour | 285
 
 Changement à faire :
-- export test=blabla après echo $test = blabla mais si unset test et echo $test = blabla (pas censé l'afficher)
+- export test=blabla après echo $test = blabla mais si unset test et echo $test = blabla (pas censé l'afficher) | (REGLER)
 - Tout les echo avec des simple et double quotes ne marche pas trop dans les cas ou echo doit afficher les quotes et ont les affiche jamais
