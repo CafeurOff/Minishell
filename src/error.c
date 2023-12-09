@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:05 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 01:50:27 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 15:22:28 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_white_line(char *s)
 	return (1);
 }
 
-int	ft_unlosed_quotes(char	*s)
+int	ft_unclosed_quotes(char	*s)
 {
 	int	i;
 	int	flag;

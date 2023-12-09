@@ -4,23 +4,23 @@ Bonsoir, je suis entrain de faire du saut de mouton mais voici les erreurs que j
 SEGFAULT (IMPORTANT) :
 CMD | LIGNE DU GDOC
 
-- echo $UID$HOME | 126
-- echo $USER$var\$USER$USER\$USERtest$USER | 128
-- echo '$''' | 152
-- echo '$HO''ME' | 159
-- echo "'$HO''ME'" | 160
-- $?$? | 202
-- export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 | 330
-- unset "" | 335 (REGLER)
+- echo $UID$HOME | 126                               (REGLER)
+- echo $USER$var\$USER$USER\$USERtest$USER | 128     (REGLER)
+- echo '$''' | 152                                   (REGLER)
+- echo '$HO''ME' | 159                               (REGLER)
+- echo "'$HO''ME'" | 160                             FAUT REFAIRE TOUT LE PARSING      ^^   JE VEUX MOURRIR
+- $?$? | 202                                         (REGLER)
+- export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 | 330       FAUT REVOIR TES STRNCMP
+- unset "" | 335                                     (REGLER)
 
 ERREUR DE PARSING :
 CMD | LIGNE DU GDOC
 
-- echo $? | echo $? | echo $? | 113
-- echo ' $ ' | cat -e | 116
-- echo \$HOME | 118
-- echo $9HOME | 124
-- echo "''h'o'la''" | 177 & 178
+- echo $? | echo $? | echo $? | 113                   (REGLER)
+- echo ' $ ' | cat -e | 116                           (REGLER)
+- echo \$HOME | 118                                   ON NE GERE PAS CES PUTAINS DE \  !!!!!!!!!!!!!!!!!!!!!!!!
+- echo $9HOME | 124                                   (REGLER)
+- echo "''h'o'la''" | 177 & 178                       FAUT REFAIRE TOUT LE PARSING      ^^   JE VEUX MOURRIR
 
 ERREUR PIPE : (Il faut encore faire des test)
 CMD | LIGNE DU GDOC
@@ -28,7 +28,6 @@ CMD | LIGNE DU GDOC
 
 ERREUR EXPORT :
 CMD | LIGNE DU GDOC
-
 - export HOLA=bon!jour | 285
 
 Changement à faire :

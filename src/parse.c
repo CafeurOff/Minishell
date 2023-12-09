@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:56:56 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 02:10:56 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:46:56 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_skip_env_val(char *l, int i)
+int	    ft_skip_env_val(char *l, int i)
 {
 	i++;
 	if ((l[1] >= 48 && l[1] <= 57) || l[i] == 63)
@@ -23,7 +23,7 @@ int	ft_skip_env_val(char *l, int i)
 	return (i);
 }
 
-int	ft_skip_arg(char *line, int i)
+int	    ft_skip_arg(char *line, int i)
 {
 	if ((line[i] == 60 && line[i + 1] == 60)
 		|| (line[i] == 62 && line[i + 1] == 62))
@@ -41,7 +41,7 @@ int	ft_skip_arg(char *line, int i)
 	return (i);
 }
 
-int	ft_skip_arg_quotes(char *line, int i)
+int	    ft_skip_arg_quotes(char *line, int i)
 {
 	int	flag;
 
@@ -55,27 +55,49 @@ char	*ft_without_quotes(char *s)
 {
 	int		i;
 	int		len;
+	int		flag;
 	char	*res;
 
-	i = -1;
-	len = 0;
-	while (s[++i])
-	{
-		if (s[i] != 39 && s[i] != 34)
-			len++;
-	}
+	len = ft_len_without_quotes(s);
 	res = malloc(sizeof(char) * (len + 1));
 	if (!res)
 		return (NULL);
 	i = 0;
+	flag = 0;
 	len = 0;
 	while (s[i])
 	{
-		while (s[i] == 39 || s[i] == 34)
+		if (s[i] == 39 || s[i] == 34)
+		{
+			flag = s[i++];
+			while (s[i] != flag)
+				res[len++] = s[i++];
 			i++;
-		if (s[i])
+		}
+		else
 			res[len++] = s[i++];
 	}
 	res[len] = 0;
 	return (free(s), res);
+}
+
+int	ft_len_without_quotes(char *s)
+{
+	int		i;
+	int		flag;
+
+	i = 0;
+	flag = 0;
+	while (s[i])
+	{
+		if (s[i] == 39 || s[i] == 34)
+		{
+			i = ft_skip_arg_quotes(s, i);
+			flag++;
+		}
+		else
+			i++;
+	}
+	i -= (flag * 2);
+	return (i);
 }

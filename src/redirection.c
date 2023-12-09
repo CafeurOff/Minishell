@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:02:09 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 02:16:41 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 18:57:54 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*
 void	ft_delimiter(t_pars *pars)
 {
 	int		fd;
@@ -40,7 +40,7 @@ void	ft_delimiter(t_pars *pars)
 		write(fd, "\n", 1);
 		free(line);
 	}
-}
+}*/
 
 //open
 //close

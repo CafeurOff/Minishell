@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 02:08:27 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:00:54 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ typedef struct s_pars
 	char			*cmd;
 	char			**args;
 	char			*in;
-	char			*out;
+	char			**out;
 	int				flag;
-	char			*del;
+	char			**del;
 }	t_pars;
 
 /* env.c */
@@ -143,9 +143,12 @@ void	ft_exec_path(t_pars *pars, t_data *data, int j);
 int		ft_is_cmd(t_pars *pars, t_data *data, int j);
 /* pars_tab.c */
 t_pars	*ft_init_cmd_line(char **pars);
-int		ft_count_args_line(char **pars, int flag);
-t_pars	*ft_command_line(char **pars, t_pars *cmd);
+void	ft_command_line(char **pars, t_pars *cmd);
 int		ft_count_lines(char **pars);
+int		ft_skip_tab(char **pars, int flag);
+void	ft_init_cmd_del(char **pars, t_pars *cmd, int flag);
+void	ft_init_cmd_out(char **pars, t_pars *cmd, int flag);
+void	ft_init_cmd_args(char **pars, t_pars *cmd, int flag);
 /* redirection.c */
 void	ft_delimiter(t_pars *pars);
 /* parsing.c */
@@ -162,16 +165,18 @@ int		ft_skip_env_val(char *l, int i);
 int		ft_skip_arg(char *line, int i);
 int		ft_skip_arg_quotes(char *line, int i);
 char	*ft_without_quotes(char *s);
+int	ft_len_without_quotes(char *s);
 /* error.c */
 int		ft_syntax_error(char **pars, t_data *data);
 int		ft_operator(char *s);
 int		ft_white_line(char *s);
-int		ft_unlosed_quotes(char	*s);
+int		ft_unclosed_quotes(char	*s);
 int		ft_export_error(char **str, t_data *data);
 /* error2.c */
 int		ft_identifier_error(char **str, t_data *data);
 /* pipe.c */
 void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd, int i);
 void	ft_handle_pipe(t_data *data, t_pars *cmd, int i, int *fd);
+void	ft_handle_pipe_child(int *fd, t_pars *cmd, int i);
 
 #endif

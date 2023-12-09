@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:57:13 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 02:13:09 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:09:11 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,9 @@ void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd, int i)
 	pid = fork();
 	if (pid == 0)
 	{
-		close(fd[0]);
-		dup2(fd[1], 1);
-		close(fd[1]);
+		ft_handle_pipe_child(fd, cmd, i);
 		ft_is_builtin(cmd, data, pars, i);
-		exit(data->error);
+		ft_free_all(data, pars, cmd);
 	}
 	else
 	{
@@ -51,6 +49,21 @@ void	ft_handle_pipe(t_data *data, t_pars *cmd, int i, int *fd)
 	close(fd[0]);
 }
 
+void	ft_handle_pipe_child(int *fd, t_pars *cmd, int i)
+{
+	close(fd[0]);
+	if (cmd[i].flag == 0)
+		dup2(fd[1], 1);
+	else if (cmd[i].flag == 1)
+	{
+		//open(cmd[i].out, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	}
+	else
+	{
+		//open(cmd[i].out, O_RDWR | O_CREAT | O_APPEND, 0644);
+	}
+	close(fd[1]);
+}
 
 /*
 

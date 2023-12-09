@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 02:01:41 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:20:28 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main(int ac, char **av, char **envp)
 		if (!line)
 			return (ft_free(data->env), free(data), rl_clear_history(), 0);
 		add_history(line);
-		if (ft_white_line(line) != 1 && ft_unlosed_quotes(line) != 1)
+		if (ft_white_line(line) != 1 && ft_unclosed_quotes(line) != 1)
 			ft_exec_cmd(line, data);
 		else
 			free(line);
@@ -86,12 +86,16 @@ void	ft_exec_cmd(char *line, t_data *data)
 
 void	ft_free_all(t_data *data, char **args, t_pars *pars)
 {
+    int     status;
+
+    status = data->error;
 	rl_clear_history();
 	ft_free_tab(args);
 	ft_free_t_pars(pars);
+    free(data->fd);
 	ft_free(data->env);
 	free(data);
-	exit(0);
+	exit(status);
 }
 
 /* ft_is_builtin()
@@ -104,8 +108,6 @@ void	ft_free_all(t_data *data, char **args, t_pars *pars)
 
 void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i)
 {
-	if (cmd[i].del != NULL)
-		ft_delimiter(cmd);
 	if (ft_strncmp(cmd[i].cmd, "cd", 3) == 0)
 		ft_cd(data, cmd, i);
 	else if (ft_strncmp(cmd[i].cmd, "export", 7) == 0)

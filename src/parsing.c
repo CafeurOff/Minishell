@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:13:06 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 02:12:10 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:57:18 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*ft_subarg(char *line, t_data *data)
 			var[j++] = ft_var(line + i, data);
 			i = ft_skip_env_val(line, i);
 		}
-		if (line[i])
+		else if (line[i])
 			i++;
 	}
 	var[j] = 0;

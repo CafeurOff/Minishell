@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:00:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 02:15:20 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:33:24 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_var(char *l, t_data *data)
 	if (l[1] == 63)
 		return (ft_itoa(data->error));
 	len = ft_skip_env_val(l, 0);
-	if (len == 1 || (l[1] >= 48 && l[1] <= 57))
+	if (len == 1 && !(l[1] >= 48 && l[1] <= 57))
 	{
 		tmp = malloc(sizeof(char) * 2);
 		tmp[0] = 36;
@@ -32,7 +32,7 @@ char	*ft_var(char *l, t_data *data)
 	tmp = ft_strdup(l + 1);
 	tmp[len - 1] = 0;
 	var = ft_strdup(ft_getenv(tmp, data->env));
-	if (var == NULL)
+	if (var == NULL || (l[1] >= 48 && l[1] <= 57))
 	{
 		var = malloc(sizeof(char));
 		var[0] = 0;
@@ -58,7 +58,14 @@ char	*ft_replace_line(char *l, char **var)
 	len = 0;
 	while (l[i])
 	{
-		if (l[i] == 36 && l[i + 1] == 34)
+        if (l[i] == 39)
+        {
+            i++;
+            while (l[i] != 39)
+        		res[len++] = l[i++];
+            i++;
+        }
+		else if (l[i] == 36 && l[i + 1] == 34)
 			i++;
 		else if (l[i] == 36 && l[i + 1])
 		{

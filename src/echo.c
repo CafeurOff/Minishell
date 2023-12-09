@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:10:49 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 01:46:47 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:40:01 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_echo(t_pars *pars, int i)
 		printf("\n");
 		return ;
 	}
-	if (pars[i].args[i])
+	if (pars[i].args)
 	{
 		while (pars[i].args[j])
 		{
@@ -90,8 +90,8 @@ int	ft_id_index(t_data *data, char *str)
 	while (data->env[j].id)
 	{
 		if (ft_strncmp(data->env[j].id, str, i) == 0)
-			return (j);
+			return (1);
 		j++;
 	}
-	return (j);
+	return (0);
 }
