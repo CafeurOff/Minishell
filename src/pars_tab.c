@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:58:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 19:20:28 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/10 15:59:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@ t_pars	*ft_init_cmd_line(char **pars)
 	t_pars	*cmd;
 	int		i;
 	int		j;
-	int		line;
 
-	line = ft_count_lines(pars);
-	cmd = malloc(sizeof(t_pars) * (line + 1));
+	cmd = malloc(sizeof(t_pars) * (ft_count_lines(pars) + 1));
 	if (!cmd)
 		return (NULL);
 	cmd[0].cmd = ft_strdup(pars[0]);
@@ -48,19 +46,8 @@ void	ft_init_cmd_args(char **pars, t_pars *cmd, int flag)
 	int		j;
 	int		args;
 
-	i = ft_skip_tab(pars, flag);
-	args = 0;
-	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
-	{
-		if (ft_strncmp(pars[i], "<", 2) != 0 && ft_strncmp(pars[i], ">", 2) != 0
-			&& ft_strncmp(pars[i], ">>", 2) != 0 && ft_strncmp(pars[i], "<<", 2) != 0)
-		{
-			args++;
-			i++;
-		}
-		else
-			i += 2;
-	}
+
+	args = ft_count_cmd_args(char **pars, t_pars *cmd, int flag);
 	if (args == 0)
 	{
 		cmd[flag].args = NULL;
@@ -86,18 +73,7 @@ void	ft_init_cmd_out(char **pars, t_pars *cmd, int flag)
 	int		j;
 	int		args;
 
-	i = ft_skip_tab(pars, flag);
-	args = 0;
-	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
-	{
-		if (ft_strncmp(pars[i], ">", 2) == 0 || ft_strncmp(pars[i], ">>", 2) == 0)
-		{
-			args++;
-			i++;
-		}
-		else
-			i++;
-	}
+	args = ft_count_cmd_out(char **pars, t_pars *cmd, int flag);
 	if (args == 0)
 	{
 		cmd[flag].out = NULL;
@@ -109,13 +85,11 @@ void	ft_init_cmd_out(char **pars, t_pars *cmd, int flag)
 	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
 	{
 		if (ft_strncmp(pars[i], ">", 2) == 0 || ft_strncmp(pars[i], ">>", 2) == 0)
-		{
 			cmd[flag].out[j++] = ft_strdup(pars[++i]);
-			if (ft_strncmp(pars[i], ">", 2) == 0)
-				cmd[flag].flag = 1;
-			else
-				cmd[flag].flag = 2;
-		}
+		if (ft_strncmp(pars[i], ">", 2) == 0)
+			cmd[flag].flag = 1;
+		else if (ft_strncmp(pars[i], ">>", 2) == 0)
+			cmd[flag].flag = 2;
 		else
 			i++;
 	}
@@ -128,18 +102,7 @@ void	ft_init_cmd_del(char **pars, t_pars *cmd, int flag)
 	int		j;
 	int		args;
 
-	i = ft_skip_tab(pars, flag);
-	args = 0;
-	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
-	{
-		if (ft_strncmp(pars[i], "<<", 2) == 0)
-		{
-			args++;
-			i++;
-		}
-		else
-			i++;
-	}
+	args = ft_count_cmd_del(char **pars, t_pars *cmd, int flag);
 	if (args == 0)
 	{
 		cmd[flag].del = NULL;
@@ -205,4 +168,68 @@ int	ft_count_lines(char **pars)
 		i++;
 	}
 	return (len + 1);
+}
+
+
+int	ft_count_cmd_args(char **pars, t_pars *cmd, int flag)
+{
+	int	i;
+	int	args;
+
+	i = ft_skip_tab(pars, flag);
+	args = 0;
+	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
+	{
+		if (ft_strncmp(pars[i], "<", 2) != 0 && ft_strncmp(pars[i], ">", 2) != 0
+			&& ft_strncmp(pars[i], ">>", 2) != 0 && ft_strncmp(pars[i], "<<", 2) != 0)
+		{
+			args++;
+			i++;
+		}
+		else
+			i += 2;
+	}
+	return (args);
+}
+
+
+int	ft_count_cmd_out(char **pars, t_pars *cmd, int flag)
+{
+	int	i;
+	int	args;
+
+	i = ft_skip_tab(pars, flag);
+	args = 0;
+	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
+	{
+		if (ft_strncmp(pars[i], ">", 2) == 0 || ft_strncmp(pars[i], ">>", 2) == 0)
+		{
+			args++;
+			i++;
+		}
+		else
+			i++;
+	}
+	return (args);
+}
+
+
+int	ft_count_cmd_del(char **pars, t_pars *cmd, int flag)
+{
+	int	i;
+	int	args;
+
+	i = ft_skip_tab(pars, flag);
+	args = 0;
+	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
+	{
+		if (ft_strncmp(pars[i], "<<", 2) == 0)
+		{
+			args++;
+			i++;
+		}
+		else
+			i++;
+	}
+	return (args);
 }

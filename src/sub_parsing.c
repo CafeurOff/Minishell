@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:00:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 17:33:24 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/10 16:05:15 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ char	*ft_replace_line(char *l, char **var)
 	int		k;
 	char	*res;
 
-	len = ft_replacelen(l, var);
-	res = malloc(sizeof(char) * (len + 1));
+	res = malloc(sizeof(char) * (ft_replacelen(l, var) + 1));
 	if (!res)
 		return (NULL);
 	i = 0;
@@ -60,7 +59,7 @@ char	*ft_replace_line(char *l, char **var)
 	{
         if (l[i] == 39)
         {
-            i++;
+			i++;
             while (l[i] != 39)
         		res[len++] = l[i++];
             i++;
@@ -79,7 +78,7 @@ char	*ft_replace_line(char *l, char **var)
 			res[len++] = l[i++];
 	}
 	res[len] = 0;
-	return (res);
+	return (ft_free_tab(var), free(l), ft_without_quotes(res));
 }
 
 int	ft_replacelen(char *l, char **var)

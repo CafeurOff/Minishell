@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:56:56 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 16:46:56 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/10 15:36:44 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ char	*ft_without_quotes(char *s)
 	int		flag;
 	char	*res;
 
-	len = ft_len_without_quotes(s);
-	res = malloc(sizeof(char) * (len + 1));
+	res = malloc(sizeof(char) * (ft_len_without_quotes(s) + 1));
 	if (!res)
 		return (NULL);
 	i = 0;

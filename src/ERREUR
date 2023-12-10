@@ -33,3 +33,10 @@ CMD | LIGNE DU GDOC
 Changement à faire :
 - export test=blabla après echo $test = blabla mais si unset test et echo $test = blabla (pas censé l'afficher) | (REGLER)
 - Tout les echo avec des simple et double quotes ne marche pas trop dans les cas ou echo doit afficher les quotes et ont les affiche jamais
+
+Norme à faire :
+- 4 fonctions de plus de 25 lignes :
+      - void	ft_echo(t_pars *pars, int i);                     echo.c        29
+      - void	ft_execve(t_pars *pars, t_data *data, int j);     execve.c      34
+      - char	*ft_replace_line(char *l, char **var);            sub_parsing.c 36
+      - char	**ft_join_env(t_data *data);                      utils5.c      29

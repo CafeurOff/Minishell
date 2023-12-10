@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:13:06 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 16:57:18 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/10 15:44:22 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ char	**ft_parsing(char *line, t_data *data)
 	int		len;
 	int		i;
 
-	len = ft_count_args(line);
-	pars = malloc(sizeof(char *) * (len + 1));
+	pars = malloc(sizeof(char *) * (ft_count_args(line) + 1));
 	if (!pars)
 		return (NULL);
-	pars[len] = 0;
+	pars[ft_count_args(line)] = 0;
 	len = 0;
 	i = 0;
 	while (line[i])
@@ -70,7 +69,6 @@ char	*ft_subarg(char *line, t_data *data)
 	int		i;
 	int		j;
 	char	**var;
-	char	*res;
 
 	i = 0;
 	j = 0;
@@ -82,7 +80,7 @@ char	*ft_subarg(char *line, t_data *data)
 	{
 		if (line[i] == 39)
 			i = ft_skip_arg_quotes(line, i);
-		if (line[i] == 36 && line[i + 1] != 34 && line[i + 1])
+		else if (line[i] == 36 && line[i + 1] != 34 && line[i + 1])
 		{
 			var[j++] = ft_var(line + i, data);
 			i = ft_skip_env_val(line, i);
@@ -91,7 +89,5 @@ char	*ft_subarg(char *line, t_data *data)
 			i++;
 	}
 	var[j] = 0;
-	res = ft_replace_line(line, var);
-	res = ft_without_quotes(res);
-	return (ft_free_tab(var), free(line), res);
+	return (ft_replace_line(line, var));
 }
