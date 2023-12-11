@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pars_tab.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:58:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/10 15:59:15 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/11 11:47:05 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ t_pars	*ft_init_cmd_line(char **pars)
 			cmd[++j].in = NULL;
 		else if (ft_strncmp(pars[i - 1], "|", 2) == 0)
 			cmd[j].cmd = ft_strdup(pars[i]);
-		else if (ft_strncmp(pars[i], "<", 2) == 0)
-			cmd[j].in = ft_strdup(pars[++i]);
 		i++;
 	}
 	cmd[++j].cmd = NULL;
@@ -46,8 +44,7 @@ void	ft_init_cmd_args(char **pars, t_pars *cmd, int flag)
 	int		j;
 	int		args;
 
-
-	args = ft_count_cmd_args(char **pars, t_pars *cmd, int flag);
+	args = ft_count_cmd_args(pars, flag);
 	if (args == 0)
 	{
 		cmd[flag].args = NULL;
@@ -73,7 +70,7 @@ void	ft_init_cmd_out(char **pars, t_pars *cmd, int flag)
 	int		j;
 	int		args;
 
-	args = ft_count_cmd_out(char **pars, t_pars *cmd, int flag);
+	args = ft_count_cmd_out(pars, flag);
 	if (args == 0)
 	{
 		cmd[flag].out = NULL;
@@ -102,7 +99,7 @@ void	ft_init_cmd_del(char **pars, t_pars *cmd, int flag)
 	int		j;
 	int		args;
 
-	args = ft_count_cmd_del(char **pars, t_pars *cmd, int flag);
+	args = ft_count_cmd_del(pars, flag);
 	if (args == 0)
 	{
 		cmd[flag].del = NULL;
@@ -121,6 +118,19 @@ void	ft_init_cmd_del(char **pars, t_pars *cmd, int flag)
 	cmd[flag].del[j] = NULL;
 }
 
+void	ft_init_cmd_in(char **pars, t_pars *cmd, int flag)
+{
+	int	i;
+
+	i = ft_skip_tab(pars, flag);
+	cmd[flag].in = NULL;
+	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
+	{
+		if (ft_strncmp(pars[i], "<", 2) == 0)
+			cmd[flag].in = ft_strdup(pars[++i]);
+		i++;
+	}
+}
 
 void	ft_command_line(char **pars, t_pars *cmd)
 {
@@ -129,9 +139,20 @@ void	ft_command_line(char **pars, t_pars *cmd)
 	i = 0;
 	while (cmd[i].cmd)
 	{
+		cmd[i].flag = 0;
+//		printf("cmd[%d].cmd= %s\n", i, cmd[i].cmd);
 		ft_init_cmd_args(pars, cmd, i);
+//		if (cmd[i].args)
+//			printf("cmd[%d].args[0]= %s\n", i, cmd[i].args[0]);
 		ft_init_cmd_out(pars, cmd, i);
+//		if (cmd[i].out)
+//			printf("cmd[%d].out[0]= %s\n", i, cmd[i].out[0]);
 		ft_init_cmd_del(pars, cmd, i);
+//		if (cmd[i].del)
+//			printf("cmd[%d].del[0]= %s\n", i, cmd[i].del[0]);
+		ft_init_cmd_in(pars, cmd, i);
+//		printf("cmd[%d].in= %s\n", i, cmd[i].in);
+//		printf("\n");
 		i++;
 	}
 }
@@ -171,7 +192,7 @@ int	ft_count_lines(char **pars)
 }
 
 
-int	ft_count_cmd_args(char **pars, t_pars *cmd, int flag)
+int	ft_count_cmd_args(char **pars, int flag)
 {
 	int	i;
 	int	args;
@@ -193,7 +214,7 @@ int	ft_count_cmd_args(char **pars, t_pars *cmd, int flag)
 }
 
 
-int	ft_count_cmd_out(char **pars, t_pars *cmd, int flag)
+int	ft_count_cmd_out(char **pars, int flag)
 {
 	int	i;
 	int	args;
@@ -214,7 +235,7 @@ int	ft_count_cmd_out(char **pars, t_pars *cmd, int flag)
 }
 
 
-int	ft_count_cmd_del(char **pars, t_pars *cmd, int flag)
+int	ft_count_cmd_del(char **pars, int flag)
 {
 	int	i;
 	int	args;

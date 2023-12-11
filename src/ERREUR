@@ -40,3 +40,6 @@ Norme à faire :
       - void	ft_execve(t_pars *pars, t_data *data, int j);     execve.c      34
       - char	*ft_replace_line(char *l, char **var);            sub_parsing.c 36
       - char	**ft_join_env(t_data *data);                      utils5.c      29
+
+
+      https://docs.google.com/spreadsheets/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/edit#gid=0

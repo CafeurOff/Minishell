@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/10 15:57:24 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/11 11:47:23 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,9 +149,10 @@ int		ft_skip_tab(char **pars, int flag);
 void	ft_init_cmd_del(char **pars, t_pars *cmd, int flag);
 void	ft_init_cmd_out(char **pars, t_pars *cmd, int flag);
 void	ft_init_cmd_args(char **pars, t_pars *cmd, int flag);
-int		ft_count_cmd_args(char **pars, t_pars *cmd, int flag);
-int		ft_count_cmd_out(char **pars, t_pars *cmd, int flag);
-int		ft_count_cmd_del(char **pars, t_pars *cmd, int flag);
+int		ft_count_cmd_args(char **pars, int flag);
+int		ft_count_cmd_out(char **pars, int flag);
+int		ft_count_cmd_del(char **pars, int flag);
+void	ft_init_cmd_in(char **pars, t_pars *cmd, int flag);
 /* redirection.c */
 void	ft_delimiter(t_pars *pars);
 /* parsing.c */
