@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:33:38 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/07 15:56:33 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:44:26 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,14 @@ char	**ft_join_env(t_data *data)
 	set = 0;
 	i = 0;
 	while (data->env[i].id)
-	{
-		if (data->env[i].set == 1)
+		if (data->env[i++].set == 1)
 			set++;
-		i++;
-	}
 	res = malloc(sizeof(char *) * (set + 1));
 	if (!res)
 		return (NULL);
-	i = 0;
+	i = -1;
 	set = 0;
-	while (data->env[i].id)
+	while (data->env[++i].id)
 	{
 		if (data->env[i].set == 1 && data->env[i].value != NULL)
 		{
@@ -58,8 +55,27 @@ char	**ft_join_env(t_data *data)
 			res[set] = ft_strjoin(res[set], data->env[i].value);
 			set++;
 		}
-		i++;
 	}
 	res[set] = NULL;
 	return (res);
+}
+
+/* ft_isdigit()
+*  Check if the string is a digit
+*  @s : string to check
+*  return : 1 if digit, 0 if not
+*/
+
+int	ft_isdigit(char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+	{
+		if ((s[i] < 48 || s[i] > 57) && (s[i] != 45 && s[i] != 43))
+			return (1);
+		i++;
+	}
+	return (0);
 }

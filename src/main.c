@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 12:44:38 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:39:47 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ int	main(int ac, char **av, char **envp)
 	{
 		line = readline("minishit>");
 		if (!line)
-			return (ft_free(data->env), free(data), rl_clear_history(), 0);
+			return (ft_free(data->env), free(data->fd),
+				free(data), rl_clear_history(), 0);
 		add_history(line);
 		if (ft_white_line(line) != 1 && ft_unclosed_quotes(line) != 1)
 			ft_exec_cmd(line, data);
@@ -62,6 +63,7 @@ void	ft_exec_cmd(char *line, t_data *data)
 
 	ft_check_signal(data);
 	pars = ft_parsing(line, data);
+	data->error = 0;
 	free(line);
 	if (ft_syntax_error(pars, data))
 	{
@@ -121,10 +123,15 @@ void	ft_is_builtin(t_pars *cmd, t_data *data, char **pars, int i)
 	else if (ft_strncmp(cmd[i].cmd, "echo", 5) == 0)
 		ft_echo(cmd, i);
 	else if (ft_strncmp(cmd[i].cmd, "exit", 5) == 0)
-		ft_free_all(data, pars, cmd);
+		ft_exit(data, pars, cmd, i);
 	else
 		ft_execve(cmd, data, i);
 }
+
+/* ft_init_data()
+*  Function for init the data struct
+*  @data : struct with all the data
+*/
 
 void	ft_init_data(t_data *data)
 {

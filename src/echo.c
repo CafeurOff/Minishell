@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:10:49 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 17:40:01 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 16:59:18 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,16 @@ void	ft_echo(t_pars *pars, int i)
 		printf("\n");
 		return ;
 	}
-	if (pars[i].args)
+	if (ft_print_echo(pars[i].args[j]) == 0)
 	{
-		while (pars[i].args[j])
-		{
-			if (ft_print_echo(pars[i].args[j]) == 0)
-				flag = 0;
-			else
-				break ;
-			j++;
-		}
-		while (pars[i].args[j])
-		{
-			printf("%s", pars[i].args[j]);
-			if (pars[i].args[++j])
-				printf(" ");
-		}
+		flag = 0;
+		j++;
+	}
+	while (pars[i].args[j])
+	{
+		printf("%s", pars[i].args[j]);
+		if (pars[i].args[++j])
+			printf(" ");
 	}
 	if (flag == 1)
 		printf("\n");

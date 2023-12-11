@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/09 16:49:30 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/16 15:06:35 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:42:23 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*	ft_strncmp()
+**	Function for compare two strings
+**	@s1 : first string
+**	@s2 : second string
+**	@n : number of characters to compare
+*/
 
 int	ft_strncmp(char *s1, char *s2, size_t n)
 {
@@ -23,6 +30,11 @@ int	ft_strncmp(char *s1, char *s2, size_t n)
 		i++;
 	return (s1[i] - s2[i]);
 }
+
+/*	ft_atoi()
+**	Function for convert a string to an integer
+**	@str : string to convert
+*/
 
 int	ft_atoi(const char *str)
 {
@@ -49,6 +61,14 @@ int	ft_atoi(const char *str)
 	return (result);
 }
 
+/*	ft_strrev()
+**	Function for reverse a string
+**	@str : string to reverse
+**	@a : sign
+**	@n : number to convert
+**	@num : number of characters
+*/
+
 char	*ft_strrev(char *str, int a, int n, int num)
 {
 	while (num >= 0)
@@ -61,6 +81,11 @@ char	*ft_strrev(char *str, int a, int n, int num)
 		str[0] = '-';
 	return (str);
 }
+
+/*	ft_itoa()
+**	Function for convert an integer to a string
+**	@n : number to convert
+*/
 
 char	*ft_itoa(int n)
 {
@@ -89,6 +114,11 @@ char	*ft_itoa(int n)
 	str = ft_strrev(str, a, n, len - 1);
 	return (str);
 }
+
+/*	ft_strlen()
+**	Function for calculate the length of a string
+**	@str : string to calculate
+*/
 
 int	ft_strlen(char *str)
 {

@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:18:39 by lduthill          #+#    #+#             */
-/*   Updated: 2023/11/16 18:10:28 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:43:05 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*	ft_strdup()
+**	Function for duplicate a string
+**	@str : string to duplicate
+*/
 
 char	*ft_strdup(char *str)
 {
@@ -34,6 +39,12 @@ char	*ft_strdup(char *str)
 	new[i] = '\0';
 	return (new);
 }
+
+/*	ft_strjoin()
+**	Function for join two strings
+**	@s1 : first string
+**	@s2 : second string
+*/
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -71,6 +82,11 @@ void	pre_init(t_env *env)
 	}
 }
 
+/*	ft_free()
+**	Function for free the env structure
+**	@env : struct with all the env
+*/
+
 void	ft_free(t_env *env)
 {
 	int	i;
@@ -84,6 +100,11 @@ void	ft_free(t_env *env)
 	}
 	free(env);
 }
+
+/*	ft_free_tab()
+**	Function for free a tab
+**	@s : tab to free
+*/
 
 void	ft_free_tab(char **s)
 {

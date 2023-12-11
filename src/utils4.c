@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:51:21 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/07 15:57:20 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:44:09 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ char	**ft_split_env(char *s, char c)
 	return (split);
 }
 
+/* count_word()
+ * Function for count the number of words in a string
+ * @s : string to count
+ * @c : char for split
+ * return : number of words
+ */
+
 int	count_word(char *s, char c)
 {
 	int	i;
@@ -61,6 +68,12 @@ int	count_word(char *s, char c)
 	}
 	return (word);
 }
+
+/* free_word()
+ * Function for free a string
+ * @s : string to free
+ * return : NULL
+ */
 
 char	**free_word(char **s)
 {

@@ -3,14 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   utils3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:33:32 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 19:09:11 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:43:55 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*	count()
+**	Function for count the number of words in a string
+**	@s : string to count
+*/
 
 int	count(char *s)
 {
@@ -27,6 +32,11 @@ int	count(char *s)
 	}
 	return (word);
 }
+
+/*	ft_split()
+**	Function for split a string
+**	@s : string to split
+*/
 
 char	**ft_split(char *s)
 {
@@ -55,6 +65,13 @@ char	**ft_split(char *s)
 	return (split);
 }
 
+/*	ft_substr()
+**	Function for create a substring
+**	@s : string to create the substring
+**	@start : start of the substring
+**	@len : length of the substring
+*/
+
 char	*ft_substr(char *s, int start, int len)
 {
 	int		i;
@@ -82,29 +99,36 @@ char	*ft_substr(char *s, int start, int len)
 	return (str);
 }
 
+/*	ft_free_t_pars()
+**	Function for free the struct t_pars
+**	@cmd : struct with all the parsed data
+*/
+
 void	ft_free_t_pars(t_pars *cmd)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	j = 0;
 	while (cmd[i].cmd)
 	{
 		free(cmd[i].cmd);
 		if (cmd[i].args)
-		{
-			while (cmd[i].args[j])
-				free(cmd[i].args[j++]);
-			free(cmd[i].args);
-		}
+			ft_free_tab(cmd[i].args);
+		if (cmd[i].out)
+			ft_free_tab(cmd[i].out);
+		if (cmd[i].del)
+			ft_free_tab(cmd[i].del);
 		free(cmd[i].in);
-		free(cmd[i].out);
-		j = 0;
 		i++;
 	}
 	free (cmd);
 }
+
+/*	ft_error_free()
+**	Function for free all the malloc and exit the program
+**	@pars : struct with all the parsed data
+**	@data : struct with all the data
+*/
 
 void	ft_error_free(t_pars *pars, t_data *data)
 {

@@ -6,7 +6,7 @@
 /*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 14:18:03 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 02:21:39 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/11 21:28:16 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,20 +71,11 @@ void	ft_execve(t_pars *pars, t_data *data, int j)
 	{
 		path = ft_strjoin_keep(data->bin_env[i], "/");
 		res = ft_strjoin(path, pars[j].cmd);
-		if (access(res, F_OK) == 0)
-		{
-			ft_exec(pars + j, res, data);
-			free(res);
-			ft_free_tab(data->bin_env);
+		if (ft_access_path(res, pars, j, data) == 1)
 			return ;
-		}
-		free(res);
 		i++;
 	}
-	printf("%s: command not found\n", pars[j].cmd);
-	data->error = errno;
-	ft_free_tab(data->bin_env);
-	data->bin_env = NULL;
+	ft_execve_error(pars, data, j);
 }
 
 /* ft_exec_path()
@@ -99,6 +90,13 @@ void	ft_exec_path(t_pars *pars, t_data *data, int j)
 {
 	if (ft_is_cmd(pars, data, j) == 1)
 		return ;
+	if (chdir(pars[j].cmd) == 0)
+	{
+		chdir(ft_getenv("PWD", data->env));
+		printf("bash: %s: Is a directory\n", pars[j].cmd);
+		data->error = 126;
+		return ;
+	}
 	if (access(pars[j].cmd, X_OK) == 0)
 	{
 		ft_exec(pars + j, pars[j].cmd, data);

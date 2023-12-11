@@ -3,14 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:05 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 15:22:28 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 21:38:27 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*	ft_syntax_error()
+**	Function for check syntax error
+**	@pars : struct with all the parsed data
+**	@data : struct with all the data
+*/
 
 int	ft_syntax_error(char **pars, t_data *data)
 {
@@ -32,6 +38,11 @@ int	ft_syntax_error(char **pars, t_data *data)
 	return (0);
 }
 
+/*	ft_operator()
+**	Function for check if the string is an operator
+**	@s : string to check
+*/
+
 int	ft_operator(char *s)
 {
 	if (s == NULL)
@@ -50,6 +61,11 @@ int	ft_operator(char *s)
 		return (0);
 }
 
+/*	ft_white_line()
+**	Function for check if the string is a white line
+**	@s : string to check
+*/
+
 int	ft_white_line(char *s)
 {
 	int	i;
@@ -65,6 +81,11 @@ int	ft_white_line(char *s)
 	}
 	return (1);
 }
+
+/*	ft_unclosed_quotes()
+**	Function for check if the string has unclosed quotes
+**	@s : string to check
+*/
 
 int	ft_unclosed_quotes(char	*s)
 {
@@ -89,6 +110,12 @@ int	ft_unclosed_quotes(char	*s)
 	}
 	return (0);
 }
+
+/*	ft_export_error()
+**	Function for check if export has a valid identifier
+**	@str : string to check
+**	@data : struct with all the data
+*/
 
 int	ft_export_error(char **str, t_data *data)
 {

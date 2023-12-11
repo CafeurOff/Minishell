@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 17:47:01 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 01:30:42 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/11 16:08:41 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	ft_sig_handler(int sig)
 		printf("\n");
 	else if (sig == SIGQUIT && errno == 2)
 		g_var = 131;
+	else if (sig == SIGQUIT)
+	{
+		rl_redisplay();
+		printf("\b\b  \b\b");
+	}
 }
 
 /* ft_check_signal()

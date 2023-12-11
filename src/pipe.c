@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   pipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:57:13 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/11 12:26:28 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 22:19:44 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*	ft_exec_pipe()
+**	Function for execute a command with pipe if not a builtin
+**	@data : struct with all the data
+**	@pars : struct with all the parsed data
+**	@cmd : command to execute
+**	@i : index
+*/
 
 void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd, int i)
 {
@@ -23,7 +31,7 @@ void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd, int i)
 	pid = fork();
 	if (pid == 0)
 	{
-		ft_handle_pipe_child(fd, cmd, i);
+		ft_handle_pipe_child(fd);
 		ft_redirect_to_cmd(cmd, data, pars, i);
 		ft_free_all(data, pars, cmd);
 	}
@@ -40,6 +48,14 @@ void	ft_exec_pipe(t_data *data, char **pars, t_pars *cmd, int i)
 	}
 }
 
+/*	ft_handle_pipe()
+**	Function for handle the pipe in the parent
+**	@data : struct with all the data
+**	@cmd : struct with all the parsed data
+**	@i : index
+**	@fd : file descriptor
+*/
+
 void	ft_handle_pipe(t_data *data, t_pars *cmd, int i, int *fd)
 {
 	if (cmd[i + 2].cmd == NULL)
@@ -49,36 +65,14 @@ void	ft_handle_pipe(t_data *data, t_pars *cmd, int i, int *fd)
 	close(fd[0]);
 }
 
-void	ft_handle_pipe_child(int *fd, t_pars *cmd, int i)
+/*	ft_handle_pipe_child()
+**	Function for handle the pipe in the child
+**	@fd : file descriptor
+*/
+
+void	ft_handle_pipe_child(int *fd)
 {
 	close(fd[0]);
-	if (cmd[i].flag == 0)
-		dup2(fd[1], 1);
-	else if (cmd[i].flag == 1)
-	{
-		//open(cmd[i].out, O_RDWR | O_CREAT | O_TRUNC, 0644);
-	}
-	else
-	{
-		//open(cmd[i].out, O_RDWR | O_CREAT | O_APPEND, 0644);
-	}
+	dup2(fd[1], 1);
 	close(fd[1]);
 }
-
-/*
-
-	parsing
-		|
-		V
->	exec_pipe
-|		|
-|		V
-|	fork	->	child	->	cmd[0]
-|								|
-|								V
-|							parent		if cmd[1] == last		-> exec cmd[1]
-|											|
-|											V
-|-----------------------------------------else
-
-*/
