@@ -6,12 +6,12 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:02:09 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/09 18:57:54 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:26:30 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
+
 void	ft_delimiter(t_pars *pars)
 {
 	int		fd;
@@ -40,8 +40,30 @@ void	ft_delimiter(t_pars *pars)
 		write(fd, "\n", 1);
 		free(line);
 	}
-}*/
+}
 
 //open
 //close
 //unlink apres le changement de ligne de commande
+
+void	ft_redirect_to_cmd(t_pars *cmd, t_data *data, char **pars, int i)
+{
+//	if (cmd[i].del)
+//		ft_delimiter(cmd[i].del);
+//	if (cmd[i].in)
+//		ft_handle_in(cmd, i);
+//	if (cmd[i].out)
+//		ft_handle_out(cmd, i);
+	ft_is_builtin(cmd, data, pars, i);
+}
+/*
+void	ft_handle_in(t_pars *cmd, int i)
+{
+
+}
+
+
+void	ft_handle_out(t_pars *cmd, int i)
+{
+
+}*/

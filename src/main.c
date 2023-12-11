@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 19:20:28 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:26:25 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	ft_exec_cmd(char *line, t_data *data)
 	if (cmd[1].cmd != NULL)
 		ft_exec_pipe(data, pars, cmd, 0);
 	else
-		ft_is_builtin(cmd, data, pars, 0);
+		ft_redirect_to_cmd(cmd, data, pars, 0);
 	ft_free_tab(pars);
 	ft_free_t_pars(cmd);
 }

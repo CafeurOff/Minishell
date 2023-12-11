@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 11:47:23 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:26:02 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct s_env
 *	in			=>	redirection in, NULL if there is none
 *	out			=>	redirection out, NULL if there is none
 *	flag		=>	0 = none redirection / 1 = simple redirection / 2 = double redirection
+*	flag2		=>	0 = none redirection / 1 = redirection in / 2 = delimiteur
 *	del			=>	delimiter of the function, NULL if there is none
 */
 
@@ -69,6 +70,7 @@ typedef struct s_pars
 	char			*in;
 	char			**out;
 	int				flag;
+	int				flag2;
 	char			**del;
 }	t_pars;
 
@@ -152,9 +154,11 @@ void	ft_init_cmd_args(char **pars, t_pars *cmd, int flag);
 int		ft_count_cmd_args(char **pars, int flag);
 int		ft_count_cmd_out(char **pars, int flag);
 int		ft_count_cmd_del(char **pars, int flag);
-void	ft_init_cmd_in(char **pars, t_pars *cmd, int flag);
 /* redirection.c */
 void	ft_delimiter(t_pars *pars);
+void	ft_redirect_to_cmd(t_pars *cmd, t_data *data, char **pars, int i);
+//void	ft_handle_in(t_pars *cmd, int i);
+//void	ft_handle_out(t_pars *cmd, int i);
 /* parsing.c */
 char	**ft_parsing(char *line, t_data *data);
 int		ft_count_args(char *line);

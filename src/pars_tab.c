@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:58:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/11 11:47:05 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:25:58 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,7 @@ void	ft_init_cmd_args(char **pars, t_pars *cmd, int flag)
 
 	args = ft_count_cmd_args(pars, flag);
 	if (args == 0)
-	{
-		cmd[flag].args = NULL;
 		return ;
-	}
 	cmd[flag].args = malloc(sizeof(char *) * (args + 1));
 	i = ft_skip_tab(pars, flag);
 	j = 0;
@@ -72,21 +69,20 @@ void	ft_init_cmd_out(char **pars, t_pars *cmd, int flag)
 
 	args = ft_count_cmd_out(pars, flag);
 	if (args == 0)
-	{
-		cmd[flag].out = NULL;
 		return ;
-	}
 	cmd[flag].out = malloc(sizeof(char *) * (args + 1));
 	i = ft_skip_tab(pars, flag);
 	j = 0;
 	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
 	{
 		if (ft_strncmp(pars[i], ">", 2) == 0 || ft_strncmp(pars[i], ">>", 2) == 0)
+		{
+			if (ft_strncmp(pars[i], ">", 2) == 0)
+				cmd[flag].flag = 1;
+			else
+				cmd[flag].flag = 2;
 			cmd[flag].out[j++] = ft_strdup(pars[++i]);
-		if (ft_strncmp(pars[i], ">", 2) == 0)
-			cmd[flag].flag = 1;
-		else if (ft_strncmp(pars[i], ">>", 2) == 0)
-			cmd[flag].flag = 2;
+		}
 		else
 			i++;
 	}
@@ -100,36 +96,26 @@ void	ft_init_cmd_del(char **pars, t_pars *cmd, int flag)
 	int		args;
 
 	args = ft_count_cmd_del(pars, flag);
-	if (args == 0)
-	{
-		cmd[flag].del = NULL;
-		return ;
-	}
-	cmd[flag].del = malloc(sizeof(char *) * (args + 1));
+	if (args != 0)
+		cmd[flag].del = malloc(sizeof(char *) * (args + 1));
 	i = ft_skip_tab(pars, flag);
 	j = 0;
 	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
 	{
 		if (ft_strncmp(pars[i], "<<", 2) == 0)
+		{
+			cmd[flag].flag2 = 2;
 			cmd[flag].del[j++] = ft_strdup(pars[++i]);
-		else
-			i++;
+		}
+		else if (ft_strncmp(pars[i++], "<", 2) == 0)
+		{
+			cmd[flag].flag2 = 1;
+			if (cmd[flag].in)
+				free(cmd[flag].in);
+			cmd[flag].in = ft_strdup(pars[i]);
+		}
 	}
 	cmd[flag].del[j] = NULL;
-}
-
-void	ft_init_cmd_in(char **pars, t_pars *cmd, int flag)
-{
-	int	i;
-
-	i = ft_skip_tab(pars, flag);
-	cmd[flag].in = NULL;
-	while (pars[i] && ft_strncmp(pars[i], "|", 2) != 0)
-	{
-		if (ft_strncmp(pars[i], "<", 2) == 0)
-			cmd[flag].in = ft_strdup(pars[++i]);
-		i++;
-	}
 }
 
 void	ft_command_line(char **pars, t_pars *cmd)
@@ -140,19 +126,14 @@ void	ft_command_line(char **pars, t_pars *cmd)
 	while (cmd[i].cmd)
 	{
 		cmd[i].flag = 0;
-//		printf("cmd[%d].cmd= %s\n", i, cmd[i].cmd);
+		cmd[i].flag2 = 0;
+		cmd[i].del = NULL;
+		cmd[i].args = NULL;
+		cmd[i].out = NULL;
+		cmd[i].del = NULL;
 		ft_init_cmd_args(pars, cmd, i);
-//		if (cmd[i].args)
-//			printf("cmd[%d].args[0]= %s\n", i, cmd[i].args[0]);
 		ft_init_cmd_out(pars, cmd, i);
-//		if (cmd[i].out)
-//			printf("cmd[%d].out[0]= %s\n", i, cmd[i].out[0]);
 		ft_init_cmd_del(pars, cmd, i);
-//		if (cmd[i].del)
-//			printf("cmd[%d].del[0]= %s\n", i, cmd[i].del[0]);
-		ft_init_cmd_in(pars, cmd, i);
-//		printf("cmd[%d].in= %s\n", i, cmd[i].in);
-//		printf("\n");
 		i++;
 	}
 }
