@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sub_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:00:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/10 16:05:15 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:40:21 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,13 @@ char	*ft_replace_line(char *l, char **var)
 	len = 0;
 	while (l[i])
 	{
-        if (l[i] == 39)
-        {
+		if (l[i] == 39)
+		{
 			i++;
-            while (l[i] != 39)
-        		res[len++] = l[i++];
-            i++;
-        }
+			while (l[i] != 39)
+				res[len++] = l[i++];
+			i++;
+		}
 		else if (l[i] == 36 && l[i + 1] == 34)
 			i++;
 		else if (l[i] == 36 && l[i + 1])

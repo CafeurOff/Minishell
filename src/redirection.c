@@ -6,13 +6,13 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 16:02:09 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/11 12:26:30 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:49:19 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	ft_delimiter(t_pars *pars)
+/*
+void	ft_delimiter(t_pars *cmd)
 {
 	int		fd;
 	char	*line;
@@ -25,12 +25,12 @@ void	ft_delimiter(t_pars *pars)
 		if (!line)
 		{
 			printf("bash: warning:here-document at line 1 delimited"
-				"by end-of-file (wanted `%s')\n", pars[0].del);
+				"by end-of-file (wanted `%s')\n", cmd[0].del);
 			close(fd);
 			free(line);
 			return ;
 		}
-		if (ft_strncmp(line, pars[0].del, ft_strlen(pars[0].del)) == 0)
+		if (ft_strncmp(line, cmd[0].del, ft_strlen(cmd[0].del) + 1) == 0)
 		{
 			free(line);
 			close(fd);
@@ -40,7 +40,7 @@ void	ft_delimiter(t_pars *pars)
 		write(fd, "\n", 1);
 		free(line);
 	}
-}
+}*/
 
 //open
 //close
@@ -50,11 +50,12 @@ void	ft_redirect_to_cmd(t_pars *cmd, t_data *data, char **pars, int i)
 {
 //	if (cmd[i].del)
 //		ft_delimiter(cmd[i].del);
-//	if (cmd[i].in)
+//	if (cmd[i].flag2 != 0)
 //		ft_handle_in(cmd, i);
 //	if (cmd[i].out)
 //		ft_handle_out(cmd, i);
 	ft_is_builtin(cmd, data, pars, i);
+//	unlink(".tmpmak");
 }
 /*
 void	ft_handle_in(t_pars *cmd, int i)

@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 12:26:02 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:48:09 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ typedef struct s_env
 }	t_env;
 
 /*	struct pars
-*	cmd			=>	cmd of the line
-*	args		=>	arguments of the cmd / option, NULL if there is none
-*	in			=>	redirection in, NULL if there is none
-*	out			=>	redirection out, NULL if there is none
-*	flag		=>	0 = none redirection / 1 = simple redirection / 2 = double redirection
-*	flag2		=>	0 = none redirection / 1 = redirection in / 2 = delimiteur
-*	del			=>	delimiter of the function, NULL if there is none
+*	cmd		=>	cmd of the line
+*	args	=>	arguments of the cmd / option, NULL if there is none
+*	in		=>	redirection in, NULL if there is none
+*	out		=>	redirection out, NULL if there is none
+*	flag	=>	0 = none redirection / 1 = simple redir / 2 = double redir
+*	flag2	=>	0 = none redirection / 1 = redirection in / 2 = delimiteur
+*	del		=>	delimiter of the function, NULL if there is none
 */
 
 typedef struct s_pars
@@ -146,14 +146,15 @@ int		ft_is_cmd(t_pars *pars, t_data *data, int j);
 /* pars_tab.c */
 t_pars	*ft_init_cmd_line(char **pars);
 void	ft_command_line(char **pars, t_pars *cmd);
-int		ft_count_lines(char **pars);
-int		ft_skip_tab(char **pars, int flag);
 void	ft_init_cmd_del(char **pars, t_pars *cmd, int flag);
 void	ft_init_cmd_out(char **pars, t_pars *cmd, int flag);
 void	ft_init_cmd_args(char **pars, t_pars *cmd, int flag);
+/* pars_tab_utils.c */
 int		ft_count_cmd_args(char **pars, int flag);
 int		ft_count_cmd_out(char **pars, int flag);
 int		ft_count_cmd_del(char **pars, int flag);
+int		ft_count_lines(char **pars);
+int		ft_skip_tab(char **pars, int flag);
 /* redirection.c */
 void	ft_delimiter(t_pars *pars);
 void	ft_redirect_to_cmd(t_pars *cmd, t_data *data, char **pars, int i);
@@ -173,7 +174,7 @@ int		ft_skip_env_val(char *l, int i);
 int		ft_skip_arg(char *line, int i);
 int		ft_skip_arg_quotes(char *line, int i);
 char	*ft_without_quotes(char *s);
-int	ft_len_without_quotes(char *s);
+int		ft_len_without_quotes(char *s);
 /* error.c */
 int		ft_syntax_error(char **pars, t_data *data);
 int		ft_operator(char *s);

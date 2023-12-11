@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:56:56 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/10 15:36:44 by marvin           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:45:29 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	    ft_skip_env_val(char *l, int i)
+int	ft_skip_env_val(char *l, int i)
 {
 	i++;
 	if ((l[1] >= 48 && l[1] <= 57) || l[i] == 63)
@@ -23,7 +23,7 @@ int	    ft_skip_env_val(char *l, int i)
 	return (i);
 }
 
-int	    ft_skip_arg(char *line, int i)
+int	ft_skip_arg(char *line, int i)
 {
 	if ((line[i] == 60 && line[i + 1] == 60)
 		|| (line[i] == 62 && line[i + 1] == 62))
@@ -41,7 +41,7 @@ int	    ft_skip_arg(char *line, int i)
 	return (i);
 }
 
-int	    ft_skip_arg_quotes(char *line, int i)
+int	ft_skip_arg_quotes(char *line, int i)
 {
 	int	flag;
 

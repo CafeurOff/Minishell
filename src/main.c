@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:31:14 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 12:26:25 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:44:38 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,13 +86,13 @@ void	ft_exec_cmd(char *line, t_data *data)
 
 void	ft_free_all(t_data *data, char **args, t_pars *pars)
 {
-    int     status;
+	int		status;
 
-    status = data->error;
+	status = data->error;
 	rl_clear_history();
 	ft_free_tab(args);
 	ft_free_t_pars(pars);
-    free(data->fd);
+	free(data->fd);
 	ft_free(data->env);
 	free(data);
 	exit(status);

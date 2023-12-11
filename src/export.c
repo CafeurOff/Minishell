@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 17:25:16 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 12:43:31 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_setid(t_data *data, char *str)
 	{
 		data->env[i].id[j] = str[j];
 		j++;
-    }
+	}
 	data->env[i].id[j] = '\0';
 }
 
