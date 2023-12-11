@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:58:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/11 12:48:13 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/11 13:10:58 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	ft_init_cmd_del(char **pars, t_pars *cmd, int flag)
 		{
 			cmd[flag].flag2 = 2;
 			cmd[flag].del[j++] = ft_strdup(pars[++i]);
+			cmd[flag].del[j + 1] = NULL;
 		}
 		else if (ft_strncmp(pars[i++], "<", 2) == 0)
 		{
@@ -117,7 +118,6 @@ void	ft_init_cmd_del(char **pars, t_pars *cmd, int flag)
 			cmd[flag].in = ft_strdup(pars[i]);
 		}
 	}
-	cmd[flag].del[j] = NULL;
 }
 
 void	ft_command_line(char **pars, t_pars *cmd)
