@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 18:00:11 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/11 12:40:21 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/12 15:05:38 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,41 +43,26 @@ char	*ft_var(char *l, t_data *data)
 
 char	*ft_replace_line(char *l, char **var)
 {
-	int		len;
 	int		i;
 	int		j;
-	int		k;
+	int		flag;
 	char	*res;
 
-	res = malloc(sizeof(char) * (ft_replacelen(l, var) + 1));
-	if (!res)
-		return (NULL);
+	res = ft_calloc((ft_replacelen(l, var) + 1), sizeof(char));
 	i = 0;
 	j = 0;
-	len = 0;
+	flag = -1;
 	while (l[i])
 	{
-		if (l[i] == 39)
-		{
+		if (l[i] == 39 && flag < 0)
+			res = ft_strcat_quotes(res, l, &i);
+		else if (l[i] == 36 && l[i + 1] == 34 && flag < 0)
 			i++;
-			while (l[i] != 39)
-				res[len++] = l[i++];
-			i++;
-		}
-		else if (l[i] == 36 && l[i + 1] == 34)
-			i++;
-		else if (l[i] == 36 && l[i + 1])
-		{
-			k = 0;
-			while (var[j][k])
-				res[len++] = var[j][k++];
-			j++;
-			i = ft_skip_env_val(l, i);
-		}
+		else if (l[i] == 36 && l[i + 1] && l[i + 1] != 34)
+			res = ft_strcat_var(res, l, &i, var[j++]);
 		else
-			res[len++] = l[i++];
+			res = ft_strcat_pars(res, l, &i, &flag);
 	}
-	res[len] = 0;
 	return (ft_free_tab(var), free(l), ft_without_quotes(res));
 }
 
@@ -91,7 +76,7 @@ int	ft_replacelen(char *l, char **var)
 	while (l[i])
 	{
 		if (l[i] == 36 && l[i + 1] != 34)
-			i += ft_skip_env_val(l, i);
+			i = ft_skip_env_val(l, i);
 		else
 		{
 			len++;

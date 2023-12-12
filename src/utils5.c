@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/01 16:33:38 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 21:44:26 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:04:11 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,33 @@ int	ft_isdigit(char *s)
 		i++;
 	}
 	return (0);
+}
+
+void	*ft_calloc(size_t nmb, size_t size)
+{
+	char	*str;
+
+	if (nmb == 0 || size == 0)
+		return (NULL);
+	if (((nmb * size) / size) != nmb || ((nmb * size) / nmb) != size)
+		return (NULL);
+	str = malloc(size * nmb);
+	if (!str)
+		return (NULL);
+	ft_bzero(str, (nmb * size));
+	return (str);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	char	*str;
+	size_t	i;
+
+	str = (char *) s;
+	i = 0;
+	while (i < n)
+	{
+		str[i] = '\0';
+		i++;
+	}
 }
