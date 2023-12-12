@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:07:05 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/11 21:38:27 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/12 14:37:46 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int	ft_export_error(char **str, t_data *data)
 	j = 0;
 	while (str[i])
 	{
-		if (ft_identifier_error(str, data))
+		if (ft_identifier_error(str[i], data))
 			return (1);
 		while (str[i][j])
 		{

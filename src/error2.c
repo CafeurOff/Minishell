@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/09 01:49:42 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 21:39:24 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/12 14:38:19 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,17 @@
 **	@data : struct with all the data
 */
 
-int	ft_identifier_error(char **str, t_data *data)
+int	ft_identifier_error(char *str, t_data *data)
 {
-	int	i;
-
-	i = 0;
-	if (str[i][0] >= '0' && str[i][0] <= '9')
+	if (str[0] >= '0' && str[0] <= '9')
 	{
-		printf("bash: export: `%s': not a valid identifier\n", str[i]);
+		printf("bash: export: `%s': not a valid identifier\n", str);
 		data->error = 1;
 		return (1);
 	}
-	if (str[i][0] == 61)
+	if (str[0] == 61)
 	{
-		printf("bash: export: `%s': not a valid identifier\n", str[i]);
-		data->error = 1;
-		return (1);
-	}
-	if (str[i][0] == 32)
-	{
-		printf("bash: export: `%s': not a valid identifier\n", str[i]);
+		printf("bash: export: `%s': not a valid identifier\n", str);
 		data->error = 1;
 		return (1);
 	}

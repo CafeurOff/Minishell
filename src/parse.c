@@ -6,7 +6,7 @@
 /*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/28 17:56:56 by roroca            #+#    #+#             */
-/*   Updated: 2023/12/12 15:00:59 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/12 15:22:50 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_without_quotes(char *s)
 		if (s[i] == 39 || s[i] == 34)
 		{
 			flag = s[i++];
-			while (s[i] != flag)
+			while (s[i] != flag && s[i])
 				res[len++] = s[i++];
 			i++;
 		}

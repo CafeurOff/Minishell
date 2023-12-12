@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:30:47 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/09 03:10:36 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:27:17 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*ft_getenv(char *str, t_env *env)
 	{
 		if (env[i].set == 0)
 			return (NULL);
-		if (ft_strncmp(str, env[i].id, ft_strlen(str)) == 0)
+		if (ft_strncmp(str, env[i].id, ft_strlen(str) + 1) == 0)
 			return (env[i].value);
 		i++;
 	}

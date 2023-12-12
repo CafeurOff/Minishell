@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:14:46 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 12:43:31 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/12 14:25:33 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,16 +137,23 @@ int	ft_id_exist(t_data *data, char *str)
 {
 	int		i;
 	int		j;
+	char	*tmp;
 
 	j = 0;
 	i = 0;
+	tmp = ft_strdup(str);
 	while (str[i] != 61 && str[i])
 		i++;
+	tmp[i] = '\0';
 	while (data->env[j].id)
 	{
-		if (ft_strncmp(data->env[j].id, str, i) == 0)
+		if (ft_strncmp(data->env[j].id, tmp, i + 1) == 0)
+		{
+			free(tmp);
 			return (1);
+		}
 		j++;
 	}
+	free(tmp);
 	return (0);
 }

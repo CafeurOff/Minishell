@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/22 13:10:49 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 16:59:18 by roroca           ###   ########.fr       */
+/*   Updated: 2023/12/12 13:58:41 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,23 @@ int	ft_id_index(t_data *data, char *str)
 {
 	int		i;
 	int		j;
+	char	*tmp;
 
+	tmp = ft_strdup(str);
 	j = 0;
 	i = 0;
 	while (str[i] != 61 && str[i])
 		i++;
+	tmp[i] = '\0';
 	while (data->env[j].id)
 	{
-		if (ft_strncmp(data->env[j].id, str, i) == 0)
-			return (1);
+		if (ft_strncmp(data->env[j].id, tmp, i + 1) == 0)
+		{
+			free(tmp);
+			return (j);
+		}
 		j++;
 	}
-	return (0);
+	free(tmp);
+	return (j);
 }

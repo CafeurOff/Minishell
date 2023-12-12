@@ -1,15 +1,3 @@
-SEGFAULT (IMPORTANT) :
-CMD | LIGNE DU GDOC
-- export A=1 B=2 C=3 D=4 E=5 F=6 G=7 H=8 | 330       FAUT REVOIR TES STRNCMP
-
-ERREUR PIPE : (Il faut encore faire des test)
-CMD | LIGNE DU GDOC
-- sleep 3 | sleep 3 | sleep 3 (faire Ctlr-C une seconde apres) | 221
-
-ERREUR EXPORT :
-CMD | LIGNE DU GDOC
-- export HOLA=bon!jour | 285
-
 Norme à faire :
 - 1 fonctions de plus de 25 lignes :
       - char	*ft_replace_line(char *l, char **var);            sub_parsing.c 36

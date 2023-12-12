@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lduthill <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 13:22:33 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 21:54:57 by lduthill         ###   ########.fr       */
+/*   Updated: 2023/12/12 15:08:46 by roroca           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int		ft_white_line(char *s);
 int		ft_unclosed_quotes(char	*s);
 int		ft_export_error(char **str, t_data *data);
 /* error2.c */
-int		ft_identifier_error(char **str, t_data *data);
+int		ft_identifier_error(char *str, t_data *data);
 void	ft_exit(t_data *data, char **args, t_pars *cmd, int i);
 int		ft_access_path(char *res, t_pars *pars, int j, t_data *data);
 void	ft_execve_error(t_pars *pars, t_data *data, int j);
@@ -160,6 +160,10 @@ char	*ft_var(char *l, t_data *data);
 char	*ft_replace_line(char *l, char **var);
 int		ft_replacelen(char *l, char **var);
 int		ft_count_env_val(char *line);
+/* sub_parsing_utils.c */
+char	*ft_strcat_var(char *s, char *l, int *i, char *ref);
+char	*ft_strcat_quotes(char *s, char *ref, int *i);
+char	*ft_strcat_pars(char *s, char *ref, int *i, int *flag);
 /* unset.c */
 int		ft_unset(t_pars *pars, t_data *data, int i);
 void	ft_unsetenv(char **str, t_data *data);
@@ -193,5 +197,7 @@ char	*ft_strjoin_keep(char *s1, char *s2);
 int		ft_isalnum(int i);
 char	**ft_join_env(t_data *data);
 int		ft_isdigit(char *s);
+void	*ft_calloc(size_t nmb, size_t size);
+void	ft_bzero(void *s, size_t n);
 
 #endif
