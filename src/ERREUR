@@ -1,6 +1,0 @@
-Norme à faire :
-- 1 fonctions de plus de 25 lignes :
-      - char	*ft_replace_line(char *l, char **var);            sub_parsing.c 36
-
-Test :
-- https://docs.google.com/spreadsheets/d/1uJHQu0VPsjjBkR4hxOeCMEt3AOM1Hp_SmUzPFhAH-nA/edit#gid=0
