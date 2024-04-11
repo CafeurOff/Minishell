@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: roroca <roroca@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lduthill <lduthill@42perpignan.fr>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:09:55 by lduthill          #+#    #+#             */
-/*   Updated: 2023/12/11 15:23:25 by roroca           ###   ########.fr       */
+/*   Updated: 2024/04/11 13:51:58 by lduthill         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,13 @@ void	ft_cd(t_data *data, t_pars *pars, int i)
 
 void	ft_cd_home(t_data *data)
 {
-	chdir(ft_getenv("HOME", data->env));
-	ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);
-	ft_setenv("PWD", getcwd(NULL, 0), data);
+	if (chdir(ft_getenv("HOME", data->env)) == -1) // Fix a segfault issues (cd when PATH environnement is unset)
+		return ;
+	else
+	{
+		ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);
+		ft_setenv("PWD", getcwd(NULL, 0), data);
+	}
 }
 
 /* ft_cd_path()
@@ -108,3 +112,4 @@ void	ft_pwd(t_data *data)
 	}
 	printf("%s\n", ft_getenv("PWD", data->env));
 }
+
