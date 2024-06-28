@@ -20,9 +20,11 @@
 
 void	ft_cd(t_data *data, t_pars *pars, int i)
 {
-	if (cd_error_management(data, pars, i) == 1)
+	if (ft_getenv("PATH", data->env) ==  NULL) // Fix PATH issues (if PATH is unset)
 		return ;
-	if (pars[i].args[0][0] == '~')
+	else if (cd_error_management(data, pars, i) == 1)
+		return ;
+	else if (pars[i].args[0][0] == '~')
 		ft_cd_home(data);
 	else
 		ft_cd_path(pars, data, i);
@@ -34,13 +36,8 @@ void	ft_cd(t_data *data, t_pars *pars, int i)
 
 void	ft_cd_home(t_data *data)
 {
-	if (chdir(ft_getenv("HOME", data->env)) == -1) // Fix a segfault issues (cd when PATH environnement is unset)
-		return ;
-	else
-	{
-		ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);
-		ft_setenv("PWD", getcwd(NULL, 0), data);
-	}
+	ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);
+	ft_setenv("PWD", getcwd(NULL, 0), data);
 }
 
 /* ft_cd_path()
@@ -103,8 +100,9 @@ int	cd_error_management(t_data *data, t_pars *pars, int i)
 
 void	ft_pwd(t_data *data)
 {
-	if (getcwd(NULL, 0) == NULL)
+	if (getcwd(NULL, 0) == NULL || ft_getenv("PATH", data->env) ==  NULL)
 	{
+
 		printf("pwd: error retrieving current directory:"
 			"getcwd: cannot access parent directories:"
 			"No such file or directory\n");
