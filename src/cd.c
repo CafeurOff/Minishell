@@ -37,6 +37,11 @@ void	ft_cd(t_data *data, t_pars *pars, int i)
 void	ft_cd_home(t_data *data)
 {
 	ft_setenv("OLDPWD", ft_getenv("PWD", data->env), data);
+	if (chdir(ft_getenv("HOME", data->env)) == -1)
+	{
+		printf("cd: no such file or directory\n");
+		return ;
+	}
 	ft_setenv("PWD", getcwd(NULL, 0), data);
 }
 
